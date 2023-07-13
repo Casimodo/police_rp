@@ -1,0 +1,41 @@
+@charset "utf-8";
+dd,
+dl,
+menu,
+ol,
+ul {
+    list-style: none;
+}
+
+body {
+    background: #f7f7f7 url('../img/gplaypattern.jpg') repeat fixed left top;
+    background-size: auto;
+    border: 1px, solid, black;
+}
+
+.container-pacific {
+    background-color: #fff;
+    box-shadow: 0 0 12px rgb(0 0 0 / 15%);
+    padding: 0px;
+}
+
+@media screen and (min-width: 600px) {
+    .container-pacific-global {
+        padding: 70px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #pacific-menu-mobile-none {
+        visibility: hidden;
+        clear: both;
+        float: left;
+        margin: 10px auto 5px 20px;
+        width: 28%;
+        display: none;
+    }
+}
+
+.bg-dark {
+    background-color: #4D4D4D !important;
+}

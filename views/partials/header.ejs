@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>
+        <%= PARAMS.ste_name %>
+    </title>
+
+    <!-- CSS only -->
+    <link rel="stylesheet" type="text/css" href="<%= PARAMS.host %>/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%= PARAMS.host %>/bootstrap-select/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%= PARAMS.host %>/css/DataTables-1.10.21/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%= PARAMS.host %>/css/flags.css" />
+    <link rel="stylesheet" type="text/css" href="<%= PARAMS.host %>/css/app-perso.css" />
+    <link rel="stylesheet" type="text/css" href="<%= PARAMS.host %>/css/root.css" />
+    <link rel="stylesheet" type="text/css" href="<%= PARAMS.host %>/css/menu-pacific.css" />
+    <link rel="stylesheet" type="text/css" href="<%= PARAMS.host %>/css/pacific-custom.css" />
+
+    <!-- lib -->
+    <script type="text/javascript" src="<%= PARAMS.host %>/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="<%= PARAMS.host %>/popperjs/popper.js"></script>
+    <script type="text/javascript" src="<%= PARAMS.host %>/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%= PARAMS.host %>/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="<%= PARAMS.host %>/feather-icons/feather.js"></script>
+    <script type="text/javascript" src="<%= PARAMS.host %>/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="<%= PARAMS.host %>/js/DataTables-1.10.21/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="<%= PARAMS.host %>/js/DataTables-1.10.21/dataTables.bootstrap4.min.js"></script>
+
+
+    <!-- personnal lib -->
+    <script type="text/javascript" src="<%= PARAMS.host %>/js/utils_format.js"></script>
+</head>
+
+<body>
+    <div class="wrapper mm-active">
+        <div class="content-page">
+            <div class="content">
+                <div class="container container-pacific">
+                    <%- include('../partials/menu-top'); -%>
+                        <div class="container-pacific-global">

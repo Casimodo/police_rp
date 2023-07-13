@@ -1,0 +1,89 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img height="40" src="<%= PARAMS.host %>/img/logo.png"></a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <% if (user) { %>
+
+                    <li class="nav-item">
+                        <a class="nav-link <% if (page_name == 'infos') {%>active<%}%>" href="/"><i
+                                data-feather="user"></i> Mes infos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <% if (page_name == 'vehicles') {%>active<%}%>" href="/vehicles"><i
+                                data-feather="truck"></i> Mes véhicules</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <% if (page_name == 'phone') {%>active<%}%>" href="/phone"><i
+                                data-feather="smartphone"></i> Mon téléphone</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link <% if (page_name == 'home') {%>active<%}%>" href="/"><i
+                                data-feather="home"></i> Mes maisons</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <% if (page_name == 'facture') {%>active<%}%>" href="/"><i
+                                data-feather="layers"></i> Mes factures</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <% if (page_name == 'clan') {%>active<%}%>" href="/"><i
+                                data-feather="users"></i> Mon clan</a> -->
+                    </li> -->
+                    <% if (user.player.coplevel > 0) { %>
+                        <li class="nav-item">
+                            <a class="nav-link <% if (page_name == 'police') {%>active<%}%>" href="/police"><i
+                                data-feather="thumbs-up"></i> Police</a>
+                        </li>
+                        <% } %>
+
+                            <li class="nav-item">
+                                <a class="nav-link <% if (page_name == 'top') {%>active<%}%>" href="/topserver"><i
+                                data-feather="thumbs-up"></i> Top Serveurs</a>
+                            </li>
+                            <% if (user.player.adminlevel> 0) { %>
+                                <li class="nav-item">
+                                    <a class="nav-link <% if (page_name == 'logs') {%>active<%}%>" href="analyser"><i
+                                    data-feather="file-text"></i> Les logs</a>
+                                </li>
+                                <% } %>
+
+                                    <% }else{ %>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link <% if (page_name == 'infos') {%>active<%}%>" href="/"><i
+                                            data-feather="circle"></i> Accueil</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link <% if (page_name == 'top') {%>active<%}%>" href="/topserver"><i
+                                            data-feather="thumbs-up"></i> Top Serveurs</a>
+                                        </li>
+
+                                        <% } %>
+
+            </ul>
+            <form class="d-flex">
+                <% if (!user) { %>
+                    <a href="auth/steam" class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit"><i
+                            data-feather="log-in"></i> S'authentifier avec Steam</a>
+                    <% } else { %>
+
+                        <img height="40px" src='<%= user.photos[2].value %>' class="rounded float-end" alt='Your Avatar Image' />&nbsp;&nbsp;
+                        <h5 style="color: beige;">
+                            <%= user.displayName %>&nbsp;
+                                <% if (user.player.adminlevel> 0) { %>
+                                    <span class="badge rounded-pill bg-danger">Admin level <%= user.player.adminlevel %>
+                                    </span>
+                                    <% } %>
+                                        &nbsp;&nbsp;&nbsp;
+                        </h5> <a href="logout" class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit" title="Déconnexion"><i data-feather="log-out"></i></a>
+
+                        <% } %>
+
+            </form>
+        </div>
+    </div>
+</nav>

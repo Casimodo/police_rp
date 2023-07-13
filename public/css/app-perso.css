@@ -1,0 +1,31 @@
+.badge {
+    color: #fff;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+body {
+    background: #f7f7f7 url(./../img/gplaypattern.jpg) repeat fixed left top;
+    background-size: auto;
+}
+
+#pacific-menu-infos {
+    padding-left: 8%;
+}
+
+#primary-menu {
+    padding-top: 20px;
+    margin-left: -50px;
+}
+
+.menu-text {
+    font: normal 700 18px / 22px "Roboto Condensed", Helvetica, Arial, Verdana, sans-serif;
+    text-transform: uppercase;
+}
+
+a,
+a:hover {
+    color: #0d76a6;
+}

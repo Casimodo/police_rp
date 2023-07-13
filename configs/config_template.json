@@ -1,0 +1,23 @@
+{
+    "protocol": "http",
+    "url": "localhost",
+    "port": "8088",
+    "ste_name": "My Web Site Name",
+    "web_server_token": "YourInternalTocken",
+    "loglevel": "dev",
+    "analyser": {
+        "path": "datas_logs_arma3"
+    },
+    "mariadb": {
+        "host": "IP",
+        "user": "USER",
+        "password": "PASSWORD",
+        "dbname": "DBNAME",
+        "port": "3306"
+    },
+    "steam": {
+        "api_key": "STEAM_API_KEY",
+        "url_return": "http://localhost:8088/auth/steam/return"
+    }
+
+}

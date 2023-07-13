@@ -1,0 +1,45 @@
+<%- include('../../partials/header'); -%>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/police">Accueil Police</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Casiers</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+
+        <table id="table_rapports" class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Non du Civil</th>
+                    <th scope="col">Total Amende</th>
+                    <th scope="col">Details</th>
+                </tr>
+            </thead>
+            <tbody> 
+                <% for(var i=0; i < datas.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%= datas[i].nameUser %>
+                        </td>
+                        <td>
+                            <%= datas[i].amendes %>
+                        </td>
+                        <td>
+                            <a href="/police/rapports/<%= datas[i].civil_playerid %>" type="button" class="btn btn-secondary btn-sm"><i data-feather="eye"></i> Consulter</a>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#table_rapports').DataTable();
+        });
+    </script>
+
+    <%- include('../../partials/footer'); -%>

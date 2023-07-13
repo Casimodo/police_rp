@@ -1,0 +1,68 @@
+<%- include('../../partials/header'); -%>
+
+    <% if (authent) { %>
+        <!-- === AVEC CONNEXION ===========================================================================================================================-->
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin">Accueil ADMIN</a></li>
+            </ol>
+        </nav>
+
+        <h3>Liste des joueurs</h3>
+        <p><i>Cliquer sur l'entête des colonnes pour un trie, sinon utiliser la recherche !</i></p>
+        <br />
+        <br />
+
+
+        <div class="row">
+
+            <table id="table_rapports" class="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col" data-order="desc">uuid</th>
+                        <th scope="col">name</th>
+                        <th scope="col">aliases</th>
+                        <th scope="col">cash</th>
+                        <th scope="col">bankacc</th>
+                        <th scope="col">Détail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i < datas.length; i++) { %>
+                        <tr>
+                            <th scope="row">
+                                <%= datas[i].playerid %>
+                            </th>
+                            <td>
+                                <%= datas[i].name %>
+                            </td>
+                            <td>
+                                <%= datas[i].aliases %>
+                            </td>
+                            <td>
+                                $<%= Intl.NumberFormat('us-US').format(datas[i].cash) %>
+                            </td>
+                            <td>
+                                $<%= Intl.NumberFormat('us-US').format(datas[i].bankacc) %>
+                            </td>
+                            <td>
+                                <a href="/admin/player_details/<%= datas[i].playerid %>" type="button"
+                                    class="btn btn-secondary btn-sm"><i data-feather="eye"></i> Détail</a>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('#table_rapports').DataTable();
+            });
+        </script>
+
+        <% } %>
+
+            <%- include('../../partials/footer'); -%>

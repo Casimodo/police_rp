@@ -1,0 +1,71 @@
+<%- include('../partials/header'); -%>
+
+
+
+    <% if (user) { %>
+        <!-- === AVEC CONNEXION =========================================================================================================================== -->
+
+           <div class="row">
+
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        Vos informations
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Nom : <strong>
+                                <%= user.player.prenom %> <%= user.player.nom %>
+                            </strong>
+                        </p>
+                        <p class="card-text">arrivée le : <strong>
+                                <%= moment(user.player.timeJoin).format('DD/MM/YYYY HH:mm') %>
+                            </strong>
+                        </p>
+                        <p class="card-text">dernière connexion : <strong>
+                                <%= moment(user.player.lastUpdate).format('DD/MM/YYYY HH:mm') %>
+                            </strong>
+                        </p>
+
+                        <p class="card-text">Grade : <strong>
+                            <%= user.player.grade_label %>
+                            </strong>
+                        <p class="card-text">Matricule : <strong>
+                            <%= user.player.matricule %>
+                            </strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <% } else { %>
+            <!-- === SANS CONNEXION =========================================================================================================================== -->
+
+            <div class="row">
+                <div class="col-sm-12">
+    
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Bienvenue sur l'intranet Police
+                            </h5>
+                            <p class="card-text">
+                                Vous n'êtes pas authentifié.<br/>
+                                <strong>Première fois qui vous venez sur cette page merci de réaliser un ticket sur le discord spécifié en haut de page et de fournir date et heure de validation de votre examen de rentrée dans les services ainsi que votre "Steam ID".</strong><br/>
+                                <ul>
+                                    <li>1. Pour le trouver rien de plus simple connectez vous sur la page de steam sur votre navigateur</li>
+                                    <li>2. Aller en haut à droite sur votre pseudo</li>
+                                    <li>3. Cliquez sur "Details du compte"</li>
+                                    <li>4.  dessous de votre pseudo en tête de page qui est écrit en grand vous trouvez votre "ID Steam :"</li>
+                                </ul>
+                                <strong>Cela n'est pas la première fois utilisez tout simplement le bouton "S'authentifier avec Steam" !</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <% } %>
+
+
+        <%- include('../partials/footer'); -%>

@@ -1,0 +1,97 @@
+<%- include('../../partials/header'); -%>
+
+    <% if (authent) { %>
+        <!-- === AVEC CONNEXION ===========================================================================================================================-->
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin">Accueil ADMIN</a></li>
+            </ol>
+        </nav>
+    
+        <h3>Rapport détaillé du joueur</h3>
+        <br />
+        <br />
+
+        <div class="row">
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Identité</strong> <%= datas.name %> (<%= datas.aliases %>)
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            
+                            <p class="card-text">cash :
+                                <strong>
+                                $<%= Intl.NumberFormat('us-US').format(datas.cash) %>
+                            </strong>
+                            </p>
+                            
+                            <p class="card-text">bankacc :
+                                <strong>
+                                $<%= Intl.NumberFormat('us-US').format(datas.bankacc) %>
+                            </strong>
+                            </p>
+                            
+                            <p class="card-text">bank_can_depose :
+                                <strong>
+                                $<%= Intl.NumberFormat('us-US').format(datas.bank_can_depose) %>
+                            </strong>
+                            </p>
+                            
+                            <p class="card-text">illegal_profit :
+                                <strong>
+                                <%= datas.illegal_profit %> 
+                            </strong>
+                            </p>
+                            
+                            <p class="card-text">coplevel :
+                                <strong>
+                                <%= datas.coplevel %> 
+                            </strong>
+                            </p>
+                            
+                            <p class="card-text">mediclevel :
+                                <strong>
+                                <%= datas.mediclevel %> 
+                            </strong>
+                            </p>
+                            
+                            <p class="card-text">adminlevel :
+                                <strong>
+                                <%= datas.adminlevel %> 
+                            </strong>
+                            </p>
+                            
+                            <p class="card-text">timeJoin :
+                                <strong>
+                                <%= moment(datas.timeJoin).format('DD/MM/YYYY HH:mm') %>
+                            </strong>
+                            </p>
+                            
+                            <p class="card-text">lastupdate :
+                                <strong>
+                                <%= moment(datas.lastupdate).format('DD/MM/YYYY HH:mm') %>
+                            </strong>
+                            </p>
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+        <% } %>
+
+            <%- include('../../partials/footer'); -%>

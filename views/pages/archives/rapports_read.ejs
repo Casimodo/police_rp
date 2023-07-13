@@ -1,0 +1,31 @@
+<%- include('../../partials/header'); -%>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/police">Accueil Gendarmerie</a></li>
+            <li class="breadcrumb-item"><a href="/police/rapports">Casiers</a></li>
+        </ol>
+    </nav>
+
+
+    <div class="container py-4">
+
+        <% for(var i=0; i < datas.length; i++) { %>
+            <div class="card">
+                <div class="card-header">
+                    <strong>Le: </strong><%= moment(datas[i].date_create).format('DD/MM/YYYY HH:mm') %> 
+                    <br/><strong>Agent: </strong><%= datas[i].agent_name %> 
+                    <br/><strong>Prévenu: </strong><%= datas[i].name %> 
+                    <br/><strong>Type: </strong><%= datas[i].type %> &nbsp;&nbsp;&nbsp;&nbsp; <strong>Amende: </strong>$<%= datas[i].prix_amende %> 
+                </div>
+                <div class="card-body">
+                  <p class="card-text"><%= datas[i].sujet %></p>
+                </div>
+              </div>
+        <% } %>
+
+    </div>
+
+
+
+    <%- include('../../partials/footer'); -%>

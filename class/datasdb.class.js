@@ -104,7 +104,51 @@ module.exports = function(config, logger) {
 
         return new Promise((resolve, reject) => {
             try {
-                let sql = `SELECT civ.* FROM civils AS civ LEFT JOIN casiers_judiciaire AS cas ON civ.id = cas.civil_id ORDER BY cas.id DESC;`;
+                let sql = `SELECT civ.*, cas.* FROM civils AS civ LEFT JOIN casiers_judiciaire AS cas ON civ.id = cas.civil_id ORDER BY cas.id_casier DESC LIMIT 300;`;
+
+                conn.query(sql, function(error, results, fields) {
+                    if (error) reject(error.toString());
+                    resolve(results);
+                });
+
+            } catch (err) {
+                reject(`db conn ${err}`);
+            }
+        });
+
+    };
+
+    /** ******************************************************************************
+     * 
+     ****************************************************************************** */
+    self.civils_casier = function(conn, id_casier) {
+
+        return new Promise((resolve, reject) => {
+            try {
+                let casierId = parseInt(id_casier);
+                let sql = `SELECT civ.*, cas.* FROM civils AS civ LEFT JOIN casiers_judiciaire AS cas ON civ.id = cas.civil_id WHERE cas.id_casier = ${casierId};`;
+
+                conn.query(sql, function(error, results, fields) {
+                    if (error) reject(error.toString());
+                    resolve(results);
+                });
+
+            } catch (err) {
+                reject(`db conn ${err}`);
+            }
+        });
+
+    };
+
+    /** ******************************************************************************
+     * 
+     ****************************************************************************** */
+    self.civils_casier_detail = function(conn, id_casier) {
+
+        return new Promise((resolve, reject) => {
+            try {
+                let casierId = parseInt(id_casier);
+                let sql = `SELECT cas.*, ref.* FROM casiers_judiciaire_details AS cas LEFT JOIN ref_amendes AS ref ON cas.amende_id = ref.id_amende WHERE cas.casier_id = ${casierId} ORDER BY cas.id_cas_detail DESC;;`;
 
                 conn.query(sql, function(error, results, fields) {
                     if (error) reject(error.toString());

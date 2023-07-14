@@ -2,7 +2,7 @@
 
     <div class="media">
         <div class="media-body">
-            Civils
+            <strong>Les 300 derniers casers</strong>
         </div>
     </div>
 
@@ -13,22 +13,22 @@
                 <tr>
                     <th scope="col">Non</th>
                     <th scope="col">Prénom</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Total amendes</th>
-                    <th scope="col">Impayé</th>
+                    <th scope="col">Payé</th>
                     <th scope="col">Details</th>
                 </tr>
             </thead>
             <tbody> 
                 <% for(var i=0; i < datas.length; i++) { %>
                     <tr>
+                        <td><%= datas[i].nom %></td>
+                        <td><%= datas[i].prenom %></td>
+                        <td><%= moment(datas[i].date).format('DD/MM/YYYY HH:mm') %></td>
+                        <td><%= Intl.NumberFormat('us-US').format(datas[i].montant_total) %></td>
+                        <td><%= datas[i].paye %></td>
                         <td>
-                            <%= datas[i].nameUser %>
-                        </td>
-                        <td>
-                            <%= datas[i].amendes %>
-                        </td>
-                        <td>
-                            <a href="/police/rapports/<%= datas[i].civil_playerid %>" type="button" class="btn btn-secondary btn-sm"><i data-feather="eye"></i> Consulter</a>
+                            <a href="/civils/casier/<%= datas[i].id_casier %>" type="button" class="btn btn-secondary btn-sm"><i data-feather="eye"></i> Consulter</a>
                         </td>
                     </tr>
                     <% } %>
@@ -40,7 +40,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#table_id').DataTable();
+            $('#table_civils').DataTable();
         });
     </script>
 

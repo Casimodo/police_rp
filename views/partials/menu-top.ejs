@@ -45,7 +45,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <% if (page_name == 'civils') {%>active<%}%>" href="/civils"><i
-                                data-feather="users"></i> Civils</a>
+                                data-feather="users"></i> Casiers</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <% if (page_name == 'archives') {%>active<%}%>" href="/archives"><i
@@ -69,48 +69,14 @@
                     </li> -->
 
 
-                    <% if ((parseInt(user.player.depan_level)> 0) || (parseInt(user.player.adminlevel) > 0)) { %>
+                <% }else{ %>
 
-                        <li class="nav-item">
-                            <a class="nav-link <% if (page_name == 'depan') {%>active<%}%>" href="/depan"><i
-                                    data-feather="tool"></i> TCS</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link <% if (page_name == 'infos') {%>active<%}%>" href="/"><i
+                                data-feather="circle"></i> Accueil</a>
+                    </li>
 
-                        <% } %>
-
-                    <% if ((parseInt(user.player.coplevel)> 0) || (parseInt(user.player.adminlevel) > 0)) { %>
-
-                        <li class="nav-item">
-                            <a class="nav-link <% if (page_name == 'police') {%>active<%}%>" href="/police"><i
-                                    data-feather="pocket"></i> Gendarmerie</a>
-                        </li>
-
-                        <% } %>
-
-                            <li class="nav-item">
-                                <a class="nav-link <% if (page_name == 'top') {%>active<%}%>" href="/topserver"><i
-                                        data-feather="thumbs-up"></i> Top Serveurs</a>
-                            </li>
-                            <% if (parseInt(user.player.adminlevel)> 0) { %>
-
-                                <!-- <li class="nav-item">
-                                    <a class="nav-link <% if (page_name == 'logs') {%>active<%}%>" href="analyser"><i
-                                    data-feather="file-text"></i> Les logs</a>
-                                </li> -->
-                                <% } %>
-
-                                    <% }else{ %>
-
-                                        <li class="nav-item">
-                                            <a class="nav-link <% if (page_name == 'infos') {%>active<%}%>" href="/"><i
-                                                    data-feather="circle"></i> Accueil</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link <% if (page_name == 'top') {%>active<%}%>"
-                                                href="/topserver"><i data-feather="thumbs-up"></i> Top Serveurs</a>
-                                        </li>
-
-                                        <% } %>
+                <% } %>
 
             </ul>
             <form class="d-flex">

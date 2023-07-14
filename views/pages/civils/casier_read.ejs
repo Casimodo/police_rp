@@ -1,0 +1,48 @@
+<%- include('../../partials/header'); -%>
+
+    <div class="media">
+        <div class="media-body">
+            <strong>Détail du casier</strong>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <table id="table_details" class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Label</th>
+                    <th scope="col">Complément</th>
+                    <th scope="col">Montant</th>
+                </tr>
+            </thead>
+            <tbody> 
+                <% total = 0 %>
+                <% for(var i=0; i < datasDetail.length; i++) { %>
+                    <tr>
+                        <td><%= datasDetail[i].label %></td>
+                        <td><%= datasDetail[i].complement %></td>
+                        <td>$<%= Intl.NumberFormat('us-US').format(datasDetail[i].tarif) %></td>
+                    </tr>
+                    <% total = total + datasDetail[i].tarif %>
+                    <% } %>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>$<%= Intl.NumberFormat('us-US').format(total) %></td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#table_details').DataTable();
+        });
+    </script>
+
+    <%- include('../../partials/footer'); -%>

@@ -1,3 +1,6 @@
+# Version
+- Under construction not finish
+
 # Pré-requis
 - Installation de NodeJs ==> https://nodejs.org/en/
 - Récupérer clé pour steam (voir section "see for authent steam ci-dessous)

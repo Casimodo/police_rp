@@ -1,0 +1,34 @@
+name: RP Police Website CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag ghcr.io/casimodo/police_rp:latest
+      - name: Push image
+        run: docker push ghcr.io/casimodo/police_rp:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - name: Deploy image
+        run: curl -X POST http://51.255.79.148:9000/api/webhooks/c4460231-d20d-4624-9a69-4dafde460100

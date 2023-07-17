@@ -20,5 +20,5 @@ services:
         - traefik.http.routers.police_rp.rule=Host(`reality-police.gaminghug.ovh`)
         - traefik.http.routers.police_rp.entrypoints=websecure
         - traefik.http.services.police_rp.loadbalancer.server.port=8088
-        - traefik.http.routers.police_rp.service=police_rp
+        - traefik.http.routers.police_rp.service=website_reality_police_rp
         - traefik.http.routers.police_rp.tls.certresolver=lets-encrypt

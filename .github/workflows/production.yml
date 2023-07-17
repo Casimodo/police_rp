@@ -30,4 +30,4 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - name: Deploy image
-        run: curl -X POST http://51.255.79.148:9000/api/webhooks/dc0c11db-3c32-4fea-9bce-9e489f2617d7
+        run: curl -X POST http://51.255.79.148:9000/api/webhooks/499e414f-62a2-4404-bbf4-30949d277ad2

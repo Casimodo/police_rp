@@ -19,11 +19,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Print Test
-        run: echo "de ${{ vars.PROTOCOL }}"
       - name: Build the Docker image
-        env:
-          PROTOCOL: ${{ vars.PROTOCOL }}
         run: docker build . --file Dockerfile --tag ghcr.io/casimodo/police_rp:latest
       - name: Push image
         run: docker push ghcr.io/casimodo/police_rp:latest

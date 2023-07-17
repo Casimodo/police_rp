@@ -67,7 +67,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                                 I18N: req.I18N,
                                 page_name: 'civils',
                                 user: req.user,
-                                datas: datas,
+                                datas: datas[0],
                                 datasDetail: datasDetail,
                             });
 

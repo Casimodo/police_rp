@@ -1,46 +1,128 @@
 <%- include('../../partials/header'); -%>
 
-    <div class="media">
-        <div class="media-body">
-            <strong>Détail du casier</strong>
+    <div class="row">
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    Individu <strong>
+                        <%= datas.prenom %>, <%= datas.nom %>
+                    </strong> casier du <strong>
+                        <%= moment(datas.timeCreate).format('DD/MM/YYYY HH:mm') %>
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Etat Civil : <strong>
+                            <%= datas.etat_civil %>
+                        </strong>
+                    </p>
+                    <p class="card-text">Taille : <strong>
+                            <%= datas.tail_cm %>
+                        </strong>
+                    </p>
+                    <p class="card-text">Née le, à (Nationalité) : <strong>
+                            <%= datas.nee_le %>, <%= datas.nee_a %>, (<%= datas.nationalite %>)
+                        </strong>
+                    </p>
+                    <p class="card-text">Profession, Téléphone : <strong>
+                            <%= datas.profession %>, <%= datas.telephone %>
+                        </strong>
+                    </p>
+                    <p class="card-text">Mail : <strong>
+                            <%= datas.mail %>
+                        </strong>
+                    </p>
+                    <p class="card-text">Signes distinctifs : <strong>
+                            <%= datas.signe_distinctif %>
+                        </strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    Photos 1
+                </div>
+                <div class="card-body">
+                    <img src="<%= datas.photo_1 %>" class="img-thumbnail float-start" alt="photo 1" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    Photos 2
+                </div>
+                <div class="card-body">
+                    <img src="<%= datas.photo_2 %>" class="img-thumbnail float-end" alt="photo 2" />
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                Détails du casier
+            </div>
+            <div class="card-body">
+                <%= datas.detail_fait %>
+            </div>
         </div>
     </div>
 
-    <div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                Détails amendes
+            </div>
+            <div class="card-body">
 
-        <table id="table_details" class="table table-hover table-sm">
-            <thead>
-                <tr>
-                    <th scope="col">Label</th>
-                    <th scope="col">Complément</th>
-                    <th scope="col">Montant</th>
-                </tr>
-            </thead>
-            <tbody> 
-                <% total = 0 %>
-                <% for(var i=0; i < datasDetail.length; i++) { %>
-                    <tr>
-                        <td><%= datasDetail[i].label %></td>
-                        <td><%= datasDetail[i].complement %></td>
-                        <td>$<%= Intl.NumberFormat('us-US').format(datasDetail[i].tarif) %></td>
-                    </tr>
-                    <% total = total + datasDetail[i].tarif %>
-                    <% } %>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>$<%= Intl.NumberFormat('us-US').format(total) %></td>
-                </tr>
-            </tfoot>
-        </table>
+                <table id="table_details" class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Label</th>
+                            <th scope="col">Complément</th>
+                            <th scope="col">Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% total=0 %>
+                            <% for(var i=0; i < datasDetail.length; i++) { %>
+                                <tr>
+                                    <td>
+                                        <%= datasDetail[i].label %>
+                                    </td>
+                                    <td>
+                                        <%= datasDetail[i].complement %>
+                                    </td>
+                                    <td>$<%= Intl.NumberFormat('us-US').format(datasDetail[i].tarif) %>
+                                    </td>
+                                </tr>
+                                <% total=total + datasDetail[i].tarif %>
+                                    <% } %>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>$<%= Intl.NumberFormat('us-US').format(total) %>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
 
+            </div>
+        </div>
     </div>
 
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#table_details').DataTable();
         });
     </script>

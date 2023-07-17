@@ -34,7 +34,7 @@ try {
     const socketRoutePath = path.join(__dirname, "routers_socket"); //add one folder then put your route files there my router folder name is router
     const amqpRoutePath = path.join(__dirname, "routers_amqp"); //add one folder then put your route files there my router folder name is routers
 
-    console.log("-------------------------process.env.URL---------------", process.env.);
+    console.log("-------------------------process.env.URL---------------", process.env);
     console.log("------------------process.env.env--------------------", process.env.env);
     // ============== get env ================
     if (process.env.DB_HOST) { // Mode passage par env

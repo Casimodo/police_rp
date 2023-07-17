@@ -20,7 +20,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Print Test
-        run: echo "de $PROTOCOL"
+        run: echo "de ${{ env.PROTOCOL }}"
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ghcr.io/casimodo/police_rp:latest
       - name: Push image

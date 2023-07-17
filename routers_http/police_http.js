@@ -111,7 +111,6 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
         app.get("/police/casiers", ensureAuthenticated, function (req, res) {
 
-            const logArma3Folder = config.analyser.path;
             const fs = require('fs');
             const steamid = req.params.steamid;
 
@@ -147,7 +146,6 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
         app.post("/police/rapport_save", ensureAuthenticated, function (req, res) {
 
-            const logArma3Folder = config.analyser.path;
             const fs = require('fs');
             const steamid = req.params.steamid;
 

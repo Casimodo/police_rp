@@ -34,15 +34,51 @@ try {
     const socketRoutePath = path.join(__dirname, "routers_socket"); //add one folder then put your route files there my router folder name is router
     const amqpRoutePath = path.join(__dirname, "routers_amqp"); //add one folder then put your route files there my router folder name is routers
 
-    // get env
-    var NODE_ENV = "dev";
-    if (process.env.NODE_ENV) {
-        NODE_ENV = process.env.NODE_ENV;
-    }
+    // ============== get env ================
+    if (process.env.DB_HOST) { // Mode passage par env
 
-    // get config file
-    const CONFIG = require('config.json')(`./configs/config_${NODE_ENV}.json`);
-    const ENV_PORT = CONFIG.port;
+        console.log("==== Mode full ENV ===========");
+        var NODE_ENV = process.env.NODE_ENV
+        var ENV_PORT = process.env.ENV_PORT;
+        var PROTOCOL = process.env.PROTOCOL;
+        var URL = process.env.URL;
+        var STEAM_URL_RETURN = process.env.STEAM_URL_RETURN;
+        var STEAM_API_KEY = process.env.STEAM_API_KEY;
+        var WEB_SERVER_TOKEN = process.env.WEB_SERVER_TOKEN;
+        var CONFIG_DB = {
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASS,
+            database: process.env.DB_NAME,
+            port: process.env.DB_PORT
+        };
+
+    } else {                    // Utilisation en mode fichier de config
+
+        console.log("==== Mode use config file ===========");
+        var NODE_ENV = "dev";
+        if (process.env.NODE_ENV) {
+            NODE_ENV = process.env.NODE_ENV;
+        }
+
+        const CONFIG = require('config.json')(`./configs/config_${NODE_ENV}.json`);
+
+        var ENV_PORT = CONFIG.port;
+        var PROTOCOL = CONFIG.protocol;
+        var URL = CONFIG.url;
+        var STEAM_URL_RETURN = CONFIG.steam.url_return;
+        var STEAM_API_KEY = CONFIG.steam.api_key;
+        var WEB_SERVER_TOKEN = CONFIG.web_server_token;
+        var CONFIG_DB = {
+            host: CONFIG.mariadb.host,
+            user: CONFIG.mariadb.user,
+            password: CONFIG.mariadb.password,
+            database: CONFIG.mariadb.dbname,
+            port: CONFIG.mariadb.port
+        };
+
+    }
+    console.log(`===> ${PROTOCOL}`);
 
     // Passport session setup.
     //   To support persistent login sessions, Passport needs to be able to
@@ -64,17 +100,17 @@ try {
     //   Strategies in passport require a `validate` function, which accept
     //   credentials (in this case, an OpenID identifier and profile), and invoke a
     //   callback with a user object.
-    var realmValue = `${CONFIG.protocol}://${CONFIG.url}/`;
+    var realmValue = `${PROTOCOL}://${URL}/`;
     if (NODE_ENV == "dev") {
-        realmValue = `${CONFIG.protocol}://${CONFIG.url}:${CONFIG.port}/`;
+        realmValue = `${PROTOCOL}://${URL}:${ENV_PORT}/`;
     }
 
-    console.log(`${CONFIG.steam.url_return} >> ${realmValue}`);
+    console.log(`${STEAM_URL_RETURN} >> ${realmValue}`);
 
     passport.use(new SteamStrategy({
-        returnURL: `${CONFIG.steam.url_return}`,
+        returnURL: `${STEAM_URL_RETURN}`,
         realm: realmValue,
-        apiKey: `${CONFIG.steam.api_key}`
+        apiKey: `${STEAM_API_KEY}`
     },
         function (identifier, profile, done) {
             // asynchronous verification, for effect...
@@ -118,8 +154,8 @@ try {
     app.use(methodOverride());
     app.use(cookieParser());
     app.use(session({
-        secret: CONFIG.web_server_token,
-        name: 'roft_web_site',
+        secret: WEB_SERVER_TOKEN,
+        name: 'rp_web_site',
         resave: true,
         saveUninitialized: true,
         cookie: { expires: 3600000 }
@@ -167,7 +203,7 @@ try {
         };
 
         req.PARAMS = {
-            host: `${CONFIG.protocol}://${req.headers.host.toString()}`,
+            host: `${PROTOCOL}://${req.headers.host.toString()}`,
         };
 
         // No cache
@@ -180,7 +216,7 @@ try {
 
             // get profile in db
             let database = require('./class/datasdb.class');
-            let db = new database(CONFIG, logger);
+            let db = new database(CONFIG_DB, logger);
             db.connect(true).then(conn => {
                 db.user_infos(conn, req.user.id).then(dt_players => {
                     req.user = Object.assign({}, req.user, { player: dt_players[0] });
@@ -221,7 +257,7 @@ try {
         // browse class files for HTTP services
         fs.readdirSync(httpRoutePath).forEach(function (file) {
             var route = path.join(httpRoutePath, file);
-            require(route)(CONFIG, app, logger, ensureAuthenticated, passport);
+            require(route)(CONFIG_DB, app, logger, ensureAuthenticated, passport);
             console.info(`run http routers: ${file}`);
         });
 
@@ -236,7 +272,7 @@ try {
      * 
      **************************************************************************** */
     server = app.listen(ENV_PORT, () => {
-        console.log(`Server starting on ${ENV_PORT} test with ${CONFIG.protocol}://${CONFIG.url}:${ENV_PORT}`);
+        console.log(`Server starting on ${ENV_PORT} test with ${PROTOCOL}://${URL}:${ENV_PORT}`);
     });
 
 

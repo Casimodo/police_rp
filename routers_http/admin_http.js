@@ -15,7 +15,6 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
          *********************************************** */
         app.get("/admin", ensureAuthenticated, function (req, res) {
  
-            const logArma3Folder = config.analyser.path;
             const fs = require('fs');
 
             const adminlevel = parseInt(req.user.player.adminlevel);
@@ -53,7 +52,6 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
          *********************************************** */
         app.get("/admin/player_details/:uuid", ensureAuthenticated, function (req, res) {
 
-            const logArma3Folder = config.analyser.path;
             const fs = require('fs');
             const uuid = req.params.uuid;
 

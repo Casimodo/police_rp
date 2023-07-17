@@ -6,7 +6,7 @@ networks:
     external: true    
 
 services:
-  aquarelle_website:
+  website_reality_police_rp:
     image: ghcr.io/casimodo/police_rp:latest
     networks:
       - central

@@ -21,11 +21,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag ghcr.io/casimodo/police_rp:latest
         env:
           ENV_PORT: ${{ secrets.ENV_PORT }}
           DB_HOST: ${{ secrets.DB_HOST }}
           PROTOCOL: ${{ env.PROTOCOL }}
-        run: docker build . --file Dockerfile --tag ghcr.io/casimodo/police_rp:latest
       - name: Push image
         run: docker push ghcr.io/casimodo/police_rp:latest
 

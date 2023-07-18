@@ -1,0 +1,50 @@
+<%- include('../../partials/header'); -%>
+
+    <div class="media">
+        <div class="media-body">
+            <strong>Liste code pénal</strong>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <table id="table_codepenal" class="table-responsive table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Infraction</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">complément</th>
+                    <th scope="col">Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i < datasCdePenal.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%= datasCdePenal[i].label %>
+                        </td>
+                        <td>
+                            <%= datasCdePenal[i].type %>
+                        </td>
+                        <td>
+                            <%= datasCdePenal[i].complement %>
+                        </td>
+                        <td>$<%= Intl.NumberFormat('us-US').format(datasCdePenal[i].tarif) %>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#table_codepenal').DataTable();
+        });
+    </script>
+
+    <%- include('../../partials/footer'); -%>

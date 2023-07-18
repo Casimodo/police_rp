@@ -1,0 +1,64 @@
+<%- include('../../partials/header'); -%>
+
+    <div class="container">
+        <form class="row g-3 needs-validation" action="/civils/save" method="post">
+            <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">nom</label>
+                <input type="text" class="form-control" id="validationCustom01" name="nom" value="" required>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom02" class="form-label">prénom</label>
+                <input type="text" class="form-control" id="validationCustom02" name="prenom" value="" required>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustomUsername" class="form-label">tel</label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend">(555)-</span>
+                    <input type="text" class="form-control" id="validationCustomUsername" name="telephone"
+                        aria-describedby="inputGroupPrepend" required>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <label for="validationCustom04" class="form-label">genre</label>
+                <select class="form-select" id="validationCustom04" name="genre" required>
+                    <option value="Mr">Mr</option>
+                    <option value="Mme">Mme</option>
+                    <option value="Mlle">Mlle</option>
+                    <option value="Autre">Autre</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label for="validationCustom03" class="form-label">Taille</label>
+                <input type="number" class="form-control" id="validationCustom03" name="tail_cm" required>
+            </div>
+
+            <div class="col-md-8">
+                <label for="validationCustom05" class="form-label">profession</label>
+                <input type="text" class="form-control" id="validationCustom05" name="profession">
+            </div>
+
+            <div class="col-md-12">
+                <label for="validationCustom06" class="form-label">signe distinctif</label>
+                <input type="text" class="form-control" id="validationCustom06" name="signe_distinctif">
+            </div>
+
+            <div class="col-md-6">
+                <label for="validationCustom07" class="form-label">photo 1</label>
+                <input type="text" class="form-control" id="validationCustom07" name="photo_1">
+            </div>
+
+            <div class="col-md-6">
+                <label for="validationCustom08" class="form-label">photo 2</label>
+                <input type="text" class="form-control" id="validationCustom08" name="photo_2">
+            </div>
+
+
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Ajouter / Modifier</button>
+            </div>
+        </form>
+    </div>
+
+    <%- include('../../partials/footer'); -%>

@@ -7,7 +7,14 @@
     </div>
 
     <div class="row">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="/civils/new" type="button" class="btn btn-outline-primary">Ajouter civil</a>
+        </div>
+    </div>
 
+    <br/>
+
+    <div class="row">
         <table id="table_civils" class="table table-hover table-sm">
             <thead>
                 <tr>
@@ -16,19 +23,37 @@
                     <th scope="col">Date</th>
                     <th scope="col">Total amendes</th>
                     <th scope="col">Payé</th>
-                    <th scope="col">Details</th>
+                    <th scope="col">Details / Nouveau</th>
                 </tr>
             </thead>
-            <tbody> 
+            <tbody>
                 <% for(var i=0; i < datas.length; i++) { %>
                     <tr>
-                        <td><%= datas[i].nom %></td>
-                        <td><%= datas[i].prenom %></td>
-                        <td><%= moment(datas[i].date).format('DD/MM/YYYY HH:mm') %></td>
-                        <td><%= Intl.NumberFormat('us-US').format(datas[i].montant_total) %></td>
-                        <td><%= datas[i].paye %></td>
                         <td>
-                            <a href="/civils/casier/<%= datas[i].id_casier %>" type="button" class="btn btn-secondary btn-sm"><i data-feather="eye"></i> Consulter</a>
+                            <%= datas[i].nom %>
+                        </td>
+                        <td>
+                            <%= datas[i].prenom %>
+                        </td>
+                        <td>
+                            <% if (datas[i].id_casier != null)  { %>
+                              <%= moment(datas[i].date).format('DD/MM/YYYY HH:mm') %>
+                            <% }else{ %>
+                                <span class="badge bg-secondary">casier vierge</span>
+                            <% } %>
+                        </td>
+                        <td>
+                            <%= Intl.NumberFormat('us-US').format(datas[i].montant_total) %>
+                        </td>
+                        <td>
+                            <%= datas[i].paye %>
+                        </td>
+                        <td>
+                            <% if (datas[i].id_casier != null)  { %>
+                                <a href="/civils/casier/<%= datas[i].id_casier %>" type="button" class="btn btn-info btn-sm" title="consulter ce casier"><i data-feather="archive"></i></a>
+                            <% } %>
+                            <a href="/civils/edit/<%= datas[i].id %>" type="button" class="btn btn-info btn-sm" title="editer fiche civil"><i data-feather="user"></i></a>
+                            <a href="/civils/casier_new/<%= datas[i].id %>" type="button" class="btn btn-warning btn-sm" title="nouveau casier"><i data-feather="plus"></i></a>
                         </td>
                     </tr>
                     <% } %>
@@ -39,7 +64,7 @@
 
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#table_civils').DataTable();
         });
     </script>

@@ -14,7 +14,6 @@
     "bootstrap": "^5.0.0-beta3",
     "bootstrap-icons": "^1.0.0",
     "bootstrap-select": "^1.13.18",
-    "config.json": "0.0.4",
     "connect": "^3.7.0",
     "cookie-parser": "^1.4.5",
     "crypto": "^1.0.1",

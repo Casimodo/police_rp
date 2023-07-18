@@ -62,7 +62,7 @@
                 Détails du casier
             </div>
             <div class="card-body">
-                <%= datas.detail_fait %>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
         </div>
     </div>
@@ -83,25 +83,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% total=0 %>
-                            <% for(var i=0; i < datasDetail.length; i++) { %>
-                                <tr>
-                                    <td>
-                                        <%= datasDetail[i].label %>
-                                    </td>
-                                    <td>
-                                        <%= datasDetail[i].complement %>
-                                    </td>
-                                    <td>$<%= Intl.NumberFormat('us-US').format(datasDetail[i].tarif) %>
-                                    </td>
-                                </tr>
-                                <% total=total + datasDetail[i].tarif %>
-                                    <% } %>
+
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="2" style="text-align:right"><i>T.I.G : <%= (total / 1500) %> (calcul auto)</i>&nbsp;&nbsp;&nbsp;</td>
-                            <td><strong>$<%= Intl.NumberFormat('us-US').format(total) %></strong>
+                            <td colspan="2" style="text-align:right"><i>T.I.G : <%= (0 / 1500) %> (calcul
+                                        auto)</i>&nbsp;&nbsp;&nbsp;</td>
+                            <td><strong>$<%= Intl.NumberFormat('us-US').format(0) %></strong>
                             </td>
                         </tr>
                     </tfoot>
@@ -111,10 +99,44 @@
         </div>
     </div>
 
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                Code pénale (cliquez sur le petit plus pour ajouter)
+            </div>
+            <div class="card-body">
+
+                <table id="table_codepenal" class="table-responsive table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col" colspan="2">Infraction</th>
+                            <th scope="col">Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0; i < datasCdePenal.length; i++) { %>
+                            <tr>
+                                <td>
+                                    <a href="" type="button" class="btn btn-warning btn-sm" title="ajouter"><i data-feather="plus"></i></a>
+                                </td>
+                                <td>
+                                    <%= datasCdePenal[i].label %>
+                                </td>
+                                <td>$<%= Intl.NumberFormat('us-US').format(datasCdePenal[i].tarif) %>
+                                </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
 
     <script>
         $(document).ready(function () {
-            $('#table_details').DataTable();
+            $('#table_codepenal').DataTable();
         });
     </script>
 

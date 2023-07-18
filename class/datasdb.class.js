@@ -51,6 +51,26 @@ module.exports = function(config, logger) {
         });
     };
 
+    
+    /** ******************************************************************************
+     * 
+     ****************************************************************************** */
+    self.execute = function(conn, sql) {
+
+        return new Promise((resolve, reject) => {
+            try {
+                conn.query(sql, function(error, results, fields) {
+                    if (error) reject(error.toString());
+                    resolve(results);
+                });
+
+            } catch (err) {
+                reject(`db conn ${err}`);
+            }
+        });
+
+    };
+
     /** ******************************************************************************
      * 
      ****************************************************************************** */
@@ -76,6 +96,7 @@ module.exports = function(config, logger) {
 
     };
 
+
     /** ******************************************************************************
      * 
      ****************************************************************************** */
@@ -84,6 +105,49 @@ module.exports = function(config, logger) {
         return new Promise((resolve, reject) => {
             try {
                 let sql = `SELECT p.*, g.* FROM players AS p RIGHT JOIN grades AS g ON p.grade = g.key WHERE p.uid = "${uid}" LIMIT 1;`;
+
+                conn.query(sql, function(error, results, fields) {
+                    if (error) reject(error.toString());
+                    resolve(results);
+                });
+
+            } catch (err) {
+                reject(`db conn ${err}`);
+            }
+        });
+
+    };
+
+
+    /** ******************************************************************************
+     * 
+     ****************************************************************************** */
+    self.code_penal = function(conn) {
+
+        return new Promise((resolve, reject) => {
+            try {
+                let sql = `SELECT * FROM ref_amendes ORDER BY label;`;
+
+                conn.query(sql, function(error, results, fields) {
+                    if (error) reject(error.toString());
+                    resolve(results);
+                });
+
+            } catch (err) {
+                reject(`db conn ${err}`);
+            }
+        });
+
+    };
+
+    /** ******************************************************************************
+     * 
+     ****************************************************************************** */
+    self.civils_get = function(conn, id) {
+
+        return new Promise((resolve, reject) => {
+            try {
+                let sql = `SELECT * FROM civils WHERE id = "${id}" LIMIT 1;`;
 
                 conn.query(sql, function(error, results, fields) {
                     if (error) reject(error.toString());
@@ -225,24 +289,6 @@ module.exports = function(config, logger) {
     
 
 
-    /** ******************************************************************************
-     * 
-     ****************************************************************************** */
-    self.execute = function(conn, sql) {
-
-        return new Promise((resolve, reject) => {
-            try {
-                conn.query(sql, function(error, results, fields) {
-                    if (error) reject(error.toString());
-                    resolve(results);
-                });
-
-            } catch (err) {
-                reject(`db conn ${err}`);
-            }
-        });
-
-    };
 
 
 }

@@ -61,7 +61,7 @@ try {
             NODE_ENV = process.env.NODE_ENV;
         }
 
-        const CONFIG = require('config.json')(`./configs/config_${NODE_ENV}.json`);
+        const CONFIG = require(`./configs/config_${NODE_ENV}.json`);
 
         var ENV_PORT = CONFIG.port;
         var PROTOCOL = CONFIG.protocol;

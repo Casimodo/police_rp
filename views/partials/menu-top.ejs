@@ -85,18 +85,12 @@
             </ul>
             <form class="d-flex">
                 <% if (!user) { %>
-                    <a href="auth/steam" class="btn btn-success btn-lg" type="submit"><i
-                            data-feather="log-in"></i> S'authentifier avec Steam</a>
+                    <a href="login" class="btn btn-success btn-lg" type="submit"><i
+                            data-feather="log-in"></i> S'authentifier</a>
                     <% } else { %>
 
-                        <img height="40px" src='<%= user.photos[2].value %>' class="rounded float-end"
-                            alt='Your Avatar Image' />&nbsp;&nbsp;
                         <h5 style="color: beige;">
-                            <%= user.displayName %>&nbsp;
-                                <% if (user.player.adminlevel> 0) { %>
-                                    <span class="badge rounded-pill bg-danger">Admin level <%= user.player.adminlevel %>
-                                    </span>
-                                    <% } %>
+                            <%= user.prenom %>, <%= user.nom %>&nbsp;<i>(<%= user.grade_label %>)</i>
                                         &nbsp;&nbsp;&nbsp;
                         </h5> <a href="logout" class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit"
                             title="Déconnexion"><i data-feather="log-out"></i></a>

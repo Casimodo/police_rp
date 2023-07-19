@@ -14,23 +14,23 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">Nom : <strong>
-                                <%= user.player.prenom %> <%= user.player.nom %>
+                                <%= user.prenom %> <%= user.nom %>
                             </strong>
                         </p>
                         <p class="card-text">arrivée le : <strong>
-                                <%= moment(user.player.timeJoin).format('DD/MM/YYYY HH:mm') %>
+                                <%= moment(user.timeJoin).format('DD/MM/YYYY HH:mm') %>
                             </strong>
                         </p>
                         <p class="card-text">dernière connexion : <strong>
-                                <%= moment(user.player.lastUpdate).format('DD/MM/YYYY HH:mm') %>
+                                <%= moment(user.lastUpdate).format('DD/MM/YYYY HH:mm') %>
                             </strong>
                         </p>
 
                         <p class="card-text">Grade : <strong>
-                            <%= user.player.grade_label %>
+                            <%= user.grade_label %>
                             </strong>
                         <p class="card-text">Matricule : <strong>
-                            <%= user.player.matricule %>
+                            <%= user.matricule %>
                             </strong>
                         </p>
                     </div>

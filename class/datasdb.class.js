@@ -7,50 +7,20 @@ const path = require('path');
 const {
     Console
 } = require('console');
+const {
+    PrismaClient
+} = require('@prisma/client');
+
+const prisma = new PrismaClient();
 
 /**
  * 
- * @param {*} config 
  * @param {*} logger 
  */
-module.exports = function(config, logger) {
+module.exports = function(logger) {
 
     var self = this;
     var colDateTimeName = 'DateTime';
-
-
-    /** ******************************************************************************
-     * Connect to db
-     * 
-     ****************************************************************************** */
-    self.connect = function() {
-
-        return new Promise((resolve, reject) => {
-            try {
-
-                //logger.info(`connexion mode with database name : ${config.mariadb.dbname} on ${config.mariadb.host}`);
-                var conn = mysql.createConnection({
-                    host: config.host,
-                    user: config.user,
-                    password: config.password,
-                    database: config.database,
-                    port: config.port
-                });
-
-                conn.connect((err) => {
-                    if (err) {
-                        logger.error(`db conn ${err}`);
-                        reject(`db conn ${err}`);
-                    }
-                    resolve(conn);
-                });
-
-            } catch (err) {
-                reject(`db conn ${err}`);
-            }
-        });
-    };
-
     
     /** ******************************************************************************
      * 
@@ -100,21 +70,25 @@ module.exports = function(config, logger) {
     /** ******************************************************************************
      * 
      ****************************************************************************** */
-    self.user_infos = function(conn, uid) {
+    self.user_infos = async function(uid) {
 
-        return new Promise((resolve, reject) => {
-            try {
-                let sql = `SELECT p.*, g.* FROM players AS p RIGHT JOIN grades AS g ON p.grade = g.key WHERE p.uid = "${uid}" LIMIT 1;`;
+        // return new Promise((resolve, reject) => {
+        //     try {
+        //         /* let sql = `SELECT p.*, g.* FROM players AS p RIGHT JOIN grades AS g ON p.grade = g.key WHERE p.uid = "${uid}" LIMIT 1;`;
 
-                conn.query(sql, function(error, results, fields) {
-                    if (error) reject(error.toString());
-                    resolve(results);
-                });
+        //         conn.query(sql, function(error, results, fields) {
+        //             if (error) reject(error.toString());
+        //             resolve(results);
+        //         }); */
 
-            } catch (err) {
-                reject(`db conn ${err}`);
-            }
-        });
+
+
+        //     } catch (err) {
+        //         reject(`db conn ${err}`);
+        //     }
+        // });
+
+        return prisma.players.findUnique({ where: { uid }, include: { grades: true } });
 
     };
 

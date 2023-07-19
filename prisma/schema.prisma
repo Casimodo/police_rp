@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model casiers_judiciaire {
+  id_casier     Int       @id @default(autoincrement())
+  date          DateTime  @default(now()) @db.Timestamp(0)
+  civil_id      Int       @default(0)
+  agent_uid     String    @default("0") @db.VarChar(50)
+  detail_fait   String?   @db.LongText
+  lieu          String?   @db.VarChar(50)
+  montant_verse Float?    @db.Float
+  montant_total Float?    @db.Float
+  paye          Int?
+  modifie_par   String?   @db.VarChar(50)
+  timeUpdate    DateTime? @default(now()) @db.Timestamp(0)
+
+  @@index([civil_id], map: "FK_casiers_judiciaire_civils")
+  @@index([agent_uid], map: "FK_casiers_judiciaire_players")
+  @@index([modifie_par], map: "FK_casiers_judiciaire_players_2")
+}
+
+model casiers_judiciaire_details {
+  id_cas_detail BigInt  @id @default(autoincrement())
+  casier_id     Int
+  amende_id     Int
+  complement    String? @db.VarChar(255)
+
+  @@index([casier_id], map: "FK_casiers_judiciaire_details_casiers_judiciaire")
+  @@index([amende_id], map: "FK_casiers_judiciaire_details_ref_amendes")
+}
+
+model civils {
+  id               Int      @id @default(autoincrement())
+  nom              String   @db.VarChar(50)
+  prenom           String   @db.VarChar(50)
+  tail_cm          Int?     @default(0)
+  genre            String?  @default("néan") @db.VarChar(50)
+  profession       String?  @default("néan") @db.VarChar(255)
+  telephone        String?  @default("néan") @db.VarChar(50)
+  signe_distinctif String?  @default("néan") @db.VarChar(255)
+  photo_1          String?  @db.LongText
+  photo_2          String?  @db.LongText
+  timeCreate       DateTime @default(now()) @db.Timestamp(0)
+  timeUpdate       DateTime @default(now()) @db.Timestamp(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model grades {
+  id          Int     @id @default(autoincrement())
+  key         Int?    @unique(map: "key")
+  grade_label String? @db.VarChar(50)
+
+  @@ignore
+}
+
+model players {
+  id         Int       @id @default(autoincrement())
+  username   String?   @unique(map: "uid") @db.VarChar(50)
+  password   String?   @db.VarChar(255)
+  nom        String?   @db.VarChar(50)
+  prenom     String?   @db.VarChar(50)
+  grade      Int?
+  matricule  String?   @db.VarChar(15)
+  admin      Int?      @default(0)
+  actif      Int?      @default(1)
+  timeJoin   DateTime? @default(now()) @db.Timestamp(0)
+  lastUpdate DateTime? @db.Timestamp(0)
+
+  @@index([grade], map: "FK_players_grades")
+}
+
+model ref_amendes {
+  id         Int              @id @default(autoincrement())
+  label      String           @default("") @db.VarChar(255)
+  type       ref_amendes_type @default(contraventions)
+  complement String?          @default("") @db.VarChar(255)
+  tarif      Float            @default(0) @db.Float
+}
+
+enum ref_amendes_type {
+  route
+  maritime
+  aviation
+  penal
+  aggravants
+  contraventions
+  d_lits         @map("délits")
+  crimes
+}

@@ -1,3 +1,4 @@
 /node_modules
 /configs/config_dev.json
 /configs/config_prod.json
+.env

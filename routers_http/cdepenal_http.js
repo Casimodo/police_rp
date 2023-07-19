@@ -3,40 +3,34 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
     let self = this;
     const path = require('path');
     const uid = require('uid');
-    self.database = require('../class/datasdb.class.js');
-    self.db = new self.database(config, logger);
     self.outilsClass = require('../class/utils.class.js');
     self.outils = new self.outilsClass();
+
+    const {
+        PrismaClient
+    } = require('@prisma/client');
+
+    const prisma = new PrismaClient();
 
     try {
 
         /** ***********************************************
          *
          *********************************************** */
-        app.get("/cdepenal", ensureAuthenticated, function (req, res) {
+        app.get("/cdepenal", ensureAuthenticated, async function (req, res) {
 
-            const coplevel = parseInt(req.user.player.grade);
+            const coplevel = parseInt(req.user.grade);
 
             if (coplevel > 0) {
 
-                db.connect(true).then(conn => {
-                    db.code_penal(conn).then(datas => {
+                const datas = (await prisma.$queryRaw`SELECT * FROM ref_amendes ORDER BY label;`);
 
-                        res.render("pages/code_penal/index.ejs", {
-                            PARAMS: req.PARAMS,
-                            I18N: req.I18N,
-                            page_name: 'cdepenal',
-                            user: req.user,
-                            datasCdePenal: datas
-                        });
-
-                        conn.end();
-
-                    }, err => {
-                        logger.error(err);
-                    });
-                }, err => {
-                    logger.error(err);
+                res.render("pages/code_penal/index.ejs", {
+                    PARAMS: req.PARAMS,
+                    I18N: req.I18N,
+                    page_name: 'cdepenal',
+                    user: req.user,
+                    datasCdePenal: datas
                 });
 
             } else {

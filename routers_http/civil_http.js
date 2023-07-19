@@ -3,181 +3,54 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
     let self = this;
     const path = require('path');
     const uid = require('uid');
-    self.database = require('../class/datasdb.class.js');
-    self.db = new self.database(config, logger);
     self.outilsClass = require('../class/utils.class.js');
     self.outils = new self.outilsClass();
+
+    const {
+        PrismaClient
+    } = require('@prisma/client');
+
+    const prisma = new PrismaClient();
 
     try {
 
         /** ***********************************************
-         *
+         * Liste des civils référencés
          *********************************************** */
-        app.get("/civils", ensureAuthenticated, function (req, res) {
+        app.get("/civils", ensureAuthenticated, async function (req, res) {
 
-            const coplevel = parseInt(req.user.player.grade);
+            try {
+                const coplevel = parseInt(req.user.grade);
 
-            if (coplevel > 0) {
+                if (coplevel > 0) {
 
-                db.connect(true).then(conn => {
-                    db.civils_list(conn).then(datas => {
+                    const datas = (await prisma.$queryRaw`SELECT civ.* FROM civils AS civ ORDER BY civ.id DESC LIMIT 300;`);
 
-                        res.render("pages/civils/index.ejs", {
-                            PARAMS: req.PARAMS,
-                            I18N: req.I18N,
-                            page_name: 'civils',
-                            user: req.user,
-                            datas: datas
-                        });
-
-                        conn.end();
-
-                    }, err => {
-                        logger.error(err);
+                    res.render("pages/civils/index.ejs", {
+                        PARAMS: req.PARAMS,
+                        I18N: req.I18N,
+                        page_name: 'civils',
+                        user: req.user,
+                        datas: datas
                     });
-                }, err => {
-                    logger.error(err);
-                });
 
-            } else {
+                } else {
+                    res.redirect('/logout');
+                }
+            } catch (error) {
+                console.error(error);
                 res.redirect('/logout');
             }
 
         });
 
-        /** ***********************************************
-         *
-         *********************************************** */
-        app.get("/civils/casier/:casierid", ensureAuthenticated, function (req, res) {
-
-            const coplevel = parseInt(req.user.player.grade);
-
-            if (coplevel > 0) {
-
-                const casierid = req.params.casierid;
-
-                db.connect(true).then(conn => {
-                    db.civils_casier(conn, casierid).then(datas => {
-
-                        db.civils_casier_detail(conn, casierid).then(datasDetail => {
-
-                            res.render("pages/civils/casier_read.ejs", {
-                                PARAMS: req.PARAMS,
-                                I18N: req.I18N,
-                                page_name: 'civils',
-                                user: req.user,
-                                datas: datas[0],
-                                datasDetail: datasDetail
-                            });
-
-                            conn.end();
-
-                        }, err => {
-                            logger.error(err);
-                        });
-
-                    }, err => {
-                        logger.error(err);
-                    });
-                }, err => {
-                    logger.error(err);
-                });
-
-            } else {
-                res.redirect('/logout');
-            }
-        });
-
 
         /** ***********************************************
-         *
-         *********************************************** */
-        app.get("/civils/casier_new/:civilid", ensureAuthenticated, function (req, res) {
-
-            const coplevel = parseInt(req.user.player.grade);
-
-            if (coplevel > 0) {
-
-                const civilid = req.params.civilid;
-
-                db.connect(true).then(conn => {
-
-                    db.civils_get(conn, civilid).then(datas => {
-
-                        db.code_penal(conn).then(datasCdePenal => {
-                            res.render("pages/civils/casier_new.ejs", {
-                                PARAMS: req.PARAMS,
-                                I18N: req.I18N,
-                                page_name: 'civils',
-                                user: req.user,
-                                datas: datas[0],
-                                datasCdePenal: datasCdePenal
-                            });
-
-                            conn.end();
-
-                        }, err => {
-                            logger.error(err);
-                        });
-                    }, err => {
-                        logger.error(err);
-                    });
-
-                }, err => {
-                    logger.error(err);
-                });
-
-            } else {
-                res.redirect('/logout');
-            }
-        });
-
-
-        /** ***********************************************
-         *
-         *********************************************** */
-        app.get("/civils/edit/:civilid", ensureAuthenticated, function (req, res) {
-
-            const coplevel = parseInt(req.user.player.grade);
-
-            if (coplevel > 0) {
-
-                const civilid = req.params.civilid;
-
-                db.connect(true).then(conn => {
-
-                    db.civils_get(conn, civilid).then(datas => {
-                        console.log(">>>>>> ", datas);
-                        res.render("pages/civils/edit.ejs", {
-                            PARAMS: req.PARAMS,
-                            I18N: req.I18N,
-                            page_name: 'civils',
-                            user: req.user,
-                            datas: datas[0]
-                        });
-
-                        conn.end();
-
-                    }, err => {
-                        logger.error(err);
-                    });
-
-                }, err => {
-                    logger.error(err);
-                });
-
-            } else {
-                res.redirect('/logout');
-            }
-        });
-
-
-        /** ***********************************************
-         *
+         * Permet l'ajout d'un civil (feuille edition)
          *********************************************** */
         app.get("/civils/new", ensureAuthenticated, function (req, res) {
 
-            const coplevel = parseInt(req.user.player.grade);
+            const coplevel = parseInt(req.user.grade);
 
             if (coplevel > 0) {
 
@@ -195,87 +68,105 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
 
         /** ***********************************************
-         *
+         * Permet l'ajout d'un civil (envoi des données)
          *********************************************** */
-        app.post("/civils/save", ensureAuthenticated, function (req, res) {
+        app.post("/civils/save", ensureAuthenticated, async function (req, res) {
 
-            const fs = require('fs');
-            const steamid = req.params.steamid;
-            const coplevel = parseInt(req.user.player.grade);
+            try {
 
-            let nom = req.body.nom;
-            let prenom = req.body.prenom;
-            let telephone = req.body.telephone;
-            let genre = req.body.genre;
-            let tail_cm = req.body.tail_cm;
-            let profession = req.body.profession;
-            let signe_distinctif = req.body.signe_distinctif;
-            let photo_1 = req.body.photo_1;
-            let photo_2 = req.body.photo_2;
+                const coplevel = parseInt(req.user.grade);
 
-            if (coplevel > 0) {
+                let nom = req.body.nom;
+                let prenom = req.body.prenom;
+                let telephone = req.body.telephone;
+                let genre = req.body.genre;
+                let tail_cm = req.body.tail_cm;
+                let profession = req.body.profession;
+                let signe_distinctif = req.body.signe_distinctif;
+                let photo_1 = req.body.photo_1;
+                let photo_2 = req.body.photo_2;
 
-                db.connect(true).then(conn => {
+                if (coplevel > 0) {
 
-                    SQL = `INSERT INTO civils(nom, prenom, telephone, genre, tail_cm, profession, signe_distinctif, photo_1, photo_2) VALUES ('${nom}', '${prenom}', '${telephone}', '${genre}', '${tail_cm}', '${profession}', '${signe_distinctif}', '${photo_1}', '${photo_2}');`
-                    db.execute(conn, SQL).then(datas => {
-                        res.redirect('/civils');
-                        conn.end();
-                    }, err => {
-                        logger.error(err);
-                    });
+                    const datas = (await prisma.$queryRaw`INSERT INTO civils(nom, prenom, telephone, genre, tail_cm, profession, signe_distinctif, photo_1, photo_2) VALUES (${nom}, ${prenom}, ${telephone}, ${genre}, ${tail_cm}, ${profession}, ${signe_distinctif}, ${photo_1}, ${photo_2});`);
 
-                }, err => {
-                    logger.error(err);
-                });
+                    res.redirect('/civils');
 
-            } else {
+                } else {
+                    res.redirect('/logout');
+                }
+
+            } catch (error) {
+                console.error(error);
                 res.redirect('/logout');
             }
+
         });
 
 
         /** ***********************************************
          *
          *********************************************** */
-        app.post("/civils/save/:civilid", ensureAuthenticated, function (req, res) {
+        app.get("/civils/edit/:civilid", ensureAuthenticated, async function (req, res) {
 
-            const fs = require('fs');
-            const steamid = req.params.steamid;
-            const coplevel = parseInt(req.user.player.grade);
-            const civilid = req.params.civilid;
+            try {
+                const coplevel = parseInt(req.user.grade);
 
-            let nom = req.body.nom;
-            let prenom = req.body.prenom;
-            let telephone = req.body.telephone;
-            let genre = req.body.genre;
-            let tail_cm = req.body.tail_cm;
-            let profession = req.body.profession;
-            let signe_distinctif = req.body.signe_distinctif;
-            let photo_1 = req.body.photo_1;
-            let photo_2 = req.body.photo_2;
+                if (coplevel > 0) {
 
-            if (coplevel > 0) {
+                    const civilid = req.params.civilid;
+                    const datas = (await prisma.$queryRaw`SELECT * FROM civils WHERE id = ${civilid} LIMIT 1;`);
 
-                db.connect(true).then(conn => {
-
-                    SQL = `UPDATE civils SET nom='${nom}', prenom='${prenom}', telephone='${telephone}', genre='${genre}', tail_cm='${tail_cm}', profession='${profession}', signe_distinctif='${signe_distinctif}', photo_1='${photo_1}', photo_2='${photo_2}' WHERE id=${civilid};`
-                    db.execute(conn, SQL).then(datas => {
-                        res.redirect('/civils');
-                        conn.end();
-                    }, err => {
-                        logger.error(err);
+                    res.render("pages/civils/edit.ejs", {
+                        PARAMS: req.PARAMS,
+                        I18N: req.I18N,
+                        page_name: 'civils',
+                        user: req.user,
+                        datas: datas[0]
                     });
 
-                }, err => {
-                    logger.error(err);
-                });
-
-            } else {
+                } else {
+                    res.redirect('/logout');
+                }
+            } catch (error) {
+                console.error(error);
                 res.redirect('/logout');
             }
+
         });
 
+
+        /** ***********************************************
+         *
+         *********************************************** */
+        app.post("/civils/save/:civilid", ensureAuthenticated, async function (req, res) {
+
+            try {
+                const coplevel = parseInt(req.user.grade);
+                const civilid = req.params.civilid;
+
+                let nom = req.body.nom;
+                let prenom = req.body.prenom;
+                let telephone = req.body.telephone;
+                let genre = req.body.genre;
+                let tail_cm = req.body.tail_cm;
+                let profession = req.body.profession;
+                let signe_distinctif = req.body.signe_distinctif;
+                let photo_1 = req.body.photo_1;
+                let photo_2 = req.body.photo_2;
+
+                if (coplevel > 0) {
+                    const datas = (await prisma.$queryRaw`UPDATE civils SET nom=${nom}, prenom=${prenom}, telephone=${telephone}, genre=${genre}, tail_cm=${tail_cm}, profession=${profession}, signe_distinctif=${signe_distinctif}, photo_1=${photo_1}, photo_2=${photo_2} WHERE id=${civilid};`);
+                    res.redirect('/civils');
+                } else {
+                    res.redirect('/logout');
+                }
+            } catch (error) {
+                console.error(error);
+                res.redirect('/logout');
+            }
+
+        });
 
 
 

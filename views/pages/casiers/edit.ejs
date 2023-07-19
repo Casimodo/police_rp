@@ -2,7 +2,7 @@
 
     <div class="row">
 
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="card">
                 <div class="card-header">
                     Individu <strong>
@@ -21,7 +21,7 @@
                         </strong>
                     </p>
                     <p class="card-text">Profession, Téléphone : <strong>
-                            <%= datas.profession %>, <%= datas.telephone %>
+                            <%= datas.profession %>, (555)-<%= datas.telephone %>
                         </strong>
                     </p>
                     <p class="card-text">Signes distinctifs : <strong>
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="card">
                 <div class="card-header">
                     Photos 1
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="card">
                 <div class="card-header">
                     Photos 2
@@ -59,38 +59,56 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
-                Détails du casier
+                Liste des casiers &nbsp;&nbsp;&nbsp;
+                <a href="/casier/detail/new/<%= datas.id %>" type="button" class="btn btn-primary btn-sm">Ajouter casier</a>
             </div>
             <div class="card-body">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-        </div>
-    </div>
 
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header">
-                Détails amendes
-            </div>
-            <div class="card-body">
 
                 <table id="table_details" class="table-responsive table table-hover table-sm">
                     <thead>
                         <tr>
-                            <th scope="col">Label</th>
-                            <th scope="col">Complément</th>
-                            <th scope="col">Montant</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Agent</th>
+                            <th scope="col">T.I.G</th>
+                            <th scope="col">Montant Total</th>
+                            <th scope="col">Editer</th>
                         </tr>
                     </thead>
                     <tbody>
-
+                        <% calculSum=0 %>
+                            <% for(var i=0; i < datasCasiers.length; i++) { %>
+                                <tr>
+                                    <td>
+                                        <%= moment(datasCasiers[i].date).format('DD/MM/YYYY HH:mm') %>
+                                    </td>
+                                    <td>
+                                        <%= datasCasiers[i].prenom %>, <%= datasCasiers[i].nom %> [<%=
+                                                    datasCasiers[i].matricule %>]
+                                    </td>
+                                    <td>
+                                        <%= (datasCasiers[i].total / 1500) %>
+                                    </td>
+                                    <td>
+                                        $<%= Intl.NumberFormat('us-US').format(datasCasiers[i].total) %>
+                                    </td>
+                                    <td>
+                                        <a href="/casier/detail/edit/<%= datasCasiers[i].id_casier %>" type="button"
+                                            class="btn btn-secondary btn-sm" title="casier"><i
+                                                data-feather="edit"></i></a>
+                                    </td>
+                                </tr>
+                                <% calculSum=calculSum + datasCasiers[i].total %>
+                                    <% } %>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="2" style="text-align:right"><i>T.I.G : <%= (0 / 1500) %> (calcul
+                            <td colspan="3" style="text-align:right"><i>T.I.G total effectué : <%= (calculSum / 1500) %>
+                                        (calcul
                                         auto)</i>&nbsp;&nbsp;&nbsp;</td>
-                            <td><strong>$<%= Intl.NumberFormat('us-US').format(0) %></strong>
+                            <td><strong>$<%= Intl.NumberFormat('us-US').format(calculSum) %></strong>
                             </td>
+                            <td></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -99,44 +117,11 @@
         </div>
     </div>
 
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header">
-                Code pénale (cliquez sur le petit plus pour ajouter)
-            </div>
-            <div class="card-body">
-
-                <table id="table_codepenal" class="table-responsive table table-hover table-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col" colspan="2">Infraction</th>
-                            <th scope="col">Montant</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for(var i=0; i < datasCdePenal.length; i++) { %>
-                            <tr>
-                                <td>
-                                    <a href="" type="button" class="btn btn-warning btn-sm" title="ajouter"><i data-feather="plus"></i></a>
-                                </td>
-                                <td>
-                                    <%= datasCdePenal[i].label %>
-                                </td>
-                                <td>$<%= Intl.NumberFormat('us-US').format(datasCdePenal[i].tarif) %>
-                                </td>
-                            </tr>
-                            <% } %>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
 
 
     <script>
         $(document).ready(function () {
-            $('#table_codepenal').DataTable();
+            $('#table_details').DataTable();
         });
     </script>
 

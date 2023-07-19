@@ -2,7 +2,7 @@
 
     <div class="media">
         <div class="media-body">
-            <strong>Les 300 derniers casers</strong>
+            <strong>Civils référencés</strong>
         </div>
     </div>
 
@@ -49,11 +49,8 @@
                             <%= datas[i].paye %>
                         </td>
                         <td>
-                            <% if (datas[i].id_casier != null)  { %>
-                                <a href="/civils/casier/<%= datas[i].id_casier %>" type="button" class="btn btn-info btn-sm" title="consulter ce casier"><i data-feather="archive"></i></a>
-                            <% } %>
                             <a href="/civils/edit/<%= datas[i].id %>" type="button" class="btn btn-info btn-sm" title="editer fiche civil"><i data-feather="user"></i></a>
-                            <a href="/civils/casier_new/<%= datas[i].id %>" type="button" class="btn btn-warning btn-sm" title="nouveau casier"><i data-feather="plus"></i></a>
+                            <a href="/casier/edit/<%= datas[i].id %>" type="button" class="btn btn-warning btn-sm" title="casier"><i data-feather="plus"></i></a>
                         </td>
                     </tr>
                     <% } %>

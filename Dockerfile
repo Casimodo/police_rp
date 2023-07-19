@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm ci
-RUN prisma generate client
+RUN npm run generate
 
 COPY . ./
 RUN npm install pm2 -g

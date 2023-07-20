@@ -80,7 +80,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
      *
      * This route logs the user out.
      */
-    app.post('/logout', function (req, res, next) {
+    app.get('/logout', function (req, res, next) {
       req.logout(function (err) {
         if (err) { return next(err); }
         res.redirect('/');

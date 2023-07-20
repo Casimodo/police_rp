@@ -20,9 +20,7 @@
                 <tr>
                     <th scope="col">Non</th>
                     <th scope="col">Prénom</th>
-                    <th scope="col">Date</th>
                     <th scope="col">Total amendes</th>
-                    <th scope="col">Payé</th>
                     <th scope="col">Details / Nouveau</th>
                 </tr>
             </thead>
@@ -36,21 +34,15 @@
                             <%= datas[i].prenom %>
                         </td>
                         <td>
-                            <% if (datas[i].id_casier != null)  { %>
-                              <%= moment(datas[i].date).format('DD/MM/YYYY HH:mm') %>
+                            <% if (datas[i].total != null)  { %>
+                              <%= Intl.NumberFormat('us-US').format(datas[i].total) %>
                             <% }else{ %>
                                 <span class="badge bg-secondary">casier vierge</span>
                             <% } %>
                         </td>
                         <td>
-                            <%= Intl.NumberFormat('us-US').format(datas[i].montant_total) %>
-                        </td>
-                        <td>
-                            <%= datas[i].paye %>
-                        </td>
-                        <td>
                             <a href="/civils/edit/<%= datas[i].id %>" type="button" class="btn btn-info btn-sm" title="editer fiche civil"><i data-feather="user"></i></a>
-                            <a href="/casier/edit/<%= datas[i].id %>" type="button" class="btn btn-warning btn-sm" title="casier"><i data-feather="plus"></i></a>
+                            <a href="/casier/edit/<%= datas[i].id %>" type="button" class="btn btn-warning btn-sm" title="casier"><i data-feather="layers"></i></a>
                         </td>
                     </tr>
                     <% } %>

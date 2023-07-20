@@ -15,7 +15,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
          *********************************************** */
         app.get("/archives", ensureAuthenticated, function (req, res) {
 
-            const coplevel = parseInt(req.user.player.grade);
+            const coplevel = parseInt(req.user.grade);
 
             if (coplevel > 0) {
 

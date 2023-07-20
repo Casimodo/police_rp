@@ -8,21 +8,16 @@ datasource db {
 }
 
 model casiers_judiciaire {
-  id_casier     Int       @id @default(autoincrement())
-  date          DateTime  @default(now()) @db.Timestamp(0)
-  civil_id      Int       @default(0)
-  agent_uid     String    @default("0") @db.VarChar(50)
-  detail_fait   String?   @db.LongText
-  lieu          String?   @db.VarChar(50)
-  montant_verse Float?    @db.Float
-  montant_total Float?    @db.Float
-  paye          Int?
-  modifie_par   String?   @db.VarChar(50)
-  timeUpdate    DateTime? @default(now()) @db.Timestamp(0)
+  id_casier   Int       @id @default(autoincrement())
+  date        DateTime  @default(now()) @db.Timestamp(0)
+  civil_id    Int       @default(0)
+  agent_id    String    @default("0") @db.VarChar(50)
+  detail_fait String?   @db.LongText
+  lieu        String?   @db.VarChar(50)
+  timeUpdate  DateTime? @default(now()) @db.Timestamp(0)
 
   @@index([civil_id], map: "FK_casiers_judiciaire_civils")
-  @@index([agent_uid], map: "FK_casiers_judiciaire_players")
-  @@index([modifie_par], map: "FK_casiers_judiciaire_players_2")
+  @@index([agent_id], map: "FK_casiers_judiciaire_players")
 }
 
 model casiers_judiciaire_details {

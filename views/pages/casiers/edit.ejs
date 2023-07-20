@@ -87,7 +87,7 @@
                                                     datasCasiers[i].matricule %>]
                                     </td>
                                     <td>
-                                        <%= (datasCasiers[i].total / 1500) %>
+                                        <%= Math.round(datasCasiers[i].total / 1500) %>
                                     </td>
                                     <td>
                                         $<%= Intl.NumberFormat('us-US').format(datasCasiers[i].total) %>
@@ -103,7 +103,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="3" style="text-align:right"><i>T.I.G total effectué : <%= (calculSum / 1500) %>
+                            <td colspan="3" style="text-align:right"><i>T.I.G total effectué : <%= Math.round(calculSum / 1500) %>
                                         (calcul
                                         auto)</i>&nbsp;&nbsp;&nbsp;</td>
                             <td><strong>$<%= Intl.NumberFormat('us-US').format(calculSum) %></strong>

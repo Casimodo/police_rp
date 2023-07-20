@@ -1,0 +1,149 @@
+<%- include('../../partials/header'); -%>
+
+    <div class="container">
+
+        <figure class="text-center">
+            <blockquote class="blockquote">
+                <p>Ajout / Modification Casier : <%= civil.prenom %>, <%= civil.nom %></p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                <i>Attention: </i> cliquer sur "Sauvegarder" pour enregistrer les 2 champs ci-dessous !
+            </figcaption>
+        </figure>
+
+        <form class="row g-3 needs-validation" action="/casier/detail/save/<%= casier.id_casier %>" method="post">
+
+            <div class="col-md-12">
+                <label for="validationCustom02" class="form-label">Lieu</label>
+                <input type="text" class="form-control" id="validationCustom02" name="lieu" value="<%= casier.lieu %>"
+                    required>
+            </div>
+
+            <div class="mb-12">
+                <label for="exampleFormControlTextarea1" class="form-label">Fait reproché</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="detail_fait" required><%= casier.detail_fait %></textarea>
+            </div>
+
+            <div class="col-2">
+                <a href="/casier/edit/<%= casier.civil_id %>" class="btn btn-success">
+                    << Retour</a>
+            </div>
+
+            <div class="col-10">
+                <button class="btn btn-primary" type="submit">Sauvegarder</button>
+            </div>
+
+        </form>
+
+    </div>
+    <br />
+
+
+    <figure class="text-center">
+        <blockquote class="blockquote">
+            <p>Détail des infractions</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            Cliquer sur le "-" pour supprimer
+        </figcaption>
+    </figure>
+
+    <div class="row">
+        <table id="" class="table-responsive table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2">Infraction</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">complément</th>
+                    <th scope="col">Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% var somme=0 %>
+                    <% for(var i=0; i < detailsCasiers.length; i++) { %>
+                        <tr>
+                            <td>
+                                <a href="/casier/detail/remove/<%= casier.id_casier %>/<%= detailsCasiers[i].id_cas_detail %>"
+                                    type="button" class="btn btn-danger btn-sm" title="casier"><i
+                                        data-feather="minus"></i></a>
+                            </td>
+                            <td>
+                                <%= detailsCasiers[i].label %>
+                            </td>
+                            <td>
+                                <%= detailsCasiers[i].type %>
+                            </td>
+                            <td>
+                                <%= detailsCasiers[i].complement %>
+                            </td>
+                            <td>$<%= Intl.NumberFormat('us-US').format(detailsCasiers[i].tarif) %>
+                            </td>
+                        </tr>
+                        <% somme = somme + detailsCasiers[i].tarif %>
+                            <% } %>
+            </tbody>
+            <tfoot>
+                <td colspan="3">
+                </td>
+                <td>
+                    <strong>T.I.G: <%= Math.round(somme / 1500) %></strong>
+                </td>
+                <td>
+                    <strong>$<%= Intl.NumberFormat('us-US').format(somme) %></strong>
+                </td>
+            </tfoot>
+        </table>
+    </div>
+
+
+    <figure class="text-center">
+        <blockquote class="blockquote">
+            <p>Liste du code pénal</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            Cliquer sur le + pour ajouter
+        </figcaption>
+    </figure>
+
+    <div class="row">
+        <table id="table_codepenal" class="table-responsive table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2">Infraction</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">complément</th>
+                    <th scope="col">Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i < datasCdePenal.length; i++) { %>
+                    <tr>
+                        <td>
+                            <a href="/casier/detail/add/<%= casier.id_casier %>/<%= datasCdePenal[i].id %>"
+                                type="button" class="btn btn-success btn-sm" title="casier"><i
+                                    data-feather="plus"></i></a>
+                        </td>
+                        <td>
+                            <%= datasCdePenal[i].label %>
+                        </td>
+                        <td>
+                            <%= datasCdePenal[i].type %>
+                        </td>
+                        <td>
+                            <%= datasCdePenal[i].complement %>
+                        </td>
+                        <td>$<%= Intl.NumberFormat('us-US').format(datasCdePenal[i].tarif) %>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function () { 
+            $('#table_codepenal').DataTable();
+        });
+    </script>
+
+    <%- include('../../partials/footer'); -%>

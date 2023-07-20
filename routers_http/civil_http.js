@@ -24,7 +24,11 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
                 if (coplevel > 0) {
 
-                    const datas = (await prisma.$queryRaw`SELECT civ.* FROM civils AS civ ORDER BY civ.id DESC LIMIT 300;`);
+                    const datas = (await prisma.$queryRaw`SELECT civ.*, SUM(tarif) AS total FROM civils AS civ 
+                    LEFT JOIN casiers_judiciaire AS cas ON civ.id = cas.civil_id 
+                    LEFT JOIN casiers_judiciaire_details AS cas_det ON cas.id_casier = cas_det.casier_id
+                    LEFT JOIN ref_amendes AS amd ON cas_det.amende_id = amd.id
+                    GROUP BY civ.id`);
 
                     res.render("pages/civils/index.ejs", {
                         PARAMS: req.PARAMS,

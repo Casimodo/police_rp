@@ -112,7 +112,7 @@ try {
     passport.use(new LocalStrategy(async function verify(username, password, done) {
         try {
             //const user = await prisma.players.findUnique({ where: { username }});    
-            const user = (await prisma.$queryRaw`SELECT players.*, grades.* FROM players LEFT JOIN grades ON players.grade = grades.key WHERE username = ${username} AND actif = 1 LIMIT 1;`)[0];
+            const user = (await prisma.$queryRaw`SELECT players.*, grades.key AS grade_key, grades.grade_label  FROM players LEFT JOIN grades ON players.grade = grades.key WHERE username = ${username} AND actif = 1 LIMIT 1;`)[0];
             
             if (!user) { return done(null, false); }
 
@@ -215,27 +215,6 @@ try {
         res.header('Expires', '-1');
         res.header('Pragma', 'no-cache');
 
-        // If identifer good get db data
-        /*if (req.user) {
-
-            // get profile in db
-            let database = require('./class/datasdb.class');
-            let db = new database(logger);
-
-            req.user = Object.assign({}, req.user, { 
-                //player: await db.user_infos(req.user.id) 
-                player: prisma.players.findUnique({ where: { id : req.user.id }})
-            });
-
-            // db.user_infos(req.user.id).then(dt_players => {
-            //     req.user = Object.assign({}, req.user, { player: dt_players[0] });
-            //     next();
-
-            // }, err => {
-            //     logger.error(err);
-            // });
-
-        }*/
         next();
 
     });

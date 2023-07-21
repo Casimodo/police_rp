@@ -26,7 +26,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
                 const civilid = req.params.civilid;
                 const datasCivil = (await prisma.$queryRaw`SELECT * FROM civils WHERE id = ${civilid} LIMIT 1;`);
-                const datasCasiers = (await prisma.$queryRaw`SELECT cas.*, pla.*, SUM(tarif * multiple) AS total FROM casiers_judiciaire AS cas LEFT JOIN players AS pla ON cas.agent_id = pla.id LEFT JOIN casiers_judiciaire_details AS cas_det ON cas.id_casier = cas_det.casier_id LEFT JOIN ref_amendes AS amd ON cas_det.amende_id = amd.id   WHERE cas.civil_id = ${civilid} GROUP BY cas.id_casier;`);
+                const datasCasiers = (await prisma.$queryRaw`SELECT cas.*, pla.*, SUM(tarif * multiple) AS total FROM casiers_judiciaire AS cas LEFT JOIN players AS pla ON cas.agent_id = pla.id LEFT JOIN casiers_judiciaire_details AS cas_det ON cas.id_casier = cas_det.casier_id LEFT JOIN ref_amendes AS amd ON cas_det.amende_id = amd.id   WHERE cas.civil_id = ${civilid} GROUP BY cas.id_casier ORDER BY cas.id_casier DESC;`);
 
                 res.render("pages/casiers/edit.ejs", {
                     PARAMS: req.PARAMS,

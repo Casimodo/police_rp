@@ -1,0 +1,33 @@
+<%- include('../../partials/header'); -%>
+
+    <div class="container">
+        <form class="row g-3 needs-validation" action="/rapports/save/<%= datas.uuid %>" method="post">
+            <div class="col-md-6">
+                <label for="validationCustom01" class="form-label">Agent</label>
+                <strong>[<%= datas.matricule %>] <%= datas.prenom %>, <%= datas.nom %></strong>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustom02" class="form-label">Date</label>
+                <strong>
+                    <%= moment(datas.dateCreate).format('DD/MM/YYYY HH:mm') %>
+                </strong>
+            </div>
+
+            <div class="col-md-12">
+                <label for="validationCustom02" class="form-label">Sujet</label>
+                <input type="text" class="form-control" id="validationCustom02" name="sujet" maxlength="50" value="<%= datas.sujet %>" required>
+            </div>
+
+            <div class="mb-12">
+                <label for="exampleFormControlTextarea1" class="form-label">Commentaire</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" name="commentaire"
+                    required><%= datas.commentaire %></textarea>
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Sauvegarder</button>
+            </div>
+        </form>
+    </div>
+
+    <%- include('../../partials/footer'); -%>

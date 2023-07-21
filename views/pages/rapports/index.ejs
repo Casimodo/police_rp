@@ -1,0 +1,62 @@
+<%- include('../../partials/header'); -%>
+
+    <div class="media">
+        <div class="media-body">
+            <strong>Rapports</strong>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="/rapports/new" type="button" class="btn btn-outline-primary">Ajouter</a>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <table id="table_rapports" class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Agent</th>
+                    <th scope="col">Sujet</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i < datas.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%= moment(datas[i].dateCreate).format('DD/MM/YYYY HH:mm') %>
+                        </td>
+                        <td>
+                            [<%= datas[i].matricule %>] <%= datas[i].prenom %>, <%= datas[i].nom %>
+                        </td>
+                        <td>
+                            <%= datas[i].sujet %>
+                        </td>
+                        <td>
+                            <a href="/rapports/read/<%= datas[i].uuid %>" type="button" class="btn btn-success btn-sm" title="consulter"><i data-feather="eye"></i></a>
+                            <a href="/rapports/read_extern/<%= datas[i].uuid %>" target="_blank" type="button" class="btn btn-warning btn-sm" title="consulter à l'externe"><i data-feather="external-link"></i></a>
+                            <% if (datas[i].agent_id == user.id || user.grade == 200) { %>
+                            <a href="/rapports/edit/<%= datas[i].uuid %>" type="button" class="btn btn-info btn-sm" title="éditer"><i data-feather="edit"></i></a>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#table_rapports').DataTable({
+                order: [[0, 'desc']]
+            });
+        });
+    </script>
+
+    <%- include('../../partials/footer'); -%>

@@ -1,0 +1,32 @@
+<%- include('../../partials/header-nomenu'); -%>
+
+    <div class="container">
+
+        <figure class="text-center">
+            <blockquote class="blockquote">
+              <p>Rapport de Police / BCSO</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+               Agent matricule <cite title="Source Title">Source Title</cite> du <cite title="Source Title"><%= moment(datas.dateCreate).format('DD/MM/YYYY HH:mm') %></cite>
+            </figcaption>
+          </figure>
+
+          <br/>
+          <br/>
+          
+            <div class="col-md-12">
+                <label for="validationCustom02" class="form-label"><strong>Sujet</strong></label><br/>
+                <pre><%= datas.sujet %></pre>
+            </div>
+
+            <br/>
+            <br/>
+
+            <div class="mb-12">
+                <label for="exampleFormControlTextarea1" class="form-label"><strong>Commentaire</strong></label>
+                <pre><%= datas.commentaire %></pre>
+            </div>
+
+    </div>
+
+    <%- include('../../partials/footer'); -%>

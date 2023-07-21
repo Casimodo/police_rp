@@ -1,0 +1,34 @@
+<%- include('../../partials/header'); -%>
+
+    <div class="container">
+        <div class="col-md-6">
+            <label for="validationCustom01" class="form-label">Agent</label>
+            <strong>[<%= datas.matricule %>] <%= datas.prenom %>, <%= datas.nom %></strong>
+        </div>
+        <div class="col-md-6">
+            <label for="validationCustom02" class="form-label">Date</label>
+            <strong>
+                <%= moment(datas.dateCreate).format('DD/MM/YYYY HH:mm') %>
+            </strong>
+        </div>
+
+        <div class="col-md-12">
+            <label for="validationCustom02" class="form-label">Sujet</label>
+            <strong>
+                <%= datas.sujet %>
+            </strong>
+        </div>
+
+        <div class="mb-12">
+            <label for="exampleFormControlTextarea1" class="form-label">Commentaire</label>
+            <pre>
+                <%= datas.commentaire %>
+            </pre>
+        </div>
+
+        <div class="col-12">
+            <a href="/rapports" class="btn btn-success" type="submit">Retour</a>
+        </div>
+    </div>
+
+    <%- include('../../partials/footer'); -%>

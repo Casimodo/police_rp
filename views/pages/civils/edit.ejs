@@ -4,11 +4,11 @@
         <form class="row g-3 needs-validation" action="/civils/save/<%= datas.id %>" method="post">
             <div class="col-md-4">
                 <label for="validationCustom01" class="form-label">nom</label>
-                <input type="text" class="form-control" id="validationCustom01" name="nom" value="<%= datas.nom %>" required>
+                <input type="text" class="form-control" id="validationCustom01" name="nom" maxlength="50" value="<%= datas.nom %>" required>
             </div>
             <div class="col-md-4">
                 <label for="validationCustom02" class="form-label">prénom</label>
-                <input type="text" class="form-control" id="validationCustom02" name="prenom" value="<%= datas.prenom %>" required>
+                <input type="text" class="form-control" id="validationCustom02" name="prenom" maxlength="50" value="<%= datas.prenom %>" required>
             </div>
             <div class="col-md-4">
                 <label for="validationCustomUsername" class="form-label">tel</label>
@@ -35,14 +35,14 @@
 
             <div class="col-md-8">
                 <label for="validationCustom05" class="form-label">profession</label>
-                <input type="text" class="form-control" id="validationCustom05" name="profession" value="<%= datas.profession %>">
+                <input type="text" class="form-control" id="validationCustom05" name="profession" maxlength="50" value="<%= datas.profession %>">
             </div>
 
             <div class="col-md-12">
                 <label for="validationCustom06" class="form-label">signe distinctif</label>
-                <input type="text" class="form-control" id="validationCustom06" name="signe_distinctif" value="<%= datas.signe_distinctif %>">
+                <input type="text" class="form-control" id="validationCustom06" name="signe_distinctif" maxlength="255" value="<%= datas.signe_distinctif %>">
             </div>
-
+            
             <div class="col-md-6">
                 <label for="validationCustom07" class="form-label">photo 1</label>
                 <input type="text" class="form-control" id="validationCustom07" name="photo_1" value="<%= datas.photo_1 %>">

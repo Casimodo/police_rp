@@ -1,10 +1,21 @@
 <%- include('../../partials/header'); -%>
 
+    <script>
+        var tupleChange = function (_self, id_casier, id_cas_detail) {
+            console.log(`>> ${id_casier}/${id_cas_detail}/${_self.value}`);
+            let value = parseInt(_self.value);
+            if (!isNaN(value)) {
+                location.href=`/casier/detail/multiple/${id_casier}/${id_cas_detail}/${_self.value}`;
+            }
+        };
+    </script>
+
     <div class="container">
 
         <figure class="text-center">
             <blockquote class="blockquote">
-                <p>Ajout / Modification Casier : <%= civil.prenom %>, <%= civil.nom %></p>
+                <p>Ajout / Modification Casier : <%= civil.prenom %>, <%= civil.nom %>
+                </p>
             </blockquote>
             <figcaption class="blockquote-footer">
                 <i>Attention: </i> cliquer sur "Sauvegarder" pour enregistrer les 2 champs ci-dessous !
@@ -54,7 +65,7 @@
                 <tr>
                     <th scope="col" colspan="2">Infraction</th>
                     <th scope="col">Type</th>
-                    <th scope="col">complément</th>
+                    <th scope="col">Multiple</th>
                     <th scope="col">Montant</th>
                 </tr>
             </thead>
@@ -74,12 +85,12 @@
                                 <%= detailsCasiers[i].type %>
                             </td>
                             <td>
-                                <%= detailsCasiers[i].complement %>
+                               <input style="width: 80px;" type="number" value="<%= detailsCasiers[i].multiple %>" onfocusout="tupleChange(this, <%= casier.id_casier %>, <%= detailsCasiers[i].id_cas_detail %>)" />
                             </td>
-                            <td>$<%= Intl.NumberFormat('us-US').format(detailsCasiers[i].tarif) %>
+                            <td>$<%= Intl.NumberFormat('us-US').format(detailsCasiers[i].tarif * detailsCasiers[i].multiple) %>
                             </td>
                         </tr>
-                        <% somme = somme + detailsCasiers[i].tarif %>
+                        <% somme=somme + (detailsCasiers[i].tarif * detailsCasiers[i].multiple) %>
                             <% } %>
             </tbody>
             <tfoot>
@@ -141,7 +152,7 @@
     </div>
 
     <script>
-        $(document).ready(function () { 
+        $(document).ready(function () {
             $('#table_codepenal').DataTable();
         });
     </script>

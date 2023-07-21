@@ -25,6 +25,7 @@ model casiers_judiciaire_details {
   casier_id     Int
   amende_id     Int
   complement    String? @db.VarChar(255)
+  multiple      Int?    @default(1)
 
   @@index([casier_id], map: "FK_casiers_judiciaire_details_casiers_judiciaire")
   @@index([amende_id], map: "FK_casiers_judiciaire_details_ref_amendes")
@@ -73,7 +74,7 @@ model players {
 model ref_amendes {
   id         Int              @id @default(autoincrement())
   label      String           @default("") @db.VarChar(255)
-  type       ref_amendes_type @default(contraventions)
+  type       ref_amendes_type @default(crimes)
   complement String?          @default("") @db.VarChar(255)
   tarif      Float            @default(0) @db.Float
 }

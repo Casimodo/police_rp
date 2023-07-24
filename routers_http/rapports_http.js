@@ -78,10 +78,14 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
                 let sujet = req.body.sujet;
                 let commentaire = req.body.commentaire;
+                let photo_1 = req.body.photo_1;
+                let photo_2 = req.body.photo_2;
+                let photo_3 = req.body.photo_3;
+                let photo_4 = req.body.photo_4;
 
                 if (coplevel >= 0) {
 
-                    const datas = (await prisma.$queryRaw`INSERT INTO rapports(agent_id, sujet, commentaire) VALUES (${req.user.id}, ${sujet}, ${commentaire});`);
+                    const datas = (await prisma.$queryRaw`INSERT INTO rapports(agent_id, sujet, commentaire, photo_1, photo_2, photo_3, photo_4) VALUES (${req.user.id}, ${sujet}, ${commentaire}, ${photo_1}, ${photo_2}, ${photo_3}, ${photo_4});`);
 
                     res.redirect('/rapports');
 
@@ -198,9 +202,13 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
                 let sujet = req.body.sujet;
                 let commentaire = req.body.commentaire;
+                let photo_1 = req.body.photo_1;
+                let photo_2 = req.body.photo_2;
+                let photo_3 = req.body.photo_3;
+                let photo_4 = req.body.photo_4;
 
                 if (coplevel >= 0) {
-                    const datas = (await prisma.$queryRaw`UPDATE rapports SET sujet=${sujet}, commentaire=${commentaire} WHERE uuid=${uuid};`);
+                    const datas = (await prisma.$queryRaw`UPDATE rapports SET sujet=${sujet}, commentaire=${commentaire}, photo_1=${photo_1}, photo_2=${photo_2}, photo_3=${photo_3}, photo_4=${photo_4} WHERE uuid=${uuid};`);
                     res.redirect('/rapports');
                 } else {
                     res.redirect('/logout');

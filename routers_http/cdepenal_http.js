@@ -21,7 +21,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             const coplevel = parseInt(req.user.grade);
 
-            if (coplevel > 0) {
+            if (coplevel >= 0) {
 
                 const datas = (await prisma.$queryRaw`SELECT * FROM ref_amendes ORDER BY label;`);
 

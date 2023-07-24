@@ -22,7 +22,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             const coplevel = parseInt(req.user.grade);
 
-            if (coplevel > 0) {
+            if (coplevel >= 0) {
 
                 const civilid = req.params.civilid;
                 const datasCivil = (await prisma.$queryRaw`SELECT * FROM civils WHERE id = ${civilid} LIMIT 1;`);
@@ -51,7 +51,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             const coplevel = parseInt(req.user.grade);
 
-            if (coplevel > 0) {
+            if (coplevel >= 0) {
 
                 const civilid = req.params.civilid;
                 const agentid = req.user.id;
@@ -87,7 +87,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             const coplevel = parseInt(req.user.grade);
 
-            if (coplevel > 0) {
+            if (coplevel >= 0) {
 
                 const casierid = req.params.casierid;
                 const agentid = req.user.id;
@@ -123,7 +123,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             const coplevel = parseInt(req.user.grade);
 
-            if (coplevel > 0) {
+            if (coplevel >= 0) {
 
                 const casierid = req.params.casierid;
                 const agentid = req.user.id;
@@ -147,7 +147,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             const coplevel = parseInt(req.user.grade);
 
-            if (coplevel > 0) {
+            if (coplevel >= 0) {
 
                 const casierid = req.params.casierid;
                 const codePenalId = req.params.codePenalId;
@@ -170,7 +170,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             const coplevel = parseInt(req.user.grade);
 
-            if (coplevel > 0) {
+            if (coplevel >= 0) {
 
                 const casierid = req.params.casierid;
                 const id_cas_detail = req.params.id_cas_detail;
@@ -193,7 +193,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             const coplevel = parseInt(req.user.grade);
 
-            if (coplevel > 0) {
+            if (coplevel >= 0) {
 
                 const casierid = req.params.casierid;
                 const id_cas_detail = req.params.id_cas_detail;

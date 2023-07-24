@@ -22,7 +22,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
             try {
                 const coplevel = parseInt(req.user.grade);
 
-                if (coplevel > 0) {
+                if (coplevel >= 0) {
 
                     const datas = (await prisma.$queryRaw`SELECT *, rapports.date AS dateCreate FROM rapports LEFT JOIN players ON rapports.agent_id = players.id`);
 
@@ -52,7 +52,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             const coplevel = parseInt(req.user.grade);
 
-            if (coplevel > 0) {
+            if (coplevel >= 0) {
 
                 res.render("pages/rapports/new.ejs", {
                     PARAMS: req.PARAMS,
@@ -79,7 +79,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 let sujet = req.body.sujet;
                 let commentaire = req.body.commentaire;
 
-                if (coplevel > 0) {
+                if (coplevel >= 0) {
 
                     const datas = (await prisma.$queryRaw`INSERT INTO rapports(agent_id, sujet, commentaire) VALUES (${req.user.id}, ${sujet}, ${commentaire});`);
 
@@ -105,7 +105,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
             try {
                 const coplevel = parseInt(req.user.grade);
 
-                if (coplevel > 0) {
+                if (coplevel >= 0) {
 
                     const uuid = req.params.rapportUuid;
                     const datas = (await prisma.$queryRaw`SELECT *, rapports.date AS dateCreate FROM rapports LEFT JOIN players ON rapports.agent_id = players.id WHERE rapports.uuid = ${uuid} LIMIT 1;`);
@@ -137,7 +137,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
             try {
                 const coplevel = parseInt(req.user.grade);
 
-                if (coplevel > 0) {
+                if (coplevel >= 0) {
 
                     const uuid = req.params.rapportUuid;
                     const datas = (await prisma.$queryRaw`SELECT *, rapports.date AS dateCreate FROM rapports LEFT JOIN players ON rapports.agent_id = players.id WHERE rapports.uuid = ${uuid} LIMIT 1;`);
@@ -199,7 +199,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 let sujet = req.body.sujet;
                 let commentaire = req.body.commentaire;
 
-                if (coplevel > 0) {
+                if (coplevel >= 0) {
                     const datas = (await prisma.$queryRaw`UPDATE rapports SET sujet=${sujet}, commentaire=${commentaire} WHERE uuid=${uuid};`);
                     res.redirect('/rapports');
                 } else {

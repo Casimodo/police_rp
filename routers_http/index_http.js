@@ -6,7 +6,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
     self.db = new self.database(config, logger);
     self.outilsClass = require('../class/utils.class.js');
     self.outils = new self.outilsClass();
-
+    
 
     try {
 

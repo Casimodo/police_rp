@@ -22,7 +22,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
             try {
                 const coplevel = parseInt(req.user.grade);
 
-                if (coplevel > 0) {
+                if (coplevel >= 0) {
 
                     const datas = (await prisma.$queryRaw`SELECT civ.*, SUM(tarif * multiple) AS total FROM civils AS civ 
                     LEFT JOIN casiers_judiciaire AS cas ON civ.id = cas.civil_id 
@@ -56,7 +56,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             const coplevel = parseInt(req.user.grade);
 
-            if (coplevel > 0) {
+            if (coplevel >= 0) {
 
                 res.render("pages/civils/new.ejs", {
                     PARAMS: req.PARAMS,
@@ -90,7 +90,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 let photo_1 = req.body.photo_1;
                 let photo_2 = req.body.photo_2;
 
-                if (coplevel > 0) {
+                if (coplevel >= 0) {
 
                     const datas = (await prisma.$queryRaw`INSERT INTO civils(nom, prenom, telephone, genre, tail_cm, profession, signe_distinctif, photo_1, photo_2) VALUES (${nom}, ${prenom}, ${telephone}, ${genre}, ${tail_cm}, ${profession}, ${signe_distinctif}, ${photo_1}, ${photo_2});`);
 
@@ -116,7 +116,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
             try {
                 const coplevel = parseInt(req.user.grade);
 
-                if (coplevel > 0) {
+                if (coplevel >= 0) {
 
                     const civilid = req.params.civilid;
                     const datas = (await prisma.$queryRaw`SELECT * FROM civils WHERE id = ${civilid} LIMIT 1;`);
@@ -159,7 +159,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 let photo_1 = req.body.photo_1;
                 let photo_2 = req.body.photo_2;
 
-                if (coplevel > 0) {
+                if (coplevel >= 0) {
                     const datas = (await prisma.$queryRaw`UPDATE civils SET nom=${nom}, prenom=${prenom}, telephone=${telephone}, genre=${genre}, tail_cm=${tail_cm}, profession=${profession}, signe_distinctif=${signe_distinctif}, photo_1=${photo_1}, photo_2=${photo_2} WHERE id=${civilid};`);
                     res.redirect('/civils');
                 } else {

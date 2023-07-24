@@ -1,68 +1,83 @@
 <%- include('../../partials/header'); -%>
 
-    <% if (authent) { %>
-        <!-- === AVEC CONNEXION ===========================================================================================================================-->
-
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/admin">Accueil ADMIN</a></li>
-            </ol>
-        </nav>
-
-        <h3>Liste des joueurs</h3>
-        <p><i>Cliquer sur l'entête des colonnes pour un trie, sinon utiliser la recherche !</i></p>
-        <br />
-        <br />
-
-
-        <div class="row">
-
-            <table id="table_rapports" class="table table-hover table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col" data-order="desc">uuid</th>
-                        <th scope="col">name</th>
-                        <th scope="col">aliases</th>
-                        <th scope="col">cash</th>
-                        <th scope="col">bankacc</th>
-                        <th scope="col">Détail</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for(var i=0; i < datas.length; i++) { %>
-                        <tr>
-                            <th scope="row">
-                                <%= datas[i].playerid %>
-                            </th>
-                            <td>
-                                <%= datas[i].name %>
-                            </td>
-                            <td>
-                                <%= datas[i].aliases %>
-                            </td>
-                            <td>
-                                $<%= Intl.NumberFormat('us-US').format(datas[i].cash) %>
-                            </td>
-                            <td>
-                                $<%= Intl.NumberFormat('us-US').format(datas[i].bankacc) %>
-                            </td>
-                            <td>
-                                <a href="/admin/player_details/<%= datas[i].playerid %>" type="button"
-                                    class="btn btn-secondary btn-sm"><i data-feather="eye"></i> Détail</a>
-                            </td>
-                        </tr>
-                        <% } %>
-                </tbody>
-            </table>
-
+    <div class="media">
+        <div class="media-body">
+            <strong>Joueurs référencés</strong>
         </div>
+    </div>
 
-        <script>
-            $(document).ready(function () {
-                $('#table_rapports').DataTable();
+    <div class="row">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="/admin/player/new" type="button" class="btn btn-outline-primary">Ajouter player</a>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <table id="table_civils" class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Non</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Grade</th>
+                    <th scope="col">Investig</th>
+                    <th scope="col">Actif</th>
+                    <th scope="col">Admin</th>
+                    <th scope="col">Modifier</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i < datas.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%= datas[i].nom %>
+                        </td>
+                        <td>
+                            <%= datas[i].prenom %>
+                        </td>
+                        <td>
+                            <%= datas[i].grade_label %>
+                        </td>
+                        <td>
+                            <% if (datas[i].investigation == 1)  { %>
+                                <span class="badge bg-success">oui</span>
+                            <% }else{ %>
+                                non
+                            <% } %>
+                        </td>
+                        <td>
+                            <% if (datas[i].actif == 1)  { %>
+                                <span class="badge bg-success">oui</span>
+                            <% }else{ %>
+                                non
+                            <% } %>
+                        </td>
+                        <td>
+                            <% if (datas[i].admin == 1)  { %>
+                                <span class="badge bg-danger">oui</span>
+                            <% }else{ %>
+                                non
+                            <% } %>
+                        </td>
+                        <td>
+                            <a href="/admin/player/edit/<%= datas[i].id %>" type="button" class="btn btn-primary btn-sm" title="editer"><i data-feather="edit-2"></i></a>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#table_civils').DataTable({
+                "pageLength": 25,
+                order: [[0, 'asc']]
             });
-        </script>
+        });
+    </script>
 
-        <% } %>
-
-            <%- include('../../partials/footer'); -%>
+    <%- include('../../partials/footer'); -%>

@@ -22,17 +22,17 @@
             </figcaption>
         </figure>
 
-        <form class="row g-3 needs-validation" action="/casier/detail/save/<%= casier.id_casier %>" method="post">
+        <form class="row g-3 needs-validation" action="/casier/detail/save/<%= casier.id_casier %>" id="myform" method="post">
 
             <div class="col-md-12">
                 <label for="validationCustom02" class="form-label">Lieu</label>
                 <input type="text" class="form-control" id="validationCustom02" name="lieu" maxlength="50" value="<%= casier.lieu %>"
-                    required>
+                    required onfocusout="document.forms['myform'].submit();">
             </div>
 
             <div class="mb-12">
                 <label for="exampleFormControlTextarea1" class="form-label">Fait reproché</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="detail_fait" required><%= casier.detail_fait %></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="detail_fait" required onfocusout="document.forms['myform'].submit();"><%= casier.detail_fait %></textarea>
             </div>
 
             <div class="col-2">
@@ -153,7 +153,10 @@
 
     <script>
         $(document).ready(function () {
-            $('#table_codepenal').DataTable();
+            $('#table_codepenal').DataTable({
+                "pageLength": 25,
+                order: [[0, 'asc']]
+            });
         });
     </script>
 

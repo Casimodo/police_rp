@@ -1,0 +1,89 @@
+<%- include('../../partials/header'); -%>
+
+    <div class="container">
+        <form class="row g-3 needs-validation" action="/admin/player/save/<%= datas.id %>" method="post">
+            <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">nom</label>
+                <input type="text" class="form-control" id="validationCustom01" name="nom" maxlength="50"
+                    value="<%= datas.nom %>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom02" class="form-label">prénom</label>
+                <input type="text" class="form-control" id="validationCustom02" name="prenom" maxlength="50"
+                    value="<%= datas.prenom %>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom03" class="form-label">Matricule</label>
+                <input type="text" class="form-control" id="validationCustom03" name="matricule" maxlength="50"
+                    value="<%= datas.matricule %>" required>
+            </div>
+
+            <div class="col-md-4">
+                <label for="validationCustom04" class="form-label">grade</label>
+                <select class="form-select" id="validationCustom04" value="<%= datas.grade %>" name="grade" required>
+                    <% for(var i=0; i < datasGrades.length; i++) { %>
+                        <option value="<%= datasGrades[i].key %>" <% if (datas.grade == datasGrades[i].key) { %>selected<% } %>>
+                            <%= datasGrades[i].grade_label %>
+                        </option>
+                        <% } %>
+                </select>
+            </div>
+            <div class="col-md-8">
+                &nbsp;
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1" name="investigation" value="<%= datas.investigation %>" <% if (datas.investigation == 1) { %>checked<% } %>>
+                    <label class="form-check-label" for="flexSwitchCheckDefault1">Investigation</label>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault3" name="actif" value="<%= datas.actif %>" <% if (datas.actif == 1) { %>checked<% } %>>
+                    <label class="form-check-label" for="flexSwitchCheckDefault3">Actif (si pas actif plus d'accès)</label>
+                </div>
+            </div>
+
+            <div class="col-md-12"></div>
+
+            <div class="col-md-12">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault2" name="admin" value="<%= datas.admin %>" <% if (datas.admin == 1) { %>checked<% } %>>
+                    <label class="form-check-label text-danger" for="flexSwitchCheckDefault2">Administrateur (gestion des comptes)</label>
+                </div>
+            </div>
+
+            <div class="col-md-12"></div>
+                        
+            <div class="col-12">
+                <button class="btn btn-primary" id="submit" type="submit">Sauvegarder</button>
+            </div>
+
+
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            var ctrl = () => {
+                let pass1 = $('#password').val();
+                let pass2 = $('#password_verif').val();
+                if ((pass1 != pass2) || (pass1.length < 6)) {
+                    $('#badge').show();
+                    $('#submit').prop('disabled', true);
+                } else {
+                    $('#badge').hide();
+                    $('#submit').prop('disabled', false);
+                };
+            };
+
+            $('#badge').hide();
+            $('#password').on('change', ctrl);
+            $('#password_verif').on('change', ctrl);
+        });
+    </script>
+
+    <%- include('../../partials/footer'); -%>

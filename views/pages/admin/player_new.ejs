@@ -1,0 +1,72 @@
+<%- include('../../partials/header'); -%>
+
+    <div class="container">
+        <form class="row g-3 needs-validation" action="/admin/player/new" method="post">
+
+            <i class="text-danger">Attention: Si l'ajout ne fonctionne pas cela signifie que ce username est utilisé !</i>
+
+            <div class="col-md-4">
+                <label for="validationCustom00" class="form-label">username</label>
+                <input type="text" class="form-control" id="validationCustom00" name="username" maxlength="50" required>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">nom</label>
+                <input type="text" class="form-control" id="validationCustom01" name="nom" maxlength="50" required>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom02" class="form-label">prénom</label>
+                <input type="text" class="form-control" id="validationCustom02" name="prenom" maxlength="50" required>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom03" class="form-label">Matricule</label>
+                <input type="text" class="form-control" id="validationCustom03" name="matricule" maxlength="50" required>
+            </div>
+
+            <div class="col-md-4">
+                <label for="validationCustom04" class="form-label">grade</label>
+                <select class="form-select" id="validationCustom04" name="grade" required>
+                    <% for(var i=0; i < datasGrades.length; i++) { %>
+                        <option value="<%= datasGrades[i].key %>">
+                            <%= datasGrades[i].grade_label %>
+                        </option>
+                        <% } %>
+                </select>
+            </div>
+            <div class="col-md-8">
+                &nbsp;
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1" name="investigation">
+                    <label class="form-check-label" for="flexSwitchCheckDefault1">Investigation</label>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault3" name="actif">
+                    <label class="form-check-label" for="flexSwitchCheckDefault3">Actif (si pas actif plus d'accès)</label>
+                </div>
+            </div>
+
+            <div class="col-md-12"></div>
+
+            <div class="col-md-12">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault2" name="admin">
+                    <label class="form-check-label text-danger" for="flexSwitchCheckDefault2">Administrateur (gestion des comptes)</label>
+                </div>
+            </div>
+
+            <div class="col-md-12"><i>Password par défaut = reality_2023 (le joueur doit le changer lui même)</i></div>
+                        
+            <div class="col-12">
+                <button class="btn btn-primary" id="submit" type="submit">Ajouter</button>
+            </div>
+
+
+        </form>
+    </div>
+
+    <%- include('../../partials/footer'); -%>

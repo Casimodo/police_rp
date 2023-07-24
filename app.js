@@ -95,7 +95,7 @@ try {
         name: 'rp_web_site',
         resave: true,
         saveUninitialized: true,
-        cookie: { expires: 3600000 }
+        cookie: { expires: (240 * 60 * 1000) }  // 4h
     }));
 
     /* Configure password authentication strategy.

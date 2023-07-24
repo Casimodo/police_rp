@@ -43,7 +43,10 @@
 
     <script>
         $(document).ready(function () {
-            $('#table_codepenal').DataTable();
+            $('#table_codepenal').DataTable({
+                "pageLength": 50,
+                order: [[0, 'asc']]
+            });
         });
     </script>
 

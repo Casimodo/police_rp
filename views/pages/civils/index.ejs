@@ -54,7 +54,10 @@
 
     <script>
         $(document).ready(function () {
-            $('#table_civils').DataTable();
+            $('#table_civils').DataTable({
+                "pageLength": 50,
+                order: [[0, 'asc']]
+            });
         });
     </script>
 

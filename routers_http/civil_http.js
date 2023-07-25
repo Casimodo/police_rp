@@ -89,10 +89,13 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 let signe_distinctif = req.body.signe_distinctif;
                 let photo_1 = req.body.photo_1;
                 let photo_2 = req.body.photo_2;
+                let photo_3 = req.body.photo_3;
+                let photo_4 = req.body.photo_4;
+                let photo_5 = req.body.photo_5;
 
                 if (coplevel >= 0) {
 
-                    const datas = (await prisma.$queryRaw`INSERT INTO civils(nom, prenom, telephone, genre, tail_cm, profession, signe_distinctif, photo_1, photo_2) VALUES (${nom}, ${prenom}, ${telephone}, ${genre}, ${tail_cm}, ${profession}, ${signe_distinctif}, ${photo_1}, ${photo_2});`);
+                    const datas = (await prisma.$queryRaw`INSERT INTO civils(nom, prenom, telephone, genre, tail_cm, profession, signe_distinctif, photo_1, photo_2, photo_3, photo_4, photo_5) VALUES (${nom}, ${prenom}, ${telephone}, ${genre}, ${tail_cm}, ${profession}, ${signe_distinctif}, ${photo_1}, ${photo_2}, ${photo_3}, ${photo_4}, ${photo_5});`);
 
                     res.redirect('/civils');
 
@@ -158,9 +161,12 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 let signe_distinctif = req.body.signe_distinctif;
                 let photo_1 = req.body.photo_1;
                 let photo_2 = req.body.photo_2;
+                let photo_3 = req.body.photo_3;
+                let photo_4 = req.body.photo_4;
+                let photo_5 = req.body.photo_5;
 
                 if (coplevel >= 0) {
-                    const datas = (await prisma.$queryRaw`UPDATE civils SET nom=${nom}, prenom=${prenom}, telephone=${telephone}, genre=${genre}, tail_cm=${tail_cm}, profession=${profession}, signe_distinctif=${signe_distinctif}, photo_1=${photo_1}, photo_2=${photo_2} WHERE id=${civilid};`);
+                    const datas = (await prisma.$queryRaw`UPDATE civils SET nom=${nom}, prenom=${prenom}, telephone=${telephone}, genre=${genre}, tail_cm=${tail_cm}, profession=${profession}, signe_distinctif=${signe_distinctif}, photo_1=${photo_1}, photo_2=${photo_2}, photo_3=${photo_3}, photo_4=${photo_4}, photo_5=${photo_5} WHERE id=${civilid};`);
                     res.redirect('/civils');
                 } else {
                     res.redirect('/logout');

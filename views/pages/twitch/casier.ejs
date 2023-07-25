@@ -49,15 +49,21 @@
     <!-- le contenu défilant -->
     <div>
       Derniers casiers avec cumul des amendes :
-      <% for(var i=0; i < datas.length; i++) { %> 
+      <% for(var i=0; i < datas.length; i++) { %>
         <i>
-        <%= datas[i].prenom %>, <%= datas[i].nom %> <strong>
-              $<%= Intl.NumberFormat('us-US').format(datas[i].total) %>
-            </strong>&nbsp;&nbsp; - &nbsp;&nbsp;
-          </i>
-            <% } %>
+          <%= datas[i].prenom %>, <%= datas[i].nom %> <strong>
+                $<%= Intl.NumberFormat('us-US').format(datas[i].total) %>
+              </strong>&nbsp;&nbsp; - &nbsp;&nbsp;
+        </i>
+        <% } %>
     </div>
   </div>
+
+  <script>
+    window.setTimeout(function () {
+      window.location.reload();
+    }, 30000);
+  </script>
 
 </body>
 

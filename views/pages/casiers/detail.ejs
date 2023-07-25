@@ -24,9 +24,14 @@
 
         <form class="row g-3 needs-validation" action="/casier/detail/save/<%= casier.id_casier %>" id="myform" method="post">
 
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="validationCustom02" class="form-label">Lieu</label>
                 <input type="text" class="form-control" id="validationCustom02" name="lieu" maxlength="50" value="<%= casier.lieu %>"
+                    required onfocusout="document.forms['myform'].submit();">
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustom021" class="form-label">Retenue avoir</label>
+                <input type="number" class="form-control" id="validationCustom021" name="retenu_compte_bancaire" maxlength="50" value="<%= casier.retenu_compte_bancaire %>"
                     required onfocusout="document.forms['myform'].submit();">
             </div>
 
@@ -93,6 +98,19 @@
                         <% somme=somme + (detailsCasiers[i].tarif * detailsCasiers[i].multiple) %>
                             <% } %>
             </tbody>
+
+            <tfoot>
+                <td colspan="3" class="table-warning text-center">
+                    Calcul après retenue
+                </td>
+                <td class="table-warning">
+                    <strong>T.I.G: <%= Math.round((somme - casier.retenu_compte_bancaire) / 1500) %></strong>
+                </td>
+                <td class="table-warning">
+                    <strong>$<%= Intl.NumberFormat('us-US').format(somme - casier.retenu_compte_bancaire) %></strong>
+                </td>
+            </tfoot>
+
             <tfoot>
                 <td colspan="3">
                 </td>
@@ -103,6 +121,7 @@
                     <strong>$<%= Intl.NumberFormat('us-US').format(somme) %></strong>
                 </td>
             </tfoot>
+            
         </table>
     </div>
 

@@ -128,9 +128,10 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 const casierid = req.params.casierid;
                 const agentid = req.user.id;
                 let lieu = req.body.lieu;
+                let retenu_compte_bancaire = parseInt(req.body.retenu_compte_bancaire);
                 let detail_fait = req.body.detail_fait;
 
-                const datasSave = (await prisma.$queryRaw`UPDATE casiers_judiciaire SET lieu=${lieu}, detail_fait=${detail_fait} WHERE id_casier=${casierid};`);
+                const datasSave = (await prisma.$queryRaw`UPDATE casiers_judiciaire SET lieu=${lieu}, detail_fait=${detail_fait}, retenu_compte_bancaire=${retenu_compte_bancaire} WHERE id_casier=${casierid};`);
 
                 res.redirect(`/casier/detail/edit/${casierid}`);
 

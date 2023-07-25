@@ -1,0 +1,64 @@
+<html>
+<header>
+  <style>
+    /* le block conteneur */
+    .marquee-rtl {
+      max-width: 90%;
+      /* largeur de la fenêtre */
+      margin: 1em auto 2em;
+      border: 3px solid #F0F0FF;
+      overflow: hidden;
+      /* masque tout ce qui dépasse */
+      box-shadow: 0 .25em .5em #CCC, inset 0 0 1em .25em #CCC;
+      opacity: 0.6;
+    }
+
+    /* le bloc défilant */
+    .marquee-rtl> :first-child {
+      display: inline-block;
+      /* modèle de boîte en ligne */
+      padding-right: 2em;
+      /* un peu d'espace pour la transition */
+      padding-left: 100%;
+      /* placement à droite du conteneur */
+      white-space: nowrap;
+      /* pas de passage à la ligne */
+      animation: defilement-rtl 30s infinite linear;
+      font-size: 2em;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      color: #FF6600;
+    }
+
+    @keyframes defilement-rtl {
+      0% {
+        transform: translate3d(0, 0, 0);
+        /* position initiale à droite */
+      }
+
+      100% {
+        transform: translate3d(-100%, 0, 0);
+        /* position finale à gauche */
+      }
+    }
+  </style>
+</header>
+
+<body>
+
+  <div class="marquee-rtl">
+    <!-- le contenu défilant -->
+    <div>
+      Derniers casiers avec le cumul des amendes :
+      <% for(var i=0; i < datas.length; i++) { %> 
+        <i>
+        <%= datas[i].prenom %>, <%= datas[i].nom %> <strong>
+              $<%= Intl.NumberFormat('us-US').format(datas[i].total) %>
+            </strong>&nbsp;&nbsp; - &nbsp;&nbsp;
+          </i>
+            <% } %>
+    </div>
+  </div>
+
+</body>
+
+</html>

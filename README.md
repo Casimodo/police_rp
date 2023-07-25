@@ -19,22 +19,27 @@
 npm install
 ```
 
-# see for authent steam
-- https://www.npmjs.com/package/passport-steam
-- http://steamcommunity.com/dev/apikey
-- https://stackoverflow.com/questions/36879159/login-into-a-website-with-steam-login-using-nodejs
-
-# Petite aide
-<%= moment(datas[i].date_create).format('DD/MM/YYYY HH:mm') %>
-<%= Intl.NumberFormat('us-US').format(3000) %>
-
 # Utilisation
 
 ## Configuration
-1. Copier / Coller le fichier "config_template.json" dans le dossier /configs
-2. Le renomer en "config_prod.json"
+1. Créer ou set un fichier .env
+```code
+DATABASE_URL="mysql://<LOGIN_DB>:<PASS_DB>@<IP_DB>:<PORT_DB>/Reality_Police"
+NODE_ENV="<dev OU prod>"
+PROTOCOL="<http OU https>"
+URL="<URL>"
+ENV_PORT="<TOKEN>"
+WEB_SERVER_TOKEN="<PERSONNAL TOKEN>"
+```
+2. Utiliser le fichier "mysql_init.sql" pour initialiser votre base de donnée
+3. Run votre serveur node avec la commande ci-dessous, je vous conseil pm2 pour gérer le service
 
 ## Lancement du serveur
   ```cmd
   pm2 start ecosystem.json --env development
   ```
+
+
+# NOTA: Petite aide
+<%= moment(datas[i].date_create).format('DD/MM/YYYY HH:mm') %>
+<%= Intl.NumberFormat('us-US').format(3000) %>

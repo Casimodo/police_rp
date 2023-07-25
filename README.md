@@ -41,5 +41,7 @@ WEB_SERVER_TOKEN="<PERSONNAL TOKEN>"
 
 
 # NOTA: Petite aide
+```code
 <%= moment(datas[i].date_create).format('DD/MM/YYYY HH:mm') %>
 <%= Intl.NumberFormat('us-US').format(3000) %>
+```

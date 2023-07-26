@@ -22,18 +22,28 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             try {
 
-                const datas = (await prisma.$queryRaw`SELECT MAX(cas.date) AS dateCas, civ.*, SUM(tarif * multiple) AS total FROM civils AS civ 
-                    LEFT JOIN casiers_judiciaire AS cas ON civ.id = cas.civil_id 
-                    LEFT JOIN casiers_judiciaire_details AS cas_det ON cas.id_casier = cas_det.casier_id
-                    LEFT JOIN ref_amendes AS amd ON cas_det.amende_id = amd.id
-                    GROUP BY civ.id ORDER BY MAX(cas.date) DESC LIMIT 5`);
+                const datasTop3Casier = (await prisma.$queryRaw`SELECT cjd.casier_id, civ.prenom, civ.nom, SUM(ra.tarif * cjd.multiple) AS total FROM casiers_judiciaire_details AS cjd 
+                LEFT JOIN ref_amendes AS ra ON (cjd.amende_id = ra.id)
+                LEFT JOIN casiers_judiciaire AS ca ON (cjd.casier_id = ca.id_casier)
+                LEFT JOIN civils AS civ ON (ca.civil_id = civ.id)
+                GROUP BY cjd.casier_id ORDER BY SUM(ra.tarif * cjd.multiple) DESC
+                LIMIT 3`);
+
+                const datasTop3dernierCasier = (await prisma.$queryRaw`SELECT MAX(cj.date) AS ddate, civ.id, civ.prenom, civ.nom, SUM(ra.tarif * cjd.multiple) AS total FROM casiers_judiciaire AS cj
+                LEFT JOIN casiers_judiciaire_details AS cjd ON (cj.id_casier = cjd.casier_id)
+                LEFT JOIN ref_amendes AS ra ON (cjd.amende_id = ra.id)
+                LEFT JOIN civils AS civ ON (cj.civil_id = civ.id)
+                GROUP BY civ.id 
+                ORDER BY ddate DESC
+                LIMIT 10;`);
 
                 res.render("pages/twitch/casier.ejs", {
                     PARAMS: req.PARAMS,
                     I18N: req.I18N,
                     page_name: '',
                     user: req.user,
-                    datas: datas
+                    datasTop3Casier,
+                    datasTop3dernierCasier
                 });
 
 

@@ -10,7 +10,7 @@
       overflow: hidden;
       /* masque tout ce qui dépasse */
       box-shadow: 0 .25em .5em #CCC, inset 0 0 1em .25em #CCC;
-      opacity: 0.6;
+      opacity: 0.8;
     }
 
     /* le bloc défilant */
@@ -23,10 +23,10 @@
       /* placement à droite du conteneur */
       white-space: nowrap;
       /* pas de passage à la ligne */
-      animation: defilement-rtl 30s infinite linear;
+      animation: defilement-rtl 60s infinite linear;
       font-size: 2em;
       font-family: Verdana, Geneva, Tahoma, sans-serif;
-      color: #FF6600;
+      color: #ff1717;
     }
 
     @keyframes defilement-rtl {
@@ -36,7 +36,7 @@
       }
 
       100% {
-        transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-200%, 0, 0);
         /* position finale à gauche */
       }
     }
@@ -48,14 +48,21 @@
   <div class="marquee-rtl">
     <!-- le contenu défilant -->
     <div>
-      Derniers casiers avec cumul des amendes :
-      <% for(var i=0; i < datas.length; i++) { %>
+      <strong>TOP 3 casiers =></strong>
+      <% for(var i=0; i < datasTop3Casier.length; i++) { %>
         <i>
-          <%= datas[i].prenom %>, <%= datas[i].nom %> <strong>
-                $<%= Intl.NumberFormat('us-US').format(datas[i].total) %>
-              </strong>&nbsp;&nbsp; - &nbsp;&nbsp;
+          <%= datasTop3Casier[i].prenom %>, <%= datasTop3Casier[i].nom %> : <strong>
+                $<%= Intl.NumberFormat('us-US').format(datasTop3Casier[i].total) %>
+              </strong>&nbsp;&nbsp;
         </i>
         <% } %>
+        /&nbsp;
+      <strong>dernier casier =></strong>
+        <i>
+          <%= datasTop3dernierCasier[0].prenom %>, <%= datasTop3dernierCasier[0].nom %> : <strong>
+                $<%= Intl.NumberFormat('us-US').format(datasTop3dernierCasier[0].total) %>
+              </strong>&nbsp;&nbsp;
+        </i>
     </div>
   </div>
 

@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <br/>
+    <br />
 
     <div class="row">
         <table id="table_rapports" class="table table-hover table-sm">
@@ -21,6 +21,8 @@
                     <th scope="col">Date</th>
                     <th scope="col">Agent</th>
                     <th scope="col">Sujet</th>
+                    <th scope="col">type</th>
+                    <th scope="col">status</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -34,14 +36,37 @@
                             [<%= datas[i].matricule %>] <%= datas[i].prenom %>, <%= datas[i].nom %>
                         </td>
                         <td>
-                            <%= datas[i].sujet %>
+                            <%= datas[i].sujet.slice(0,20) %>...
                         </td>
                         <td>
-                            <a href="/rapports/read/<%= datas[i].uuid %>" type="button" class="btn btn-success btn-sm" title="consulter"><i data-feather="eye"></i></a>
-                            <a href="/rapports/read_extern/<%= datas[i].uuid %>" target="_blank" type="button" class="btn btn-warning btn-sm" title="consulter à l'externe"><i data-feather="external-link"></i></a>
-                            <% if (datas[i].agent_id == user.id || user.grade == 200) { %>
-                            <a href="/rapports/edit/<%= datas[i].uuid %>" type="button" class="btn btn-info btn-sm" title="éditer"><i data-feather="edit"></i></a>
+                            <% const redType = ['fusillade','bracage','meurtre']; %>
+                            <% if (redType.includes(datas[i].type)) { %>
+                                <span class="badge bg-danger"><%= datas[i].type %></span>
+                            <% } else { %>
+                                <% if (datas[i].type == "convocation") { %>
+                                    <span class="badge bg-warning">A convoquer !</span>
+                                <% } else { %>
+                                    <span class="badge bg-secondary"><%= datas[i].type %></span>
+                                <% } %>
                             <% } %>
+                        </td>
+                        <td>
+                            <% if (datas[i].status == "en cours") { %>
+                                <span class="badge bg-success">en cours</span>
+                            <% } else { %>
+                                <span class="badge bg-secondary"><%= datas[i].status %></span>
+                            <% } %>
+                        </td>
+                        <td>
+                            <a href="/rapports/read/<%= datas[i].uuid %>" type="button" class="btn btn-primary btn-sm"
+                                title="consulter"><i data-feather="eye"></i></a>
+                            <a href="/rapports/read_extern/<%= datas[i].uuid %>" target="_blank" type="button"
+                                class="btn btn-warning btn-sm" title="consulter à l'externe"><i
+                                    data-feather="external-link"></i></a>
+                            <% if (datas[i].agent_id==user.id || user.grade==200) { %>
+                                <a href="/rapports/edit/<%= datas[i].uuid %>" type="button" class="btn btn-info btn-sm"
+                                    title="éditer"><i data-feather="edit"></i></a>
+                                <% } %>
                         </td>
                     </tr>
                     <% } %>

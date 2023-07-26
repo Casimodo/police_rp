@@ -13,6 +13,29 @@
                 </strong>
             </div>
 
+            <div class="col-md-6">
+                <label for="typeVal" class="form-label">Type</label>
+                <select id="typeVal" name="type">
+                    <option value="classique" <% if (datas.type == 'classique') {%>selected<%}%> >classique</option>
+                    <option value="plainte" <% if (datas.type == 'plainte') {%>selected<%}%> >plainte</option>
+                    <option value="fusillade" <% if (datas.type == 'fusillade') {%>selected<%}%> >fusillade</option>
+                    <option value="bracage" <% if (datas.type == 'bracage') {%>selected<%}%> >bracage</option>
+                    <option value="meurtre" <% if (datas.type == 'meurtre') {%>selected<%}%> >meurtre</option>
+                    <option value="vol" <% if (datas.type == 'vol') {%>selected<%}%> >vol</option>
+                    <option value="convocation" <% if (datas.type == 'convocation') {%>selected<%}%> >convocation</option>
+                    <option value="autres" <% if (datas.type == 'autres') {%>selected<%}%> >autres</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="typeVal" class="form-label">Status</label>
+                <select id="typeVal" name="status">
+                    <option value="en cours" <% if (datas.status == 'en cours') {%>selected<%}%> >en cours</option>
+                    <option value="abandonnée" <% if (datas.status == 'abandonnée') {%>selected<%}%> >abandonnée</option>
+                    <option value="classé" <% if (datas.status == 'classé') {%>selected<%}%> >classé</option>
+                </select>
+            </div>
+
             <div class="col-md-12">
                 <label for="validationCustom02" class="form-label">Sujet</label>
                 <input type="text" class="form-control" id="validationCustom02" name="sujet" maxlength="50" value="<%= datas.sujet %>" required>

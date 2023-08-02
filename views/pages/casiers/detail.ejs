@@ -69,13 +69,15 @@
             <thead>
                 <tr>
                     <th scope="col" colspan="2">Infraction</th>
-                    <th scope="col">Type</th>
                     <th scope="col">Multiple</th>
+                    <th scope="col">TIG / H. Fédérale</th>
                     <th scope="col">Montant</th>
                 </tr>
             </thead>
             <tbody>
                 <% var somme=0 %>
+                <% var sommetig=0 %>
+                <% var sommeheures=0 %>
                     <% for(var i=0; i < detailsCasiers.length; i++) { %>
                         <tr>
                             <td>
@@ -85,28 +87,30 @@
                             </td>
                             <td>
                                 <%= detailsCasiers[i].label %>
+                                <span class="badge rounded-pill text-bg-primary"><%= detailsCasiers[i].genre %></span> 
+                                <span class="badge rounded-pill text-bg-secondary"><%= detailsCasiers[i].type %></span>
                             </td>
                             <td>
-                                <%= detailsCasiers[i].type %>
+                               <input style="width: 75px;" type="number" value="<%= detailsCasiers[i].multiple %>" onfocusout="tupleChange(this, <%= casier.id_casier %>, <%= detailsCasiers[i].id_cas_detail %>)" />
                             </td>
-                            <td>
-                               <input style="width: 80px;" type="number" value="<%= detailsCasiers[i].multiple %>" onfocusout="tupleChange(this, <%= casier.id_casier %>, <%= detailsCasiers[i].id_cas_detail %>)" />
+                            <td class="text-center">
+                                <%= detailsCasiers[i].tig %> / <%= detailsCasiers[i].heures_prison %>
                             </td>
-                            <td>$<%= Intl.NumberFormat('us-US').format(detailsCasiers[i].tarif * detailsCasiers[i].multiple) %>
+                            <td class="text-center">
+                                $<%= Intl.NumberFormat('us-US').format(detailsCasiers[i].tarif * detailsCasiers[i].multiple) %>
                             </td>
                         </tr>
                         <% somme=somme + (detailsCasiers[i].tarif * detailsCasiers[i].multiple) %>
+                        <% sommetig=sommetig + (detailsCasiers[i].tig) %>
+                        <% sommeheures=sommeheures + (detailsCasiers[i].heures_prison) %>
                             <% } %>
             </tbody>
 
             <tfoot>
-                <td colspan="3" class="table-warning text-center">
-                    Calcul après retenue
+                <td colspan="4" class="table-warning text-center">
+                    <i>Calcul après retenue</i>: <%= Math.round((somme - casier.retenu_compte_bancaire) / 1500) %> + <%= sommetig %> (obligatoire) = <strong><%= Math.round((somme - casier.retenu_compte_bancaire) / 1500) + sommetig %> T.I.G</strong>
                 </td>
-                <td class="table-warning">
-                    <strong>T.I.G: <%= Math.round((somme - casier.retenu_compte_bancaire) / 1500) %></strong>
-                </td>
-                <td class="table-warning">
+                <td class="table-warning text-center">
                     <strong>$<%= Intl.NumberFormat('us-US').format(somme - casier.retenu_compte_bancaire) %></strong>
                 </td>
             </tfoot>
@@ -114,10 +118,10 @@
             <tfoot>
                 <td colspan="3">
                 </td>
-                <td>
-                    <strong>T.I.G: <%= Math.round(somme / 1500) %></strong>
+                <td class="text-center">
+                    <strong><%= sommetig %> / <strong><%= sommeheures %> </strong>
                 </td>
-                <td>
+                <td class="text-center">
                     <strong>$<%= Intl.NumberFormat('us-US').format(somme) %></strong>
                 </td>
             </tfoot>
@@ -136,12 +140,12 @@
     </figure>
 
     <div class="row">
+        <span class="badge text-bg-danger">MAXIMUM DE 5 INFRACTIONS AUTORISEES / MAXIMUM DE 3 DELITS</span>
+        <br/>
         <table id="table_codepenal" class="table-responsive table table-hover table-sm">
             <thead>
                 <tr>
                     <th scope="col" colspan="2">Infraction</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">complément</th>
                     <th scope="col">Montant</th>
                 </tr>
             </thead>
@@ -154,13 +158,8 @@
                                     data-feather="plus"></i></a>
                         </td>
                         <td>
-                            <%= datasCdePenal[i].label %>
-                        </td>
-                        <td>
-                            <%= datasCdePenal[i].type %>
-                        </td>
-                        <td>
-                            <%= datasCdePenal[i].complement %>
+                            <%= datasCdePenal[i].label %> <span class="badge rounded-pill text-bg-primary"><%= datasCdePenal[i].genre %></span> <span class="badge rounded-pill text-bg-secondary"><%= datasCdePenal[i].type %></span> <br/>
+                            <i><span class="badge text-bg-light"><%= datasCdePenal[i].complement %></span></i>
                         </td>
                         <td>$<%= Intl.NumberFormat('us-US').format(datasCdePenal[i].tarif) %>
                         </td>

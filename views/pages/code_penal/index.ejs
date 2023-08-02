@@ -3,6 +3,7 @@
     <div class="media">
         <div class="media-body">
             <strong>Liste code pénal</strong>
+            <span class="badge rounded-pill text-bg-danger">MAXIMUM DE 5 INFRACTIONS AUTORISEES / MAXIMUM DE 3 DELITS</span>
         </div>
     </div>
 
@@ -13,8 +14,6 @@
             <thead>
                 <tr>
                     <th scope="col">Infraction</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">complément</th>
                     <th scope="col">Montant</th>
                 </tr>
             </thead>
@@ -22,13 +21,8 @@
                 <% for(var i=0; i < datasCdePenal.length; i++) { %>
                     <tr>
                         <td>
-                            <%= datasCdePenal[i].label %>
-                        </td>
-                        <td>
-                            <%= datasCdePenal[i].type %>
-                        </td>
-                        <td>
-                            <%= datasCdePenal[i].complement %>
+                            <%= datasCdePenal[i].label %> <span class="badge rounded-pill text-bg-primary"><%= datasCdePenal[i].genre %></span> <span class="badge rounded-pill text-bg-secondary"><%= datasCdePenal[i].type %></span> <br/>
+                            <i><span class="badge text-bg-light"><%= datasCdePenal[i].complement %></span></i>
                         </td>
                         <td>$<%= Intl.NumberFormat('us-US').format(datasCdePenal[i].tarif) %>
                         </td>

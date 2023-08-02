@@ -7,19 +7,31 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
     self.outilsClass = require('../class/utils.class.js');
     self.outils = new self.outilsClass();
     
+    const {
+        PrismaClient
+    } = require('@prisma/client');
+
+    const prisma = new PrismaClient();
 
     try {
 
         /** ***********************************************
          * INDEX
          *********************************************** */
-        app.get("/", function (req, res) {
+        app.get("/", async function (req, res) {
+
+            const coplevel = (req.user) ? parseInt(req.user.grade) : 0;
+            var datas = [];
+            if (coplevel >= 0) {
+                datas = (await prisma.$queryRaw`SELECT players.*, grades.grade_label FROM players LEFT JOIN grades ON players.grade = grades.key WHERE players.service != "" AND players.actif = 1;`);
+            }
 
             res.render("pages/index.ejs", {
                 PARAMS: req.PARAMS,
                 I18N: req.I18N,
                 page_name: 'infos',
-                user: req.user
+                user: req.user,
+                datas
             });
 
         });

@@ -18,9 +18,11 @@
         <table id="table_civils" class="table table-hover table-sm">
             <thead>
                 <tr>
+                    <th scope="col">Mat.</th>
                     <th scope="col">Non</th>
                     <th scope="col">Prénom</th>
                     <th scope="col">Grade</th>
+                    <th scope="col">Service</th>
                     <th scope="col">Investig</th>
                     <th scope="col">Actif</th>
                     <th scope="col">Admin</th>
@@ -29,15 +31,26 @@
             </thead>
             <tbody>
                 <% for(var i=0; i < datas.length; i++) { %>
+                    <% 
+                    var classGray = "";
+                    if (datas[i].actif == 0)  { 
+                        classGray = "text-light";
+                     } %>
                     <tr>
-                        <td>
+                        <td class="<%= classGray;%>">
+                            <%= datas[i].matricule %>
+                        </td>
+                        <td class="<%= classGray;%>">
                             <%= datas[i].nom %>
                         </td>
-                        <td>
+                        <td class="<%= classGray;%>">
                             <%= datas[i].prenom %>
                         </td>
-                        <td>
+                        <td class="<%= classGray;%>">
                             <%= datas[i].grade_label %>
+                        </td>
+                        <td class="<%= classGray;%>">
+                            <%= datas[i].service %>
                         </td>
                         <td>
                             <% if (datas[i].investigation == 1)  { %>
@@ -74,8 +87,8 @@
     <script>
         $(document).ready(function () {
             $('#table_civils').DataTable({
-                "pageLength": 25,
-                order: [[0, 'asc']]
+                "pageLength": 100,
+                order: [[6, 'desc'],[4, 'desc'],[1, 'asc'],[2, 'asc']]
             });
         });
     </script>

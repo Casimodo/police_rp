@@ -104,20 +104,21 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             try {
                 const coplevel = parseInt(req.user.grade);
-                const admin = parseInt(req.user.admin);
+                const adminlevel = parseInt(req.user.admin);
                 const id = req.params.id;
 
                 let nom = req.body.nom;
                 let prenom = req.body.prenom;
                 let matricule = req.body.matricule;
                 let grade = req.body.grade;
+                let service = req.body.service;
                 let investigation = (req.body.investigation) ? 1: 0;
                 let actif = (req.body.actif) ? 1: 0;
                 let adminP = (req.body.admin) ? 1: 0;
 
-                if (coplevel >= 0) {
+                if (adminlevel >= 0) {
 
-                    const datas = (await prisma.$queryRaw`UPDATE players SET nom=${nom}, prenom=${prenom}, matricule=${matricule}, grade=${grade}, investigation=${investigation}, actif=${actif}, admin=${adminP} WHERE id=${id};`);
+                    const datas = (await prisma.$queryRaw`UPDATE players SET nom=${nom}, prenom=${prenom}, matricule=${matricule}, grade=${grade}, service=${service}, investigation=${investigation}, actif=${actif}, admin=${adminP} WHERE id=${id};`);
                     res.redirect('/admin');
                 
                 } else {
@@ -138,7 +139,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             try {
                 const coplevel = parseInt(req.user.grade);
-                const admin = parseInt(req.user.admin);
+                const adminlevel = parseInt(req.user.admin);
                 const id = req.params.id;
 
                 let username = req.body.username;
@@ -146,14 +147,15 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 let prenom = req.body.prenom;
                 let matricule = req.body.matricule;
                 let grade = req.body.grade;
+                let service = req.body.service;
                 let investigation = (req.body.investigation) ? 1: 0;
                 let actif = (req.body.actif) ? 1: 0;
                 let adminP = (req.body.admin) ? 1: 0;
                 let password = "be58019b6779dc2dfa54e9ae8773842a5311862f8f849a22c80ad2e4f20838ff99dbf73b1d7a403facae295a0137c586bbb16e25dd113bc9572d855a19208143";
 
-                if (coplevel >= 0) {
+                if (adminlevel >= 0) {
 
-                    const datas = (await prisma.$queryRaw`INSERT INTO players(username, nom, prenom, matricule, grade, investigation, actif, admin, password) VALUE (${username}, ${nom}, ${prenom}, ${matricule}, ${grade}, ${investigation}, ${actif}, ${adminP}, ${password});`);
+                    const datas = (await prisma.$queryRaw`INSERT INTO players(username, nom, prenom, matricule, grade, service, investigation, actif, admin, password) VALUE (${username}, ${nom}, ${prenom}, ${matricule}, ${grade}, ${service}, ${investigation}, ${actif}, ${adminP}, ${password});`);
                     res.redirect('/admin');
                 
                 } else {

@@ -33,11 +33,89 @@
                             <%= user.matricule %>
                             </strong>
                         </p>
+                        <p class="card-text">Téléphone : <strong>
+                            (555)-<%= user.telephone %>
+                            </strong>
+                        </p>
                     </div>
                 </div>
             </div>
 
         </div>
+
+        <div class="container">
+
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p>Liste des agents LSPD / BCSO</p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    Permet de connaitre les effectifs et leur numéro de téléphone en cas de besoins (permet de limiter les appels radio)
+                </figcaption>
+            </figure>
+
+            <div class="row">
+                <table id="table_civils" class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Mat.</th>
+                            <th scope="col">Non</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Grade</th>
+                            <th scope="col">Service</th>
+                            <th scope="col">Tél.</th>
+                            <th scope="col">Investig</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0; i < datas.length; i++) { %>
+                            <tr>
+                                <td>
+                                    <%= datas[i].matricule %>
+                                </td>
+                                <td>
+                                    <%= datas[i].nom %>
+                                </td>
+                                <td>
+                                    <%= datas[i].prenom %>
+                                </td>
+                                <td>
+                                    <%= datas[i].grade_label %>
+                                </td>
+                                <td>
+                                    <% if (datas[i].service == "LSPD") { %>
+                                        <span class="badge rounded-pill text-bg-primary"><%= datas[i].service %></span>
+                                    <% }else{ %>
+                                        <span class="badge rounded-pill text-bg-secondary"><%= datas[i].service %></span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <%= datas[i].telephone %>
+                                </td>
+                                <td>
+                                    <% if (datas[i].investigation == 1)  { %>
+                                        <span class="badge bg-success">oui</span>
+                                    <% }else{ %>
+                                        non
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+        
+            </div>
+
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('#table_civils').DataTable({
+                    "pageLength": 100,
+                    order: [[4, 'desc'],[0, 'asc'],[1, 'asc'],[2, 'asc']]
+                });
+            });
+        </script>
 
         <% } else { %>
             <!-- === SANS CONNEXION =========================================================================================================================== -->

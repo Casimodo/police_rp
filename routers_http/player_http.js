@@ -59,7 +59,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 let nom = req.body.nom;
                 let prenom = req.body.prenom;
                 let matricule = req.body.matricule;
-                let grade = req.body.grade;
+                let telephone = req.body.telephone;
                 let password = req.body.password;
 
                 if (coplevel >= 0) {
@@ -71,10 +71,10 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                                 console.error(err);
                             };
                             nPass = derivedKey.toString('hex');
-                            const datas = (await prisma.$queryRaw`UPDATE players SET nom=${nom}, prenom=${prenom}, matricule=${matricule}, password=${nPass} WHERE id=${civilid};`);
+                            const datas = (await prisma.$queryRaw`UPDATE players SET nom=${nom}, prenom=${prenom}, matricule=${matricule}, telephone=${telephone}, password=${nPass} WHERE id=${civilid};`);
                         });
                     } else {
-                        const datas = (await prisma.$queryRaw`UPDATE players SET nom=${nom}, prenom=${prenom}, matricule=${matricule} WHERE id=${civilid};`);
+                        const datas = (await prisma.$queryRaw`UPDATE players SET nom=${nom}, prenom=${prenom}, matricule=${matricule}, telephone=${telephone} WHERE id=${civilid};`);
                     }
                     res.redirect('/');
 

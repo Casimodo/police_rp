@@ -28,7 +28,15 @@
                         <% } %>
                 </select>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-4">
+                <label for="validationCustom041" class="form-label">service</label>
+                <select class="form-select" id="validationCustom041" value="<%= datas.service %>" name="service" required>
+                    <option value="" <% if (datas.service == "") { %>selected<% } %>></option>
+                    <option value="LSPD" <% if (datas.service == "LSPD") { %>selected<% } %>>LSPD</option>
+                    <option value="BCSO" <% if (datas.service == "BCSO") { %>selected<% } %>>BCSO</option>
+                </select>
+            </div>
+            <div class="col-md-4">
                 &nbsp;
             </div>
 

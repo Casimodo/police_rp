@@ -96,7 +96,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 const datasCivil = (await prisma.$queryRaw`SELECT * FROM civils WHERE id = ${datasCasiers[0].civil_id} LIMIT 1;`);
                 
                 const detailsCasiers = (await prisma.$queryRaw`SELECT *, ref_amendes.id AS amende_id FROM casiers_judiciaire_details AS detail LEFT JOIN ref_amendes ON detail.amende_id = ref_amendes.id WHERE detail.casier_id = ${datasCasiers[0].id_casier} ORDER BY label;`);
-                const datasCodePenal = (await prisma.$queryRaw`SELECT * FROM ref_amendes ORDER BY label;`);
+                const datasCodePenal = (await prisma.$queryRaw`SELECT * FROM ref_amendes WHERE ancien_code = 0 ORDER BY label;`);
 
                 res.render("pages/casiers/detail.ejs", {
                     PARAMS: req.PARAMS,

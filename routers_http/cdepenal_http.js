@@ -23,7 +23,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             if (coplevel >= 0) {
 
-                const datas = (await prisma.$queryRaw`SELECT * FROM ref_amendes ORDER BY label;`);
+                const datas = (await prisma.$queryRaw`SELECT * FROM ref_amendes WHERE ancien_code = 0 ORDER BY label;`);
 
                 res.render("pages/code_penal/index.ejs", {
                     PARAMS: req.PARAMS,

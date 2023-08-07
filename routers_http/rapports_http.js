@@ -24,7 +24,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
                 if (coplevel >= 0) {
 
-                    const datas = (await prisma.$queryRaw`SELECT *, rapports.date AS dateCreate FROM rapports LEFT JOIN players ON rapports.agent_id = players.id`);
+                    const datas = (await prisma.$queryRaw`SELECT *, rapports.date AS dateCreate FROM rapports LEFT JOIN players ON rapports.agent_id = players.id WHERE rapports.status <> "classé";`);
 
                     res.render("pages/rapports/index.ejs", {
                         PARAMS: req.PARAMS,

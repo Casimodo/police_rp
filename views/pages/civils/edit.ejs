@@ -4,17 +4,20 @@
         <form class="row g-3 needs-validation" action="/civils/save/<%= datas.id %>" method="post">
             <div class="col-md-4">
                 <label for="validationCustom01" class="form-label">nom</label>
-                <input type="text" class="form-control" id="validationCustom01" name="nom" maxlength="50" value="<%= datas.nom %>" required>
+                <input type="text" class="form-control" id="validationCustom01" name="nom" maxlength="50"
+                    value="<%= datas.nom %>" required>
             </div>
             <div class="col-md-4">
                 <label for="validationCustom02" class="form-label">prénom</label>
-                <input type="text" class="form-control" id="validationCustom02" name="prenom" maxlength="50" value="<%= datas.prenom %>" required>
+                <input type="text" class="form-control" id="validationCustom02" name="prenom" maxlength="50"
+                    value="<%= datas.prenom %>" required>
             </div>
             <div class="col-md-4">
                 <label for="validationCustomUsername" class="form-label">tel</label>
                 <div class="input-group has-validation">
                     <span class="input-group-text" id="inputGroupPrepend">(555)-</span>
-                    <input type="number" class="form-control" id="validationCustomUsername" name="telephone" value="<%= datas.telephone %>" aria-describedby="inputGroupPrepend" required>
+                    <input type="number" class="form-control" id="validationCustomUsername" name="telephone"
+                        value="<%= datas.telephone %>" aria-describedby="inputGroupPrepend" required>
                 </div>
             </div>
 
@@ -30,27 +33,32 @@
 
             <div class="col-md-2">
                 <label for="validationCustom03" class="form-label">taille</label>
-                <input type="number" class="form-control" id="validationCustom03" name="tail_cm" value="<%= datas.tail_cm %>" required>
+                <input type="number" class="form-control" id="validationCustom03" name="tail_cm"
+                    value="<%= datas.tail_cm %>" required>
             </div>
 
             <div class="col-md-8">
                 <label for="validationCustom05" class="form-label">profession</label>
-                <input type="text" class="form-control" id="validationCustom05" name="profession" maxlength="50" value="<%= datas.profession %>">
+                <input type="text" class="form-control" id="validationCustom05" name="profession" maxlength="50"
+                    value="<%= datas.profession %>">
             </div>
 
             <div class="col-md-12">
                 <label for="validationCustom06" class="form-label">signe distinctif</label>
-                <input type="text" class="form-control" id="validationCustom06" name="signe_distinctif" maxlength="255" value="<%= datas.signe_distinctif %>">
+                <input type="text" class="form-control" id="validationCustom06" name="signe_distinctif" maxlength="255"
+                    value="<%= datas.signe_distinctif %>">
             </div>
-            
+
             <div class="col-md-6">
                 <label for="validationCustom07" class="form-label">photo 1</label>
-                <input type="text" class="form-control" id="validationCustom07" name="photo_1" value="<%= datas.photo_1 %>">
+                <input type="text" class="form-control" id="validationCustom07" name="photo_1"
+                    value="<%= datas.photo_1 %>">
             </div>
 
             <div class="col-md-6">
                 <label for="validationCustom08" class="form-label">photo 2</label>
-                <input type="text" class="form-control" id="validationCustom08" name="photo_2" value="<%= datas.photo_2 %>">
+                <input type="text" class="form-control" id="validationCustom08" name="photo_2"
+                    value="<%= datas.photo_2 %>">
             </div>
 
             <div class="col-sm-6">
@@ -59,7 +67,9 @@
                         Photos 1
                     </div>
                     <div class="card-body">
-                        <img src="<%= datas.photo_1 %>" class="img-thumbnail float-start" alt="photo 1" />
+                        <a href="<%= datas.photo_1 %>" target="_blank">
+                            <img src="<%= datas.photo_1 %>" class="img-thumbnail float-start" alt="photo 1" />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -69,7 +79,9 @@
                         Photos 2
                     </div>
                     <div class="card-body">
-                        <img src="<%= datas.photo_2 %>" class="img-thumbnail float-end" alt="photo 2" />
+                        <a href="<%= datas.photo_2 %>" target="_blank">
+                            <img src="<%= datas.photo_2 %>" class="img-thumbnail float-end" alt="photo 2" />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -77,15 +89,18 @@
 
             <div class="col-md-4">
                 <label for="validationCustom09" class="form-label">photo 3</label>
-                <input type="text" class="form-control" id="validationCustom09" name="photo_3" value="<%= datas.photo_3 %>">
+                <input type="text" class="form-control" id="validationCustom09" name="photo_3"
+                    value="<%= datas.photo_3 %>">
             </div>
             <div class="col-md-4">
                 <label for="validationCustom10" class="form-label">photo 4</label>
-                <input type="text" class="form-control" id="validationCustom10" name="photo_4" value="<%= datas.photo_4 %>">
+                <input type="text" class="form-control" id="validationCustom10" name="photo_4"
+                    value="<%= datas.photo_4 %>">
             </div>
             <div class="col-md-4">
                 <label for="validationCustom11" class="form-label">photo 5</label>
-                <input type="text" class="form-control" id="validationCustom11" name="photo_5" value="<%= datas.photo_5 %>">
+                <input type="text" class="form-control" id="validationCustom11" name="photo_5"
+                    value="<%= datas.photo_5 %>">
             </div>
 
             <div class="col-sm-4">
@@ -94,7 +109,9 @@
                         Photos 3
                     </div>
                     <div class="card-body">
-                        <img src="<%= datas.photo_3 %>" class="img-thumbnail float-end" alt="photo 3" />
+                        <a href="<%= datas.photo_3 %>" target="_blank">
+                            <img src="<%= datas.photo_3 %>" class="img-thumbnail float-end" alt="photo 3" />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -104,7 +121,9 @@
                         Photos 4
                     </div>
                     <div class="card-body">
-                        <img src="<%= datas.photo_4 %>" class="img-thumbnail float-end" alt="photo 4" />
+                        <a href="<%= datas.photo_4 %>" target="_blank">
+                            <img src="<%= datas.photo_4 %>" class="img-thumbnail float-end" alt="photo 4" />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -114,7 +133,9 @@
                         Photos 5
                     </div>
                     <div class="card-body">
-                        <img src="<%= datas.photo_5 %>" class="img-thumbnail float-end" alt="photo 5" />
+                        <a href="<%= datas.photo_5 %>" target="_blank">
+                            <img src="<%= datas.photo_5 %>" class="img-thumbnail float-end" alt="photo 5" />
+                        </a>
                     </div>
                 </div>
             </div>

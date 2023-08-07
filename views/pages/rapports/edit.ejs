@@ -16,55 +16,62 @@
             <div class="col-md-6">
                 <label for="typeVal" class="form-label">Type</label>
                 <select id="typeVal" name="type">
-                    <option value="classique" <% if (datas.type == 'classique') {%>selected<%}%> >classique</option>
-                    <option value="plainte" <% if (datas.type == 'plainte') {%>selected<%}%> >plainte</option>
-                    <option value="fusillade" <% if (datas.type == 'fusillade') {%>selected<%}%> >fusillade</option>
-                    <option value="bracage" <% if (datas.type == 'bracage') {%>selected<%}%> >bracage</option>
-                    <option value="meurtre" <% if (datas.type == 'meurtre') {%>selected<%}%> >meurtre</option>
-                    <option value="vol" <% if (datas.type == 'vol') {%>selected<%}%> >vol</option>
-                    <option value="convocation" <% if (datas.type == 'convocation') {%>selected<%}%> >convocation</option>
-                    <option value="autres" <% if (datas.type == 'autres') {%>selected<%}%> >autres</option>
+                    <option value="classique" <% if (datas.type=='classique' ) {%>selected<%}%> >classique</option>
+                    <option value="plainte" <% if (datas.type=='plainte' ) {%>selected<%}%> >plainte</option>
+                    <option value="fusillade" <% if (datas.type=='fusillade' ) {%>selected<%}%> >fusillade</option>
+                    <option value="bracage" <% if (datas.type=='bracage' ) {%>selected<%}%> >bracage</option>
+                    <option value="meurtre" <% if (datas.type=='meurtre' ) {%>selected<%}%> >meurtre</option>
+                    <option value="vol" <% if (datas.type=='vol' ) {%>selected<%}%> >vol</option>
+                    <option value="convocation" <% if (datas.type=='convocation' ) {%>selected<%}%> >convocation
+                    </option>
+                    <option value="autres" <% if (datas.type=='autres' ) {%>selected<%}%> >autres</option>
                 </select>
             </div>
 
             <div class="col-md-6">
                 <label for="typeVal" class="form-label">Status</label>
                 <select id="typeVal" name="status">
-                    <option value="en cours" <% if (datas.status == 'en cours') {%>selected<%}%> >en cours</option>
-                    <option value="abandonnée" <% if (datas.status == 'abandonnée') {%>selected<%}%> >abandonnée</option>
-                    <option value="classé" <% if (datas.status == 'classé') {%>selected<%}%> >classé</option>
+                    <option value="en cours" <% if (datas.status=='en cours' ) {%>selected<%}%> >en cours</option>
+                    <option value="abandonnée" <% if (datas.status=='abandonnée' ) {%>selected<%}%> >abandonnée</option>
+                    <option value="classé" <% if (datas.status=='classé' ) {%>selected<%}%> >classé</option>
                 </select>
             </div>
 
             <div class="col-md-12">
                 <label for="validationCustom02" class="form-label">Sujet</label>
-                <input type="text" class="form-control" id="validationCustom02" name="sujet" maxlength="50" value="<%= datas.sujet %>" required>
+                <input type="text" class="form-control" id="validationCustom02" name="sujet" maxlength="50"
+                    value="<%= datas.sujet %>" required>
             </div>
 
             <div class="mb-12">
                 <label for="exampleFormControlTextarea1" class="form-label">Commentaire</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" name="commentaire"
-                    required><%= datas.commentaire %></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" name="commentaire" required>
+                    <%= datas.commentaire %>
+                </textarea>
             </div>
 
             <div class="col-md-6">
                 <label for="validationCustom07" class="form-label">photo 1</label>
-                <input type="text" class="form-control" id="validationCustom07" name="photo_1" value="<%= datas.photo_1 %>">
+                <input type="text" class="form-control" id="validationCustom07" name="photo_1"
+                    value="<%= datas.photo_1 %>">
             </div>
 
             <div class="col-md-6">
                 <label for="validationCustom08" class="form-label">photo 2</label>
-                <input type="text" class="form-control" id="validationCustom08" name="photo_2" value="<%= datas.photo_2 %>">
+                <input type="text" class="form-control" id="validationCustom08" name="photo_2"
+                    value="<%= datas.photo_2 %>">
             </div>
 
             <div class="col-md-6">
                 <label for="validationCustom071" class="form-label">photo 3</label>
-                <input type="text" class="form-control" id="validationCustom071" name="photo_3" value="<%= datas.photo_3 %>">
+                <input type="text" class="form-control" id="validationCustom071" name="photo_3"
+                    value="<%= datas.photo_3 %>">
             </div>
 
             <div class="col-md-6">
                 <label for="validationCustom081" class="form-label">photo 4</label>
-                <input type="text" class="form-control" id="validationCustom081" name="photo_4" value="<%= datas.photo_4 %>">
+                <input type="text" class="form-control" id="validationCustom081" name="photo_4"
+                    value="<%= datas.photo_4 %>">
             </div>
 
             <div class="col-sm-6">
@@ -73,7 +80,9 @@
                         Photos 1
                     </div>
                     <div class="card-body">
-                        <img src="<%= datas.photo_1 %>" class="img-thumbnail float-start" alt="photo 1" />
+                        <a href="<%= datas.photo_1 %>" target="_blank">
+                            <img src="<%= datas.photo_1 %>" class="img-thumbnail float-start" alt="photo 1" />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -83,7 +92,9 @@
                         Photos 2
                     </div>
                     <div class="card-body">
-                        <img src="<%= datas.photo_2 %>" class="img-thumbnail float-end" alt="photo 2" />
+                        <a href="<%= datas.photo_2 %>" target="_blank">
+                            <img src="<%= datas.photo_2 %>" class="img-thumbnail float-end" alt="photo 2" />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -94,7 +105,9 @@
                         Photos 3
                     </div>
                     <div class="card-body">
-                        <img src="<%= datas.photo_3 %>" class="img-thumbnail float-start" alt="photo 3" />
+                        <a href="<%= datas.photo_3 %>" target="_blank">
+                            <img src="<%= datas.photo_3 %>" class="img-thumbnail float-start" alt="photo 3" />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -104,7 +117,9 @@
                         Photos 4
                     </div>
                     <div class="card-body">
-                        <img src="<%= datas.photo_4 %>" class="img-thumbnail float-end" alt="photo 4" />
+                        <a href="<%= datas.photo_4 %>" target="_blank">
+                            <img src="<%= datas.photo_4 %>" class="img-thumbnail float-end" alt="photo 4" />
+                        </a>
                     </div>
                 </div>
             </div>

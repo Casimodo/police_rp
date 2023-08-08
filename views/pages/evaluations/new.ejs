@@ -1,0 +1,315 @@
+<%- include('../../partials/header'); -%>
+
+    <div class="container">
+        <form class="row g-3 needs-validation" action="/evaluations/save" method="post">
+            <div class="col-md-6">
+                <label for="validationCustom01" class="form-label">Examinateur</label>
+                <strong>[<%= user.matricule %>] <%= user.prenom %>, <%= user.nom %> (<%= user.grade_label %>)</strong>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustom02" class="form-label">Date</label>
+                <strong>
+                    <%= moment().format('DD/MM/YYYY HH:mm') %>
+                </strong>
+            </div>
+
+            <div class="col-md-12">
+                <label for="validationCustom01" class="form-label">Agent à évaluer</label>
+                <strong>[<%= datas.matricule %>] <%= datas.prenom %>, <%= datas.nom %> (<%= datas.grade_label %>)</strong>
+            </div>
+
+            
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p>appels radio
+                    </p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    1 : pas du tout bon doit refaire formation
+                </figcaption>
+            </figure>
+
+            <div class="col-md-12">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="call_radio" id="call_radio0"
+                        value="0" checked>
+                    <label class="form-check-label" for="call_radio0">0 (non évalué)</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="call_radio" id="call_radio1"
+                        value="1">
+                    <label class="form-check-label" for="call_radio1">1</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="call_radio" id="call_radio2"
+                        value="2">
+                    <label class="form-check-label" for="call_radio2">2</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="call_radio" id="call_radio3"
+                        value="3">
+                    <label class="form-check-label" for="call_radio3">3</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="call_radio" id="call_radio4"
+                        value="4">
+                    <label class="form-check-label" for="call_radio4">4</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="call_radio" id="call_radio5"
+                        value="5">
+                    <label class="form-check-label" for="call_radio5">5</label>
+                </div>                
+            </div>
+
+
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p>conduite en voiture
+                    </p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    Respect du véhicule, la circulation, de l'utilisation des gyro. et 2 tons (1 : pas du tout bon doit refaire formation)
+                </figcaption>
+            </figure>
+
+            <div class="col-md-12">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="conduite" id="conduite0"
+                        value="0" checked>
+                    <label class="form-check-label" for="conduite0">0 (non évalué)</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="conduite" id="conduite1"
+                        value="1">
+                    <label class="form-check-label" for="conduite1">1</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="conduite" id="conduite2"
+                        value="2">
+                    <label class="form-check-label" for="conduite2">2</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="conduite" id="conduite3"
+                        value="3">
+                    <label class="form-check-label" for="conduite3">3</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="conduite" id="conduite4"
+                        value="4">
+                    <label class="form-check-label" for="conduite4">4</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="conduite" id="conduite5"
+                        value="5">
+                    <label class="form-check-label" for="conduite5">5</label>
+                </div>                
+            </div>
+
+
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p>respect avec les civils
+                    </p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    Comment l'agent ce comporte avec les civils
+                </figcaption>
+            </figure>
+
+            <div class="col-md-12">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respect_civil" id="respect_civil0"
+                        value="0" checked>
+                    <label class="form-check-label" for="respect_civil0">0 (non évalué)</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respect_civil" id="respect_civil1"
+                        value="1">
+                    <label class="form-check-label" for="respect_civil1">1</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respect_civil" id="respect_civil2"
+                        value="2">
+                    <label class="form-check-label" for="respect_civil2">2</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respect_civil" id="respect_civil3"
+                        value="3">
+                    <label class="form-check-label" for="respect_civil3">3</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respect_civil" id="respect_civil4"
+                        value="4">
+                    <label class="form-check-label" for="respect_civil4">4</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respect_civil" id="respect_civil5"
+                        value="5">
+                    <label class="form-check-label" for="respect_civil5">5</label>
+                </div>                
+            </div>
+
+
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p>respect en patrouille
+                    </p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    Comment l'agent ce comporte avec les collègues
+                </figcaption>
+            </figure>
+
+            <div class="col-md-12">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respect_patrouille" id="respect_patrouille0"
+                        value="0" checked>
+                    <label class="form-check-label" for="respect_patrouille0">0 (non évalué)</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respect_patrouille" id="respect_patrouille1"
+                        value="1">
+                    <label class="form-check-label" for="respect_patrouille1">1</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respect_patrouille" id="respect_patrouille2"
+                        value="2">
+                    <label class="form-check-label" for="respect_patrouille2">2</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respect_patrouille" id="respect_patrouille3"
+                        value="3">
+                    <label class="form-check-label" for="respect_patrouille3">3</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respect_patrouille" id="respect_patrouille4"
+                        value="4">
+                    <label class="form-check-label" for="respect_patrouille4">4</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respect_patrouille" id="respect_patrouille5"
+                        value="5">
+                    <label class="form-check-label" for="respect_patrouille5">5</label>
+                </div>                
+            </div>
+
+
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p>contrôl routier
+                    </p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    Respect des procédures, position du véhicules (sécurité de l'équipage, des civils)
+                </figcaption>
+            </figure>
+
+            <div class="col-md-12">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="control_routier" id="control_routier0"
+                        value="0" checked>
+                    <label class="form-check-label" for="control_routier0">0 (non évalué)</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="control_routier" id="control_routier1"
+                        value="1">
+                    <label class="form-check-label" for="control_routier1">1</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="control_routier" id="control_routier2"
+                        value="2">
+                    <label class="form-check-label" for="control_routier2">2</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="control_routier" id="control_routier3"
+                        value="3">
+                    <label class="form-check-label" for="control_routier3">3</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="control_routier" id="control_routier4"
+                        value="4">
+                    <label class="form-check-label" for="control_routier4">4</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="control_routier" id="control_routier5"
+                        value="5">
+                    <label class="form-check-label" for="control_routier5">5</label>
+                </div>                
+            </div>
+
+
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p>arrestation / procédure judiciaire
+                    </p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    Respect des procédures (droit miranda, menotage, fouille, casiers...)
+                </figcaption>
+            </figure>
+
+            <div class="col-md-12">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="procedure_arrestation" id="procedure_arrestation0"
+                        value="0" checked>
+                    <label class="form-check-label" for="procedure_arrestation0">0 (non évalué)</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="procedure_arrestation" id="procedure_arrestation1"
+                        value="1">
+                    <label class="form-check-label" for="procedure_arrestation1">1</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="procedure_arrestation" id="procedure_arrestation2"
+                        value="2">
+                    <label class="form-check-label" for="procedure_arrestation2">2</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="procedure_arrestation" id="procedure_arrestation3"
+                        value="3">
+                    <label class="form-check-label" for="procedure_arrestation3">3</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="procedure_arrestation" id="procedure_arrestation4"
+                        value="4">
+                    <label class="form-check-label" for="procedure_arrestation4">4</label>
+                </div>                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="procedure_arrestation" id="procedure_arrestation5"
+                        value="5">
+                    <label class="form-check-label" for="procedure_arrestation5">5</label>
+                </div>                
+            </div>
+
+
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p>commentaire
+                    </p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    merci de justifier si un point est noté < à 3 ou autre.
+                </figcaption>
+            </figure>
+
+            <div class="mb-12">
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="commentaire"></textarea>
+            </div>
+
+            
+            <input type="hidden" class="form-control" name="agent_id" value="<%= datas.id %>">
+            <input type="hidden" class="form-control" name="agent_name" value="[<%= datas.matricule %>] <%= datas.prenom %>, <%= datas.nom %>">
+            <input type="hidden" class="form-control" name="agent_grade" value="<%= datas.grade_label %>">
+
+            <input type="hidden" class="form-control" name="examinateur_id" value="<%= user.id %>">
+            <input type="hidden" class="form-control" name="examinateur_name" value="[<%= user.matricule %>] <%= user.prenom %>, <%= user.nom %>">
+            <input type="hidden" class="form-control" name="examinateur_grade" value="<%= user.grade_label %>">
+
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">ajouter</button>
+            </div>
+        </form>
+    </div>
+
+    <%- include('../../partials/footer'); -%>

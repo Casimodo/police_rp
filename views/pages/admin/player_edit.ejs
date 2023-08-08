@@ -29,15 +29,22 @@
                 </select>
             </div>
             <div class="col-md-4">
-                <label for="validationCustom041" class="form-label">service</label>
+                <label for="validationCustom041" class="form-label">service (si autre n'apparait pas dans les effectifs !)</label>
                 <select class="form-select" id="validationCustom041" value="<%= datas.service %>" name="service" required>
-                    <option value="" <% if (datas.service == "") { %>selected<% } %>></option>
+                    <option value="" <% if (datas.service == "") { %>selected<% } %>>autre juge, gouv...</option>
                     <option value="LSPD" <% if (datas.service == "LSPD") { %>selected<% } %>>LSPD</option>
                     <option value="BCSO" <% if (datas.service == "BCSO") { %>selected<% } %>>BCSO</option>
                 </select>
             </div>
             <div class="col-md-4">
                 &nbsp;
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="evaluateur" name="evaluateur" value="<%= datas.evaluateur %>" <% if (datas.evaluateur == 1) { %>checked<% } %>>
+                    <label class="form-check-label" for="evaluateur">Evaluateur</label>
+                </div>
             </div>
 
             <div class="col-md-12">

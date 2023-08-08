@@ -112,13 +112,14 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 let matricule = req.body.matricule;
                 let grade = req.body.grade;
                 let service = req.body.service;
+                let evaluateur = (req.body.evaluateur) ? 1: 0;
                 let investigation = (req.body.investigation) ? 1: 0;
                 let actif = (req.body.actif) ? 1: 0;
                 let adminP = (req.body.admin) ? 1: 0;
 
                 if (adminlevel >= 0) {
 
-                    const datas = (await prisma.$queryRaw`UPDATE players SET nom=${nom}, prenom=${prenom}, matricule=${matricule}, grade=${grade}, service=${service}, investigation=${investigation}, actif=${actif}, admin=${adminP} WHERE id=${id};`);
+                    const datas = (await prisma.$queryRaw`UPDATE players SET evaluateur=${evaluateur}, nom=${nom}, prenom=${prenom}, matricule=${matricule}, grade=${grade}, service=${service}, investigation=${investigation}, actif=${actif}, admin=${adminP} WHERE id=${id};`);
                     res.redirect('/admin');
                 
                 } else {
@@ -148,6 +149,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 let matricule = req.body.matricule;
                 let grade = req.body.grade;
                 let service = req.body.service;
+                let evaluateur = (req.body.evaluateur) ? 1: 0;
                 let investigation = (req.body.investigation) ? 1: 0;
                 let actif = (req.body.actif) ? 1: 0;
                 let adminP = (req.body.admin) ? 1: 0;
@@ -155,7 +157,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
                 if (adminlevel >= 0) {
 
-                    const datas = (await prisma.$queryRaw`INSERT INTO players(username, nom, prenom, matricule, grade, service, investigation, actif, admin, password) VALUE (${username}, ${nom}, ${prenom}, ${matricule}, ${grade}, ${service}, ${investigation}, ${actif}, ${adminP}, ${password});`);
+                    const datas = (await prisma.$queryRaw`INSERT INTO players(username, nom, prenom, matricule, grade, service, evaluateur, investigation, actif, admin, password) VALUE (${username}, ${nom}, ${prenom}, ${matricule}, ${grade}, ${service}, ${evaluateur}, ${investigation}, ${actif}, ${adminP}, ${password});`);
                     res.redirect('/admin');
                 
                 } else {

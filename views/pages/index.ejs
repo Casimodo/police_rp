@@ -5,16 +5,22 @@
     <% if (user) { %>
         <!-- === AVEC CONNEXION =========================================================================================================================== -->
 
-           <div class="row">
+        <div class="row">
 
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        Vos informations <a href="/players/edit/<%= user.id %>" class="btn btn-sm btn-primary">Editer</a>
+                        Vos informations <a href="/players/edit/<%= user.id %>"
+                            class="btn btn-sm btn-primary">Editer</a>
+                        <% if (user.evaluateur==1) { %>
+                            <a href="/evaluations/export" target="_blank" type="button"
+                                class="btn btn-outline-success">Export évaluations</a>
+                            <% } %>
                     </div>
                     <div class="card-body">
                         <p class="card-text">Nom : <strong>
-                                <%= user.prenom %> <%= user.nom %>
+                                <%= user.prenom %>
+                                    <%= user.nom %>
                             </strong>
                         </p>
                         <p class="card-text">arrivée le : <strong>
@@ -27,14 +33,14 @@
                         </p>
 
                         <p class="card-text">Grade : <strong>
-                            <%= user.grade_label %>
+                                <%= user.grade_label %>
                             </strong>
                         <p class="card-text">Matricule : <strong>
-                            <%= user.matricule %>
+                                <%= user.matricule %>
                             </strong>
                         </p>
                         <p class="card-text">Téléphone : <strong>
-                            (555)-<%= user.telephone %>
+                                (555)-<%= user.telephone %>
                             </strong>
                         </p>
                     </div>
@@ -50,7 +56,8 @@
                     <p>Liste des agents LSPD / BCSO</p>
                 </blockquote>
                 <figcaption class="blockquote-footer">
-                    Permet de connaitre les effectifs et leur numéro de téléphone en cas de besoins (permet de limiter les appels radio)
+                    Permet de connaitre les effectifs et leur numéro de téléphone en cas de besoins (permet de limiter
+                    les appels radio)
                 </figcaption>
             </figure>
 
@@ -65,6 +72,9 @@
                             <th scope="col">Service</th>
                             <th scope="col">Tél.</th>
                             <th scope="col">Investig</th>
+                            <% if (user.evaluateur==1) { %>
+                                <th scope="col">add éval.</th>
+                                <% } %>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,27 +93,38 @@
                                     <%= datas[i].grade_label %>
                                 </td>
                                 <td>
-                                    <% if (datas[i].service == "LSPD") { %>
-                                        <span class="badge rounded-pill text-bg-primary"><%= datas[i].service %></span>
-                                    <% }else{ %>
-                                        <span class="badge rounded-pill text-bg-secondary"><%= datas[i].service %></span>
-                                    <% } %>
+                                    <% if (datas[i].service=="LSPD" ) { %>
+                                        <span class="badge rounded-pill text-bg-primary">
+                                            <%= datas[i].service %>
+                                        </span>
+                                        <% }else{ %>
+                                            <span class="badge rounded-pill text-bg-secondary">
+                                                <%= datas[i].service %>
+                                            </span>
+                                            <% } %>
                                 </td>
                                 <td>
                                     <%= datas[i].telephone %>
                                 </td>
                                 <td>
-                                    <% if (datas[i].investigation == 1)  { %>
+                                    <% if (datas[i].investigation==1) { %>
                                         <span class="badge bg-success">oui</span>
-                                    <% }else{ %>
-                                        non
-                                    <% } %>
+                                        <% }else{ %>
+                                            non
+                                            <% } %>
                                 </td>
+                                <% if (user.evaluateur==1) { %>
+                                    <td>
+                                        <a href="/evaluations/new/<%= datas[i].id %>" type="button"
+                                            class="btn btn-info btn-sm" title="evaluation"><i
+                                                data-feather="thumbs-up"></i></a>
+                                    </td>
+                                    <% } %>
                             </tr>
                             <% } %>
                     </tbody>
                 </table>
-        
+
             </div>
 
         </div>
@@ -112,7 +133,7 @@
             $(document).ready(function () {
                 $('#table_civils').DataTable({
                     "pageLength": 100,
-                    order: [[4, 'desc'],[0, 'asc'],[1, 'asc'],[2, 'asc']]
+                    order: [[4, 'desc'], [0, 'asc'], [1, 'asc'], [2, 'asc']]
                 });
             });
         </script>
@@ -122,25 +143,25 @@
 
             <div class="row">
                 <div class="col-sm-12">
-    
+
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Bienvenue sur l'intranet Police
                             </h5>
                             <p class="card-text">
-                                Vous n'êtes pas authentifié.<br/>
-                                <strong>Première fois ?</strong><br/>
-                                <ul>
-                                    <li>Pour l'instant me MP avant 21h (avant le stream)</li>
-                                    <li><strong>Déveuloppement en cours...</strong></li>
-                                </ul>
+                                Vous n'êtes pas authentifié.<br />
+                                <strong>Première fois ?</strong><br />
+                            <ul>
+                                <li>Pour l'instant me MP avant 21h (avant le stream)</li>
+                                <li><strong>Déveuloppement en cours...</strong></li>
+                            </ul>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
 
-        <% } %>
+            <% } %>
 
 
-        <%- include('../partials/footer'); -%>
+                <%- include('../partials/footer'); -%>

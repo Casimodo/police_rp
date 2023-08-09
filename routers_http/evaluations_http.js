@@ -52,9 +52,9 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
 
             if (adminlevel > 0) {
 
-                const datas = (await prisma.$queryRaw`SELECT DATE_FORMAT(date, "%d/%m/%Y %T") AS date, agent_name, agent_grade, examinateur_name, examinateur_grade, call_radio, conduite, respect_patrouille, respect_civil, control_routier, procedure_arrestation, REPLACE(REPLACE(commentaire,';',''), ';', '') as commentaire FROM evaluation_compétences ORDER BY date DESC;`);
+                const datas = (await prisma.$queryRaw`SELECT DATE_FORMAT(date, "%d/%m/%Y %T") AS date, agent_name, agent_grade, service, examinateur_name, examinateur_grade, call_radio, conduite, respect_patrouille, respect_civil, control_routier, procedure_arrestation, REPLACE(REPLACE(commentaire,';',''), ';', '') as commentaire FROM evaluation_compétences ORDER BY date DESC;`);
 
-                let csv_data = '"date";"agent";"agent grade";"examinateur";"examinateur grade";"call radio";"conduite";"respect patrouille";"respect civil";"control routier";"procedure arrestation";"commentaire"\n';
+                let csv_data = '"date";"agent";"agent grade";"service";"examinateur";"examinateur grade";"call radio";"conduite";"respect patrouille";"respect civil";"control routier";"procedure arrestation";"commentaire"\n';
 
                 datas.forEach((dt) => {
                     csv_data += '"' + Object.values(dt).join('";"') + '"\n';
@@ -83,6 +83,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 let agent_id = req.body.agent_id;
                 let agent_name = req.body.agent_name;
                 let agent_grade = req.body.agent_grade;
+                let service = req.body.service;
                 let examinateur_id = req.body.examinateur_id;
                 let examinateur_name = req.body.examinateur_name;
                 let examinateur_grade = req.body.examinateur_grade;
@@ -97,8 +98,8 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 if ((coplevel >= 0) && (evaluateur == 1)) {
 
                     const datas = (await prisma.$queryRaw`
-                        INSERT INTO evaluation_compétences (agent_id, agent_name, agent_grade, examinateur_id, examinateur_name, examinateur_grade, commentaire, call_radio, conduite, respect_patrouille, respect_civil, control_routier, procedure_arrestation) 
-                        VALUES (${agent_id}, ${agent_name}, ${agent_grade}, ${examinateur_id}, ${examinateur_name}, ${examinateur_grade}, ${commentaire}, ${call_radio}, ${conduite}, ${respect_patrouille}, ${respect_civil}, ${control_routier}, ${procedure_arrestation});`);
+                        INSERT INTO evaluation_compétences (agent_id, agent_name, agent_grade, service, examinateur_id, examinateur_name, examinateur_grade, commentaire, call_radio, conduite, respect_patrouille, respect_civil, control_routier, procedure_arrestation) 
+                        VALUES (${agent_id}, ${agent_name}, ${agent_grade}, ${service}, ${examinateur_id}, ${examinateur_name}, ${examinateur_grade}, ${commentaire}, ${call_radio}, ${conduite}, ${respect_patrouille}, ${respect_civil}, ${control_routier}, ${procedure_arrestation});`);
 
                     res.redirect('/');
 
@@ -125,7 +126,7 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
             if ((coplevel >= 0) && (evaluateur == 1)) {
 
                 const datas = (await prisma.$queryRaw`
-                SELECT agent_name, agent_grade, nbEval,
+                SELECT agent_name, agent_grade, service, nbEval,
                     ROUND(SumCallRadio / NbCallRadio) AS CallRadio, 
                     ROUND(SumConduite / NbConduite) AS Conduite, 
                     ROUND(SumRespPat / NbRespPat) AS RespPat, 

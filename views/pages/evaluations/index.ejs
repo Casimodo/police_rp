@@ -1,0 +1,129 @@
+<%- include('../../partials/header'); -%>
+
+
+
+    <% if (user) { %>
+        <!-- === AVEC CONNEXION =========================================================================================================================== -->
+
+        <div class="container">
+
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p>Evaluations des agents (LSPD / BCSO) <a href="/evaluations/export" target="_blank" type="button" class="btn btn-outline-success">Export csv des évaluations</a></p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    Seule les agents ayant eu une première évaluation sont référencés ici. Cliquer sur <i
+                        data-feather="trending-up"></i> sur la page d'acceil à côté de l'agent pour réaliser une
+                    nouvelle évaluation.
+                </figcaption>
+            </figure>
+
+            <div class="row">
+                
+                <figure>
+                    <blockquote class="blockquote">
+                      <p>&nbsp;&nbsp;&nbsp;Légende</p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                        <strong>Call radio</strong> <cite title="">Connait c'est code ou se trompe pas trop, précis, rapide, pas d'oublie</cite>
+                    </figcaption>
+                    <figcaption class="blockquote-footer">
+                        <strong>Conduite</strong> <cite title="">Respect du véhicule, la circulation, de l'utilisation des gyro. et 2 tons (1 : pas du tout bon doit refaire formation)</cite>
+                    </figcaption>
+                    <figcaption class="blockquote-footer">
+                        <strong>Resp. Pat.</strong> <cite title="">Comment l'agent ce comporte avec les collègues</cite>
+                    </figcaption>
+                    <figcaption class="blockquote-footer">
+                        <strong>Resp. Civ.</strong> <cite title="">Comment l'agent ce comporte avec les civils</cite>
+                    </figcaption>
+                    <figcaption class="blockquote-footer">
+                        <strong>Cont. Rout.</strong> <cite title="">Respect des procédures, position du véhicules (sécurité de l'équipage, des civils)</cite>
+                    </figcaption>
+                    <figcaption class="blockquote-footer">
+                        <strong>Proc. Arr.</strong> <cite title="">Respect des procédures (droit miranda, menotage, fouille, casiers...)</cite>
+                    </figcaption>
+                  </figure>
+
+            </div>
+
+            <div class="row">
+                
+                <figure class="text-center">
+                    <blockquote class="blockquote">
+                      <p>Résultas</p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                      Utiliser la recherche ou les tries
+                    </figcaption>
+                  </figure>
+
+            </div>
+
+            <div class="row">
+                <table id="table" class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">[mat.] Prénom, Non</th>
+                            <th scope="col">Grade éval.</th>
+                            <th scope="col">Nb. éval.</th>
+                            <th scope="col">Call radio</th>
+                            <th scope="col">Conduite</th>
+                            <th scope="col">Resp. Pat.</th>
+                            <th scope="col">Resp. Civ.</th>
+                            <th scope="col">Cont. Rout.</th>
+                            <th scope="col">Proc. Arr.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0; i < datas.length; i++) { %>
+                            <tr>
+                                <td>
+                                    <%= datas[i].agent_name %>
+                                </td>
+                                <td>
+                                    <%= datas[i].agent_grade %>
+                                </td>
+                                <td>
+                                    <%= datas[i].nbEval %>
+                                </td>
+                                <td>
+                                    <%= datas[i].CallRadio %>/5
+                                </td>
+                                <td>
+                                    <%= datas[i].Conduite %>/5
+                                </td>
+                                <td>
+                                    <%= datas[i].RespPat %>/5
+                                </td>
+                                <td>
+                                    <%= datas[i].RespCiv %>/5
+                                </td>
+                                <td>
+                                    <%= datas[i].ContRoutier %>/5
+                                </td>
+                                <td>
+                                    <%= datas[i].ProcArr %>/5
+                                </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('#table').DataTable({
+                    "pageLength": 100,
+                    order: [[0, 'asc'], [1, 'asc']]
+                });
+            });
+        </script>
+
+        <% } %>
+
+
+
+            <%- include('../../partials/footer'); -%>

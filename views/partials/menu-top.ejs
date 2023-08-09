@@ -56,6 +56,13 @@
                                 data-feather="archive"></i> Rapports</a>
                     </li>
 
+                    <% if (user.evaluateur == 1) { %>
+                        <li class="nav-item">
+                            <a class="nav-link <% if (page_name == 'evaluateur') {%>active<%}%> text-info" href="/evaluations"><i
+                                    data-feather="trending-up"></i> Evaluations</a>
+                        </li>
+                    <% } %>
+
                     <% if (user.investigation == 1) { %>
                         <li class="nav-item">
                             <a class="nav-link <% if (page_name == 'investigations') {%>active<%}%> text-primary" href="/investigations"><i

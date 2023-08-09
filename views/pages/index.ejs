@@ -12,10 +12,6 @@
                     <div class="card-header">
                         Vos informations <a href="/players/edit/<%= user.id %>"
                             class="btn btn-sm btn-primary">Editer</a>
-                        <% if (user.evaluateur==1) { %>
-                            <a href="/evaluations/export" target="_blank" type="button"
-                                class="btn btn-outline-success">Export évaluations</a>
-                            <% } %>
                     </div>
                     <div class="card-body">
                         <p class="card-text">Nom : <strong>
@@ -117,7 +113,7 @@
                                     <td>
                                         <a href="/evaluations/new/<%= datas[i].id %>" type="button"
                                             class="btn btn-info btn-sm" title="evaluation"><i
-                                                data-feather="thumbs-up"></i></a>
+                                                data-feather="trending-up"></i></a>
                                     </td>
                                     <% } %>
                             </tr>

@@ -55,11 +55,11 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 const datas = (await prisma.$queryRaw`SELECT DATE_FORMAT(date, "%d/%m/%Y %T") AS date, agent_name, agent_grade, examinateur_name, examinateur_grade, call_radio, conduite, respect_patrouille, respect_civil, control_routier, procedure_arrestation, REPLACE(REPLACE(commentaire,';',''), ';', '') as commentaire FROM evaluation_compétences ORDER BY date DESC;`);
 
                 let csv_data = '"date";"agent";"agent grade";"examinateur";"examinateur grade";"call radio";"conduite";"respect patrouille";"respect civil";"control routier";"procedure arrestation";"commentaire"\n';
-                
+
                 datas.forEach((dt) => {
                     csv_data += '"' + Object.values(dt).join('";"') + '"\n';
                 });
-                
+
                 res.setHeader("Content-Type", "text/csv");
                 res.setHeader("Content-Disposition", "attachment; filename=evaluation.csv");
                 res.status(200).end(csv_data.toString('utf-8'), 'utf-8');
@@ -111,6 +111,41 @@ module.exports = function (config, app, logger, ensureAuthenticated, passport) {
                 res.redirect('/logout');
             }
 
+        });
+
+
+        /** ***********************************************
+         * calcul
+         *********************************************** */
+        app.get("/evaluations", ensureAuthenticated, async function (req, res) {
+
+            const coplevel = parseInt(req.user.grade);
+            const evaluateur = parseInt(req.user.evaluateur);
+
+            if ((coplevel >= 0) && (evaluateur == 1)) {
+
+                const datas = (await prisma.$queryRaw`
+                SELECT agent_name, agent_grade, nbEval,
+                    ROUND(SumCallRadio / NbCallRadio) AS CallRadio, 
+                    ROUND(SumConduite / NbConduite) AS Conduite, 
+                    ROUND(SumRespPat / NbRespPat) AS RespPat, 
+                    ROUND(SumRespCiv / NbRespCiv) AS RespCiv, 
+                    ROUND(SumContRoutier / NbContRoutier) AS ContRoutier,
+                    ROUND(SumProcArr / NbProcArr) AS ProcArr
+                FROM calcul_eva_competences
+                `);
+
+                res.render("pages/evaluations/index.ejs", {
+                    PARAMS: req.PARAMS,
+                    I18N: req.I18N,
+                    page_name: 'evaluations',
+                    user: req.user,
+                    datas: datas
+                });
+
+            } else {
+                res.redirect('/logout');
+            }
         });
 
 

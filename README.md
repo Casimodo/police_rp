@@ -8,6 +8,11 @@
 # Présentation
   Ce site web vous permet d'avoir tout un site web pour gérer votre Police, Gendarmaerie ou autre sur votre serveur Arma ou GTA voir autre pour le rôle play. Vous pourrait y accéder à l'aide d'un simple navigateur web. Il est compatible pour les navigateurs de votre PC, Mac ou Linux sur tablette et mobile. Cela vous donne une imerssion plus importante et permet de bien renseigner les fiches plus besoins de discord ou google sheet mal renseigné et qui vous oblige en jeux à faire un Alt+F4 utilisé votre téléphone portable IRL comme dans la vrai vie pour rester plus impliqué.
 
+  # En vidéos (présentation & installation)
+  - Twitch : https://www.twitch.tv/videos/1933946740
+  - Youtube : https://www.youtube.com/live/v0403AWHffQ?si=z8nltXtASwQ597eA
+
+
 # Patch-Notes
 - **Version** : 1.0
 - **2023-09-24** : Remise en forme du code + debug init sql

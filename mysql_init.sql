@@ -1,11 +1,3 @@
--- Author: tontonCasi [Twitch : https://www.twitch.tv/tontoncasi]
--- Licence : MIT
--- Source : https://github.com/Casimodo/police_rp
--- Terms of use:
---   This file comes from a source code covered by the MIT license please respect this. 
---   All component files this code is filed, signed and certified with the competent international authority 
---   in order to enforce copyright and ensure proof of an MIT license, thank you to respect that.
-
 -- --------------------------------------------------------
 -- Hôte:                         127.0.0.1
 -- Version du serveur:           10.5.8-MariaDB-1:10.5.8+maria~focal - mariadb.org binary distribution
@@ -26,6 +18,31 @@
 -- Listage de la structure de la base pour tontonCasi_police
 CREATE DATABASE IF NOT EXISTS `tontonCasi_police` /*!40100 DEFAULT CHARACTER SET utf16 */;
 USE `tontonCasi_police`;
+
+-- Listage de la structure de vue tontonCasi_police. calcul_eva_competences
+-- Création d'une table temporaire pour palier aux erreurs de dépendances de VIEW
+CREATE TABLE `calcul_eva_competences` (
+	`nbEval` BIGINT(21) NOT NULL,
+	`agent_id` INT(11) NULL,
+	`agent_name` VARCHAR(50) NULL COLLATE 'utf16_general_ci',
+	`agent_grade` VARCHAR(50) NULL COLLATE 'utf16_general_ci',
+	`service` VARCHAR(50) NULL COLLATE 'utf16_general_ci',
+	`examinateur_id` INT(11) NULL,
+	`examinateur_name` VARCHAR(50) NULL COLLATE 'utf16_general_ci',
+	`examinateur_grade` VARCHAR(50) NULL COLLATE 'utf16_general_ci',
+	`SumCallRadio` DECIMAL(32,0) NULL,
+	`NbCallRadio` DECIMAL(22,0) NULL,
+	`SumConduite` DECIMAL(32,0) NULL,
+	`NbConduite` DECIMAL(22,0) NULL,
+	`SumRespPat` DECIMAL(32,0) NULL,
+	`NbRespPat` DECIMAL(22,0) NULL,
+	`SumRespCiv` DECIMAL(32,0) NULL,
+	`NbRespCiv` DECIMAL(22,0) NULL,
+	`SumContRoutier` DECIMAL(32,0) NULL,
+	`NbContRoutier` DECIMAL(22,0) NULL,
+	`SumProcArr` DECIMAL(32,0) NULL,
+	`NbProcArr` DECIMAL(22,0) NULL
+) ENGINE=MyISAM;
 
 -- Listage de la structure de table tontonCasi_police. casiers_judiciaire
 CREATE TABLE IF NOT EXISTS `casiers_judiciaire` (
@@ -79,6 +96,29 @@ CREATE TABLE IF NOT EXISTS `civils` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf16;
 
 -- Listage des données de la table tontonCasi_police.civils : ~0 rows (environ)
+
+-- Listage de la structure de table tontonCasi_police. evaluation_compétences
+CREATE TABLE IF NOT EXISTS `evaluation_compétences` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `agent_id` int(11) NOT NULL DEFAULT 0,
+  `agent_name` varchar(50) NOT NULL DEFAULT '0',
+  `agent_grade` varchar(50) NOT NULL DEFAULT '0',
+  `service` varchar(50) NOT NULL DEFAULT '0',
+  `examinateur_id` int(11) NOT NULL DEFAULT 0,
+  `examinateur_name` varchar(50) NOT NULL DEFAULT '0',
+  `examinateur_grade` varchar(50) NOT NULL DEFAULT '0',
+  `commentaire` longtext NOT NULL,
+  `call_radio` int(11) NOT NULL DEFAULT 0,
+  `conduite` int(11) NOT NULL DEFAULT 0,
+  `respect_patrouille` int(11) NOT NULL DEFAULT 0,
+  `respect_civil` int(11) NOT NULL DEFAULT 0,
+  `control_routier` int(11) NOT NULL DEFAULT 0,
+  `procedure_arrestation` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf16;
+
+-- Listage des données de la table tontonCasi_police.evaluation_compétences : ~0 rows (environ)
 
 -- Listage de la structure de table tontonCasi_police. grades
 CREATE TABLE IF NOT EXISTS `grades` (
@@ -144,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `players` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid` (`username`) USING BTREE,
   KEY `FK_players_grades` (`grade`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf16;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf16;
 
 -- Listage des données de la table tontonCasi_police.players : ~0 rows (environ)
 
@@ -312,6 +352,11 @@ CREATE TRIGGER `rapports_before_insert` BEFORE INSERT ON `rapports` FOR EACH ROW
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Listage de la structure de vue tontonCasi_police. calcul_eva_competences
+-- Suppression de la table temporaire et création finale de la structure d'une vue
+DROP TABLE IF EXISTS `calcul_eva_competences`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `calcul_eva_competences` AS select count(1) AS `nbEval`,`evaluation_compétences`.`agent_id` AS `agent_id`,`evaluation_compétences`.`agent_name` AS `agent_name`,`evaluation_compétences`.`agent_grade` AS `agent_grade`,`evaluation_compétences`.`service` AS `service`,`evaluation_compétences`.`examinateur_id` AS `examinateur_id`,`evaluation_compétences`.`examinateur_name` AS `examinateur_name`,`evaluation_compétences`.`examinateur_grade` AS `examinateur_grade`,sum(`evaluation_compétences`.`call_radio`) AS `SumCallRadio`,sum(if(`evaluation_compétences`.`call_radio` > 0,1,0)) AS `NbCallRadio`,sum(`evaluation_compétences`.`conduite`) AS `SumConduite`,sum(if(`evaluation_compétences`.`conduite` > 0,1,0)) AS `NbConduite`,sum(`evaluation_compétences`.`respect_patrouille`) AS `SumRespPat`,sum(if(`evaluation_compétences`.`respect_patrouille` > 0,1,0)) AS `NbRespPat`,sum(`evaluation_compétences`.`respect_civil`) AS `SumRespCiv`,sum(if(`evaluation_compétences`.`respect_civil` > 0,1,0)) AS `NbRespCiv`,sum(`evaluation_compétences`.`control_routier`) AS `SumContRoutier`,sum(if(`evaluation_compétences`.`control_routier` > 0,1,0)) AS `NbContRoutier`,sum(`evaluation_compétences`.`procedure_arrestation`) AS `SumProcArr`,sum(if(`evaluation_compétences`.`procedure_arrestation` > 0,1,0)) AS `NbProcArr` from `evaluation_compétences`;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

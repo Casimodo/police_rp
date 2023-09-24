@@ -50,7 +50,7 @@ NOTA: Pour la production et rendre plus solide votre site utilisez pm2 (https://
 ## Les images (pour la doc voir ci-dessus)
 
 ### Image A
-[image A](https://github.com/Casimodo/police_rp/imageA.jpg?raw=true)
+![image A](https://github.com/Casimodo/police_rp/imageA.jpg?raw=true)
 
 ### Image B
-[image B](https://github.com/Casimodo/police_rp/imageB.jpg?raw=true)
+![image B](https://github.com/Casimodo/police_rp/imageB.jpg?raw=true)

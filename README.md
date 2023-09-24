@@ -1,3 +1,10 @@
+# Qui suis-js
+  Joueur de tout et surtout rôle Play ! Développeur depuis plus de 25 ans dans différentes technos (web, embarqué...), Créateur 3 D, Mods, Script Arma, GTAv... Je joue sur un peu de tout Arma, GTA, Farming, Satisfactory. Mais le RP reste mon dada ! 
+  Suivez-moi sur 
+  - Twitch : https://www.twitch.tv/tontoncasi/about *(bas de page Discord)*
+  - Kick : https://kick.com/tontoncasi
+  - Youtube : https://www.youtube.com/@tontonCasi/streams
+
 # Présentation
   Ce site web vous permet d'avoir tout un site web pour gérer votre Police, Gendarmaerie ou autre sur votre serveur Arma ou GTA voir autre pour le rôle play. Vous pourrait y accéder à l'aide d'un simple navigateur web. Il est compatible pour les navigateurs de votre PC, Mac ou Linux sur tablette et mobile. Cela vous donne une imerssion plus importante et permet de bien renseigner les fiches plus besoins de discord ou google sheet mal renseigné et qui vous oblige en jeux à faire un Alt+F4 utilisé votre téléphone portable IRL comme dans la vrai vie pour rester plus impliqué.
 

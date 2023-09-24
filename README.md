@@ -1,4 +1,4 @@
-# Qui suis-js
+# Qui suis-je
   Joueur de tout et surtout rôle Play ! Développeur depuis plus de 25 ans dans différentes technos (web, embarqué...), Créateur 3 D, Mods, Script Arma, GTAv... Je joue sur un peu de tout Arma, GTA, Farming, Satisfactory. Mais le RP reste mon dada ! 
   Suivez-moi sur 
   - Twitch : https://www.twitch.tv/tontoncasi/about *(bas de page Discord)*

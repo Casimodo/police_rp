@@ -54,3 +54,10 @@ NOTA: Pour la production et rendre plus solide votre site utilisez pm2 (https://
 
 ### Image B
 ![image B](https://github.com/Casimodo/police_rp/blob/main/imageB.jpg?raw=true)
+
+# Petit conseil sur les outils de developpement (Free !)
+- Cross-platform JavaScript runtime environment "NodeJs" (https://nodejs.org/fr)
+- Editeur de code "Visual Studio Code" (https://code.visualstudio.com/)
+- Installation micro machine "Docker" (https://www.docker.com/)
+- Base de donnée Open "MariaDb" (https://mariadb.org/)
+- Gestionnaire de base de donnée "HeidiSql" (https://www.heidisql.com/)

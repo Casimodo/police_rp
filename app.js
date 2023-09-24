@@ -50,7 +50,9 @@ try {
         var PROTOCOL = process.env.PROTOCOL;
         var URL = process.env.URL;
         var WEB_SERVER_TOKEN = process.env.WEB_SERVER_TOKEN;
-
+        var IHM_DISCORD = process.env.IHM_DISCORD;
+        var IHM_REBOOT = process.env.IHM_REBOOT;
+        var IHM_TITLE = process.env.IHM_TITLE;
     }
 
     //console.log(">>>>", CONFIG);
@@ -113,13 +115,14 @@ try {
         try {
             //const user = await prisma.players.findUnique({ where: { username }});    
             const user = (await prisma.$queryRaw`SELECT players.*, grades.key AS grade_key, grades.grade_label  FROM players LEFT JOIN grades ON players.grade = grades.key WHERE username = ${username} AND actif = 1 LIMIT 1;`)[0];
-            
             if (!user) { return done(null, false); }
 
             const isValid = await new Promise((resolve) => {
                 crypto.scrypt(password, WEB_SERVER_TOKEN, 64, (err, derivedKey) => {
+                    if (NODE_ENV == "dev") {
+                        console.log(`====== Login is ${username} / Password crypt is : "${derivedKey.toString('hex')}"`);
+                    }
                     if (err) throw err;
-                    console.log(">>>>>", derivedKey.toString('hex'));
                     resolve(derivedKey.toString('hex') === user.password);
                 });
             });
@@ -208,6 +211,9 @@ try {
 
         req.PARAMS = {
             host: `${PROTOCOL}://${req.headers.host.toString()}`,
+            discord: IHM_DISCORD,
+            reboot: IHM_REBOOT,
+            title: IHM_TITLE,
         };
 
         // No cache

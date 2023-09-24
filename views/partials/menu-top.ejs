@@ -1,3 +1,13 @@
+<!--
+    Author: tontonCasi [Twitch : https://www.twitch.tv/tontoncasi]
+    Licence : MIT
+    Source : https://github.com/Casimodo/police_rp
+    Terms of use:
+      This file comes from a source code covered by the MIT license please respect this. 
+      All component files this code is filed, signed and certified with the competent international authority 
+      in order to enforce copyright and ensure proof of an MIT license, thank you to respect that.
+-->
+
 <div id="pacific-menu-mobile-none"
     class="masthead inline-header left widgets full-height full-width shadow-mobile-header-decoration small-mobile-menu-icon dt-parent-menu-clickable show-sub-menu-on-hover show-device-logo show-mobile-logo width-in-pixel"
     role="banner">
@@ -6,10 +16,10 @@
         <div class="top-bar-bg"></div>
         <div class="left-widgets mini-widgets">
             <span class="mini-contacts phone show-on-desktop in-top-bar-left in-menu-second-switch first"><img
-                    class=" preload-me" src="<%= PARAMS.host %>/img/ico_phone.png" width="20" height="20" /> Discord: xxxxxxx</span>
+                    class=" preload-me" src="<%= PARAMS.host %>/img/ico_phone.png" width="20" height="20" /> Discord: <a href="<%= PARAMS.discord %>" title="discord url"><%= PARAMS.discord %></a></span>
             <span
                 class="mini-contacts clock show-on-desktop near-logo-first-switch in-menu-second-switch last">&nbsp;&nbsp;&nbsp;&nbsp;<img
-                    class=" preload-me" src="<%= PARAMS.host %>/img/ico_clock.png" width="20" height="20" /> Reboots: 07h00 - 14h00 - 20h00 02h00</span>
+                    class=" preload-me" src="<%= PARAMS.host %>/img/ico_clock.png" width="20" height="20" /> Reboots: <%= PARAMS.reboot %></span>
         </div>
         <div class="mini-widgets right-widgets"></div>
     </div>
@@ -18,7 +28,7 @@
 
         <div class="branding">
             <div id="site-description" class="assistive-text">
-                Bienvenue sur l'intranet LSPD / BCSO
+                <%= PARAMS.title %>
             </div>
         </div>
 

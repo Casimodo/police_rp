@@ -61,3 +61,15 @@ NOTA: Pour la production et rendre plus solide votre site utilisez pm2 (https://
 - Installation micro machine "Docker" (https://www.docker.com/)
 - Base de donnée Open "MariaDb" (https://mariadb.org/)
 - Gestionnaire de base de donnée "HeidiSql" (https://www.heidisql.com/)
+
+# Tips !!!
+- Win + V : Permet le multi-collé (faire plusieur copier ou couper et les retrouver)
+- Ctrl + Molette souris : Zoom sur les applications compatibles (marche sur les navigateur)
+- Ctrl + 0 : Revenir au zoom standard 100%
+- Ctrl + + : Zoom +
+- Ctrl + - : Zoom -
+
+## Sous VBS "Visual Studio Code"
+- Shift + Alt + (flèche bas) : Copie de la ligne ou l'on ce trouve (si bloque séléctionné tout le block)
+- Ctrl + ":" : Mise en commentaire de la ligne (s'adapte au code de la page)
+- Ctrl + A : Mise en commentaire par bloque (s'adapte au code de la page)

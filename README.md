@@ -1,3 +1,8 @@
+**Pour télécharger cliquer sur l'une des étiquettes ci-dessous**
+
+[![GitHub release](https://img.shields.io/github/v/release/Casimodo/police_rp.svg)](https://github.com/Casimodo/police_rp/releases)
+[![Github All Releases](https://img.shields.io/github/downloads/Casimodo/police_rp/total.svg)](https://github.com/Casimodo/police_rp/releases)
+
 # Qui suis-je
   Joueur de tout et surtout rôle Play ! Développeur depuis plus de 30 ans dans différentes technos (web, embarqué...), Créateur 3 D, Mods, Script Arma, GTAv... Je joue sur un peu de tout Arma, GTA, Farming, Satisfactory. Mais le RP reste mon dada ! 
   Suivez-moi sur 

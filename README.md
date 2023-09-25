@@ -90,3 +90,4 @@ NOTA: Pour la production et rendre plus solide votre site utilisez pm2 (https://
 - Shift + Alt + (flèche bas) : Copie de la ligne ou l'on ce trouve (si bloque séléctionné tout le block)
 - Ctrl + ":" : Mise en commentaire de la ligne (s'adapte au code de la page)
 - Ctrl + A : Mise en commentaire par bloque (s'adapte au code de la page)
+

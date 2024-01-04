@@ -31,6 +31,7 @@
 - Etablissement des ammendes attaché au casier avec calcul automatique des sommes des amandes, heures prisons, TIG avec calul aussi des avances données par le joueur pour atténuer sa penne
 - Investigation menu spécifique avec droit : Création, recherche, classement de rapport de Police ou GN (plainte, main courante...), avec moteur de recherche pour enquêtes croisé.
 - Système de partage avec URL encodé pour donner l'url à un joueur sans accès ou juge pour voir le dépot de plainte enquête en cours ou autre...
+- En fonction de votre grade système d'évaluation des éffectifs avec système de note et calcul de capacité à monté en grade de l'effectif
 
 *(Tous les rapports, casier ont la possibilités d'avoir des photos il vous suffit d'y mettre l'url vers l'image vous pouvez didier un salon sur votre discord pour cela et click droit sur l'images et coller le lien.)*
 
